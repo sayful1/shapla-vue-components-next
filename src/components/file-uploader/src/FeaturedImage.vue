@@ -47,7 +47,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "~shapla-color-system/src/variables";
+@import "shapla-css/src/colors";
 
 .shapla-featured-image {
   &__placeholder {

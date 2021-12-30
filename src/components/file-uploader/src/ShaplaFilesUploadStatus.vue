@@ -72,5 +72,23 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "styles/upload-status";
+.shapla-file-uploader-status {
+  padding: 0 20px 20px;
+  text-align: center;
+
+  &__items {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__item {
+    margin: 0;
+    padding: 0 1rem;
+  }
+}
 </style>

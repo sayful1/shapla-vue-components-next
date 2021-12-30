@@ -2,6 +2,8 @@
 
 A collection of reusable components for Vue 3.
 
+For Vue 2, Visit [Shapla Vue Components](https://github.com/sayful1/shapla-vue-components)
+
 [Demo & Documentation](https://sayfulislam.com/shapla-vue-components/vue3/docs)
 
 ## Table of contents
@@ -45,7 +47,6 @@ export default {
 ```
 
 ```vue
-
 <shapla-progress :value="1" :max="10" :striped="true" :animated="true" size="small" theme="primary"/>
 <shapla-button @click="handleClick">button text</shapla-button>
 ```
