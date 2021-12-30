@@ -1,0 +1,76 @@
+{
+  "name": "@shapla/vue-components",
+  "description": "A collection of reusable components for Vue 3.",
+  "version": "2.0.0",
+  "author": {
+    "name": "Sayful Islam",
+    "email": "sayful.islam001@gmail.com",
+    "url": "https://sayfulislam.com"
+  },
+  "keywords": [
+    "vue",
+    "vue-component"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sayful1/shapla-vue-components.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sayful1/shapla-vue-components/issues"
+  },
+  "unpkg": "./dist/components.umd.js",
+  "main": "./dist/components.umd.js",
+  "module": "./dist/components.es.js",
+  "typings": "./dist/index.d.ts",
+  "files": [
+    "dist/*",
+    "src/*",
+    "*.json",
+    "*.js"
+  ],
+  "scripts": {
+    "init": "npm install --ignore-scripts esbuild",
+    "dev": "vite",
+    "build": "vite build && npm run build:dts",
+    "build:dts": "vue-tsc --declaration --emitDeclarationOnly",
+    "build:demo": "vue-tsc --noEmit && vite build --config vite-demo.config.ts",
+    "test": "jest",
+    "lint": "eslint --ext .js,.ts,.vue --ignore-path .gitignore --fix src",
+    "format": "prettier . --write",
+    "install:demo": "npm i --no-save vue@3 vue-router@4 highlight.js"
+  },
+  "peerDependencies": {
+    "vue": "^3.0"
+  },
+  "dependencies": {
+    "shapla-css": "^2.5.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.5",
+    "@babel/preset-env": "^7.16.5",
+    "@babel/preset-typescript": "^7.16.5",
+    "@types/jest": "^27.0.3",
+    "@typescript-eslint/eslint-plugin": "^5.8.0",
+    "@typescript-eslint/parser": "^5.8.0",
+    "@vitejs/plugin-vue": "^2.0.0",
+    "@vue/eslint-config-prettier": "^7.0.0",
+    "@vue/eslint-config-typescript": "^10.0.0",
+    "@vue/test-utils": "^2.0.0-rc.18",
+    "@vue/vue3-jest": "^27.0.0-alpha.4",
+    "babel-jest": "^27.4.5",
+    "esbuild": "^0.14.8",
+    "eslint": "^8.5.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-jest": "^25.3.0",
+    "eslint-plugin-vue": "^8.2.0",
+    "jest": "^27.4.5",
+    "prettier": "2.5.1",
+    "sass": "^1.45.1",
+    "ts-jest": "^27.1.2",
+    "typescript": "^4.5.4",
+    "vite": "^2.7.2",
+    "vite-plugin-eslint": "^1.3.0",
+    "vue-tsc": "^0.29.8"
+  }
+}

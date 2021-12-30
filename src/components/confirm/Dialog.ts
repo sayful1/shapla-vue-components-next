@@ -1,0 +1,98 @@
+interface ConfirmDataInterface {
+  message?: string,
+  title?: string,
+  type?: "alert" | "confirm",
+  icon?: string | "primary" | "success" | "error",
+  confirmButton?: string | boolean,
+  cancelButton?: string | boolean,
+}
+
+class Dialog {
+  /**
+   * Listen event
+   *
+   * @param event
+   * @param callback
+   */
+  static on(event, callback) {
+    document.addEventListener(event, (e: CustomEvent) => callback(e.detail));
+  }
+
+  /**
+   * Dispatch event
+   *
+   * @param event
+   * @param data
+   */
+  static dispatch(event, data) {
+    document.dispatchEvent(new CustomEvent(event, {detail: data}));
+  }
+
+  /**
+   * Show dialog
+   *
+   * @param {Object} params
+   */
+  static show(params = {}) {
+    Dialog.dispatch("show.ShaplaVueConfirmModal", params);
+  }
+
+  /**
+   * Get parameters
+   *
+   * @param {String|Object} message
+   * @param {Object} params
+   * @return {Object}
+   */
+  static getParams(message: string | ConfirmDataInterface, params: ConfirmDataInterface = {}): ConfirmDataInterface {
+    if (typeof message === "string") {
+      params.message = message;
+    } else {
+      params = message;
+    }
+
+    return Object.assign({
+      icon: "primary",
+      title: "",
+      message: "Are you sure?",
+      confirmButton: "OK",
+      cancelButton: "Cancel",
+    }, params);
+  }
+
+  /**
+   * Show confirm dialog
+   *
+   * @param {String|Object} message
+   * @param {Object} params
+   * @returns {Promise}
+   */
+  static confirm(message, params = {}) {
+    const _params = this.getParams(message, params);
+    _params.type = "confirm";
+
+    return new Promise((resolve) => {
+      this.show(_params);
+
+      Dialog.on("click.ShaplaVueConfirmModal", (confirmed) =>
+        resolve(confirmed)
+      );
+    });
+  }
+
+  /**
+   * Show alert dialog
+   *
+   * @param message
+   * @param params
+   */
+  static alert(message, params = {}) {
+    const _params: ConfirmDataInterface = this.getParams(message, params);
+    _params.type = "alert";
+    _params.cancelButton = false;
+    this.show(_params);
+  }
+}
+
+export {Dialog, ConfirmDataInterface};
+export default Dialog;

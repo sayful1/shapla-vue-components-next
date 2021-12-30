@@ -1,0 +1,110 @@
+@use "shapla-css/src/index.scss" as shapla;
+
+@include shapla.minireset;
+@include shapla.sr-only;
+@include shapla.columns;
+@include shapla.data-table;
+
+@import "highlight.js/styles/github-dark-dimmed.css";
+
+body {
+	font-family: Avenir, Helvetica, Arial, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+a {
+	color: #42b983;
+}
+
+code {
+	background-color: #eee;
+	padding: 2px 4px;
+	border-radius: 4px;
+	color: #304455;
+}
+
+p {
+	margin-top: 1.5rem;
+	margin-bottom: 1.5rem;
+}
+
+.section {
+	&:not(:first-child) {
+		margin-top: 3rem;
+	}
+}
+
+.space-x-4 {
+	> * + * {
+		margin-left: 1rem;
+	}
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.is-h1,
+.is-h2,
+.is-h3,
+.is-h4,
+.is-h5,
+.is-h6 {
+	color: #363636;
+	font-weight: 500;
+	line-height: 1.125;
+	position: relative;
+	word-break: break-word;
+	margin-bottom: 0.5em;
+}
+
+.is-h1 {
+	font-size: 2.5rem;
+}
+
+.is-h2 {
+	font-size: 2.25rem;
+}
+
+.is-h3 {
+	font-size: 2rem;
+}
+
+.is-h4 {
+	font-size: 1.75rem;
+}
+
+.is-h5 {
+	font-size: 1.5rem;
+}
+
+.is-h6 {
+	font-size: 1.25rem;
+}
+
+.title {
+	font-size: 2rem;
+
+	&.is-h1 {
+		font-size: 2.5rem;
+	}
+
+	&:not(:last-child) {
+		margin-bottom: 1.5rem;
+	}
+}
+
+.subtitle {
+	color: #4a4a4a;
+	font-size: 1.5rem;
+	font-weight: 400;
+	line-height: 1.25;
+	word-break: break-word;
+}
+
+.title:not(.is-spaced) + .subtitle {
+	margin-top: -1.25rem;
+}

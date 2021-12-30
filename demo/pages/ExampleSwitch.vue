@@ -1,0 +1,171 @@
+<template>
+  <doc-tab
+    heading="Star Rating"
+    slug="shapla-switch"
+    name="ShaplaSwitch"
+    scss-mixin="input-switch"
+    :properties="properties"
+    :desc="descriptions"
+  >
+    <div id="app" class="shapla-vue-components--demo">
+      <div class="container">
+        <h4>Single Switch</h4>
+
+        <shapla-switch v-model="singleSwitch"> Enable this</shapla-switch>
+
+        <shapla-switch v-model="singleSwitch" disabled>
+          Disabled Switch
+        </shapla-switch>
+
+        <pre><code>{{ singleSwitch }}</code></pre>
+      </div>
+      <div class="container">
+        <h4>Multiple Switch</h4>
+
+        <shapla-switch v-model="multiSwitches" value="one">
+          If checked, value should be added one.
+        </shapla-switch>
+        <shapla-switch v-model="multiSwitches" value="two">
+          If checked, value should be added two.
+        </shapla-switch>
+        <shapla-switch v-model="multiSwitches" value="three">
+          If checked, value should be added three.
+        </shapla-switch>
+        <shapla-switch
+          v-model="multiSwitches"
+          value="four"
+          readonly
+          label="Readonly field, you cannot change it"
+        />
+
+        <pre><code>{{ multiSwitches }}</code></pre>
+      </div>
+    </div>
+  </doc-tab>
+</template>
+
+<script>
+import {ShaplaSwitch} from "../../src";
+import DocTab from "../components/DocTab.vue";
+import {computed} from "vue";
+
+export default {
+  name: "ExampleSwitch",
+  components: {DocTab, ShaplaSwitch},
+  setup() {
+    const properties = computed(() => ShaplaSwitch.props);
+    const descriptions = {}
+    return {properties, descriptions}
+  },
+  data() {
+    return {
+      singleSwitch: false,
+      multiSwitches: ["four"],
+    };
+  },
+};
+</script>
+
+<style lang="scss">
+// Blocks
+html,
+body,
+p,
+ol,
+ul,
+li,
+dl,
+dt,
+dd,
+blockquote,
+figure,
+fieldset,
+legend,
+textarea,
+pre,
+iframe,
+hr,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+}
+
+// Headings
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 100%;
+  font-weight: normal;
+}
+
+// List
+ul {
+  list-style: none;
+}
+
+// Form
+button,
+input,
+select,
+textarea {
+  margin: 0;
+}
+
+// Box sizing
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+// Media
+img,
+embed,
+iframe,
+object,
+audio,
+video {
+  height: auto;
+  max-width: 100%;
+}
+
+// Iframe
+iframe {
+  border: 0;
+}
+
+// Table
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+td,
+th {
+  padding: 0;
+  text-align: left;
+}
+
+body {
+  background-color: #f1f1f1;
+}
+
+.container {
+  background-color: white;
+  max-width: 1040px;
+  margin: 1em auto;
+  padding: 1em;
+}
+</style>
