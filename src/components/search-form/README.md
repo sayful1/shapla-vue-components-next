@@ -10,7 +10,7 @@ A simple search form design for Vue js.
 # Installation
 
 ```
-npm install --save shapla-search-form
+npm install --save @shapla/vue-components
 ```
 
 # Usage
@@ -18,7 +18,7 @@ npm install --save shapla-search-form
 Add the component:
 
 ```js
-import searchForm from "shapla-search-form";
+import { ShaplaSearchForm } from "@shapla/vue-components";
 
 export default {
   name: "Hello",

@@ -10,29 +10,23 @@ The image container to specify a precisely sized container so that your layout i
 # Installation
 
 ```
-npm install --save @shapla/vue-image
+npm install --save @shapla/vue-components
 ```
 
 # Usage
 
-### Styles
+### Styles (with Sass)
 
-with Sass:
+```scss
+@use "@shapla/vue-components/src/index.scss" as shapla;
 
-```js
-import "@shapla/vue-image/src/index.scss";
-```
-
-with CSS:
-
-```js
-import "@shapla/vue-image/dist/style.css";
+@include shapla.image-container;
 ```
 
 ### Javascript Instantiation
 
 ```js
-import ShaplaImage from "@shapla/vue-image";
+import { ShaplaImage } from "@shapla/vue-components";
 
 export default {
   name: "Hello",
@@ -66,7 +60,7 @@ export default {
 ### Props
 
 | Property          | Type    | Required | Default | Description                                       |
-|-------------------|---------|----------|---------|---------------------------------------------------|
+| ----------------- | ------- | -------- | ------- | ------------------------------------------------- |
 | `heightRatio`     | Number  | **no**   | `1`     | Image height ratio. You can also put image height |
 | `widthRatio`      | Number  | **no**   | `1`     | Image width ratio. You can also put image width   |
 | `containerWidth`  | String  | **no**   | ``      | Width of the container.                           |

@@ -10,7 +10,7 @@ A custom buttons group component that works like native radio.
 # Installation
 
 ```
-npm install --save @shapla/vue-radio-button
+npm install --save @shapla/vue-components
 ```
 
 # Usage
@@ -18,7 +18,7 @@ npm install --save @shapla/vue-radio-button
 Add the component:
 
 ```js
-import ShaplaRadioButton from "@shapla/vue-radio-button";
+import { ShaplaRadioButton } from "@shapla/vue-components";
 
 export default {
   name: "Hello",

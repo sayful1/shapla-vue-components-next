@@ -10,29 +10,23 @@ A simple side overlay navigation. Normally to use to develop admin panel.
 # Installation
 
 ```
-npm install --save @shapla/vue-sidenav
+npm install --save @shapla/vue-components
 ```
 
 # Usage
 
-### Styles
+### Styles (with SCSS)
 
-with Sass:
+```scss
+@use "shapla-css/src/index.scss" as shapla;
 
-```js
-import "@shapla/vue-sidenav/src/index.scss";
-```
-
-with CSS:
-
-```js
-import "@shapla/vue-sidenav/dist/style.css";
+@include shapla.sidenav;
 ```
 
 ### Javascript Instantiation
 
 ```js
-import ShaplaSidenav from "@shapla/vue-sidenav";
+import { ShaplaSidenav } from "@shapla/vue-components";
 
 export default {
   name: "Hello",

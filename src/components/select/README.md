@@ -10,29 +10,23 @@ A simple customized select field.
 # Installation
 
 ```
-npm install --save @shapla/vue-select
+npm install --save @shapla/vue-components
 ```
 
 # Usage
 
-### Styles
+### Styles (with SCSS)
 
-with Sass:
+```scss
+@use "shapla-css/src/index.scss" as shapla;
 
-```js
-import "@shapla/vue-select/src/index.scss";
-```
-
-with CSS:
-
-```js
-import "@shapla/vue-select/dist/style.css";
+@include shapla.select;
 ```
 
 ### Javascript Instantiation
 
 ```js
-import ShaplaSelect from "@shapla/vue-select";
+import { ShaplaSelect } from "@shapla/vue-components";
 
 export default {
   name: "Hello",

@@ -10,15 +10,23 @@ A simple accordion/toggle component for Vue 3
 # Installation
 
 ```
-npm install --save @shapla/vue-toggles
+npm install --save @shapla/vue-components
 ```
 
 # Usage
 
-Add the component:
+### Styles (with SCSS)
+
+```scss
+@use "@shapla/vue-components/src/index.scss" as shapla;
+
+@include shapla.toggles;
+```
+
+### Javascript Instantiation
 
 ```js
-import { ShaplaToggles, ShaplaToggle } from "@shapla/vue-toggles";
+import { ShaplaToggles, ShaplaToggle } from "@shapla/vue-components";
 
 export default {
   name: "Hello",

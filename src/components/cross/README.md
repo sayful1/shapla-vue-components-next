@@ -10,29 +10,23 @@ A versatile delete cross for Vue 3
 # Installation
 
 ```
-npm install --save @shapla/vue-cross
+npm install --save @shapla/vue-components
 ```
 
 # Usage
 
-### Styles
+### Styles (with Sass)
 
-with Sass:
+```scss
+@use "@shapla/vue-components/src/index.scss" as shapla;
 
-```js
-import "@shapla/vue-cross/src/index.scss";
-```
-
-with CSS:
-
-```js
-import "@shapla/vue-cross/dist/style.css";
+@include shapla.delete-icon;
 ```
 
 ### Javascript Instantiation
 
 ```js
-import ShaplaCross from "@shapla/vue-cross";
+import { ShaplaCross } from "@shapla/vue-components";
 
 export default {
   name: "Hello",

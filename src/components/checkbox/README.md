@@ -2,6 +2,8 @@
 
 A custom checkbox for Vue 3 that exactly work same way as native checkbox
 
+For demo and documentation, visit [documentation](https://sayfulislam.com/shapla-vue-components/vue3/docs/#/checkbox)
+
 ## Table of contents
 
 - [Installation](#installation)
@@ -10,29 +12,25 @@ A custom checkbox for Vue 3 that exactly work same way as native checkbox
 # Installation
 
 ```
-npm install --save @shapla/vue-checkbox
+npm install --save @shapla/vue-components
 ```
 
 # Usage
 
-### Styles
+### Styles (with SCSS)
 
-with SCSS:
+```scss
+@use "@shapla/vue-components/src/index.scss" as shapla with (
+  $checkbox-image-path: "shapla-css/src/form/checkbox"
+);
 
-```js
-import "@shapla/vue-checkbox/src/index.scss";
-```
-
-with CSS:
-
-```js
-import "@shapla/vue-checkbox/dist/style.css";
+@include shapla.checkbox;
 ```
 
 ### Javascript Instantiation
 
 ```js
-import ShaplaCheckbox from "@shapla/vue-checkbox";
+import { ShaplaCheckbox } from "@shapla/vue-components";
 
 export default {
   name: "Hello",

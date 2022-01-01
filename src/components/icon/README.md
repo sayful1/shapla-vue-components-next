@@ -12,29 +12,23 @@ as a reliable square container that will prevent the page to "jump" on page load
 # Installation
 
 ```
-npm install --save @shapla/vue-icon
+npm install --save @shapla/vue-components
 ```
 
 # Usage
 
-### Styles
+### Styles (with Sass)
 
-with Sass:
+```scss
+@use "@shapla/vue-components/src/index.scss" as shapla;
 
-```js
-import "@shapla/vue-icon/src/index.scss";
-```
-
-with CSS:
-
-```js
-import "@shapla/vue-icon/dist/style.css";
+@include shapla.icon-container;
 ```
 
 ### Javascript Instantiation
 
 ```js
-import ShaplaIcon from "@shapla/vue-icon";
+import { ShaplaIcon } from "@shapla/vue-components";
 
 export default {
   name: "Hello",
@@ -52,6 +46,6 @@ export default {
 ### Props
 
 | Property    | Type    | Required | Default | Description                                                        |
-|-------------|---------|----------|---------|--------------------------------------------------------------------|
+| ----------- | ------- | -------- | ------- | ------------------------------------------------------------------ |
 | `size`      | String  | **no**   | ``      | Value can be `small` or `medium` or `large`                        |
 | `hoverable` | Boolean | **no**   | `false` | If set `true`, transparent background color will be added on hover |

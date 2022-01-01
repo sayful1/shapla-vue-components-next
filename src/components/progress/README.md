@@ -10,29 +10,23 @@ A custom progress bar featuring support for stacked bars, animated backgrounds, 
 # Installation
 
 ```
-npm install --save @shapla/vue-progress
+npm install --save @shapla/vue-components
 ```
 
 # Usage
 
-### Styles
+### Styles (with SCSS)
 
-with Sass:
+```scss
+@use "@shapla/vue-components" as shapla;
 
-```js
-import "@shapla/vue-progress/src/index.scss";
-```
-
-with CSS:
-
-```js
-import "@shapla/vue-progress/dist/style.css";
+@include shapla.progress;
 ```
 
 ### Javascript Instantiation
 
 ```js
-import ShaplaProgress from "@shapla/vue-progress";
+import { ShaplaProgress } from "@shapla/vue-components";
 
 export default {
   name: "Hello",

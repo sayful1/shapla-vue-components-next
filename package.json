@@ -1,12 +1,14 @@
 {
   "name": "@shapla/vue-components",
   "description": "A collection of reusable components for Vue 3.",
-  "version": "2.0.0",
-  "author": {
-    "name": "Sayful Islam",
-    "email": "sayful.islam001@gmail.com",
-    "url": "https://sayfulislam.com"
-  },
+  "version": "1.2.0",
+  "contributors": [
+    {
+      "name": "Sayful Islam",
+      "email": "sayful.islam001@gmail.com",
+      "url": "https://sayfulislam.com"
+    }
+  ],
   "keywords": [
     "vue",
     "vue-component"
@@ -14,10 +16,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sayful1/shapla-vue-components.git"
+    "url": "https://github.com/sayful1/shapla-components-for-vue3.git"
   },
   "bugs": {
-    "url": "https://github.com/sayful1/shapla-vue-components/issues"
+    "url": "https://github.com/sayful1/shapla-components-for-vue3/issues"
   },
   "unpkg": "./dist/components.umd.js",
   "main": "./dist/components.umd.js",
@@ -30,15 +32,15 @@
     "*.js"
   ],
   "scripts": {
-    "init": "npm install --ignore-scripts esbuild",
+    "install": "npm install --ignore-scripts esbuild",
+    "install:demo": "npm i --no-save vue@3 vue-router@4 highlight.js",
     "dev": "vite",
     "build": "vite build && npm run build:dts",
     "build:dts": "vue-tsc --declaration --emitDeclarationOnly",
     "build:demo": "vue-tsc --noEmit && vite build --config vite-demo.config.ts",
     "test": "jest",
     "lint": "eslint --ext .js,.ts,.vue --ignore-path .gitignore --fix src",
-    "format": "prettier . --write",
-    "install:demo": "npm i --no-save vue@3 vue-router@4 highlight.js"
+    "format": "prettier . --write"
   },
   "peerDependencies": {
     "vue": "^3.0"

@@ -16,31 +16,24 @@ Supports:
 # Installation
 
 ```
-npm install --save @shapla/vue-table
+npm install --save @shapla/vue-components
 ```
 
 # Usage
 
-### Styles
+### Styles (with SCSS)
 
-with Sass:
+```scss
+@use "@shapla/vue-components/src/index.scss" as shapla;
 
-```js
-import "@shapla/vue-table/src/index.scss";
+@include shapla.checkbox;
+@include shapla.data-table;
 ```
-
-with CSS:
-
-```js
-import "@shapla/vue-table/dist/style.css";
-```
-
-_Note: `@shapla/vue-table` component has dependency over `@shapla/vue-checkbox`, also remember to include that style_
 
 ### Javascript Instantiation
 
 ```js
-import ShaplaTable from "@shapla/vue-table";
+import { ShaplaTable } from "@shapla/vue-components";
 
 export default {
   name: "Hello",
@@ -108,7 +101,7 @@ export default {
 ### Props
 
 | Property        | Type    | Required | Default           | Description                                                             |
-|-----------------|---------|----------|-------------------|-------------------------------------------------------------------------|
+| --------------- | ------- | -------- | ----------------- | ----------------------------------------------------------------------- |
 | `items`         | Array   | **yes**  | `null`            | Pass an **Array** of **Objects** with key:value format.                 |
 | `columns`       | Array   | **yes**  | `null`            | Pass an **Array** of **Objects**. See _columns data object_             |
 | `selectedItems` | Array   | no       | `[]`              | Pass an **Array** of object id                                          |
@@ -125,7 +118,7 @@ export default {
 ### columns data object
 
 | Property   | Type    | Required | Default | Description                                                     |
-|------------|---------|----------|---------|-----------------------------------------------------------------|
+| ---------- | ------- | -------- | ------- | --------------------------------------------------------------- |
 | `key`      | String  | **yes**  | ``      | Column key.                                                     |
 | `label`    | String  | **yes**  | ``      | Column label                                                    |
 | `numeric`  | Boolean | no       | `false` | Set `true` if table column data type is numeric.                |
@@ -134,7 +127,7 @@ export default {
 ### actions data object
 
 | Property | Type   | Required | Default | Description  |
-|----------|--------|----------|---------|--------------|
+| -------- | ------ | -------- | ------- | ------------ |
 | `key`    | String | **yes**  | ``      | Action key   |
 | `label`  | String | **yes**  | ``      | Action label |
 
@@ -235,7 +228,7 @@ methods: { paginate(NextPage){ // Handle click event } }
 <summary>Status List</summary>
 
 ```js
-import { StatusList } from "@shapla/vue-table";
+import { StatusList } from "@shapla/vue-components";
 
 export default {
   name: "Hello",

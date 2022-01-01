@@ -10,29 +10,23 @@ A component for handling drag and drop file upload functionality for Vue 3.
 # Installation
 
 ```
-npm install --save @shapla/vue-file-uploader
+npm install --save @shapla/vue-components
 ```
 
 # Usage
 
-### Styles
+### Styles (with Sass)
 
-with Sass:
+```scss
+@use "@shapla/vue-components/src/index.scss" as shapla;
 
-```js
-import "@shapla/vue-file-uploader/src/index.scss";
-```
-
-with CSS:
-
-```js
-import "@shapla/vue-file-uploader/dist/style.css";
+@include shapla.file-uploader;
 ```
 
 ### Javascript Instantiation
 
 ```js
-import ShaplaFileUploader from "@shapla/vue-file-uploader";
+import { ShaplaFileUploader } from "@shapla/vue-components";
 
 export default {
   name: "Hello",
@@ -84,7 +78,7 @@ The uploader component fires the following events:
 
 **`error`**: It fires the event when a file uploaded failed. `fileObject` object pass as first parameter.
 
-```html
+```vue
 <!-- template -->
 <shapla-file-uploader
   @before:send="handleBeforeSendEvent"

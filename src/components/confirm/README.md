@@ -10,7 +10,7 @@ A simple confirm modal/dialog based on modal component for Vue 3
 # Installation
 
 ```
-npm install --save @shapla/vue-confirm
+npm install --save @shapla/vue-components
 ```
 
 # Usage
@@ -22,7 +22,7 @@ npm install --save @shapla/vue-confirm
 ### Javascript Instantiation
 
 ```js
-import Dialog, { ShaplaConfirmContainer } from "@shapla/vue-confirm";
+import { ShaplaConfirmContainer, Dialog } from "@shapla/vue-components";
 
 export default {
   name: "Hello",
@@ -69,10 +69,9 @@ export default {
 Both `alert` and `confirm` can accept String for the message or Object with following props.
 
 | Property        | Type            | Required | Default   | Description                                             |
-|-----------------|-----------------|----------|-----------|---------------------------------------------------------|
+| --------------- | --------------- | -------- | --------- | ------------------------------------------------------- |
 | `message`       | String          | **yes**  | ``        | Confirm dialog message                                  |
 | `title`         | String          | **no**   | ``        | Confirm dialog title                                    |
 | `icon`          | String          | **no**   | `primary` | Value can be `primary`, `success` or `error`.           |
 | `confirmButton` | String, Boolean | **no**   | `OK`      | Confirm button text. Set `false` to hide confirm button |
 | `cancelButton`  | String, Boolean | **no**   | `Cancel`  | Cancel button text. Set `false` to hide cancel button   |
-                                    

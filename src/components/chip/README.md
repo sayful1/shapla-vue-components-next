@@ -2,6 +2,8 @@
 
 Chip component is a small, interactive element. Chips are commonly used for contacts, text, rules, icons, and photos.
 
+For demo and documentation, visit [documentation](https://sayfulislam.com/shapla-vue-components/vue3/docs/#/chip)
+
 ## Table of contents
 
 - [Installation](#installation)
@@ -10,29 +12,24 @@ Chip component is a small, interactive element. Chips are commonly used for cont
 # Installation
 
 ```
-npm install --save @shapla/vue-chip
+npm install --save @shapla/vue-components
 ```
 
 # Usage
 
-### Styles
+### Styles (with SCSS)
 
-with SCSS:
+```scss
+@use "@shapla/vue-components/src/index.scss" as shapla;
 
-```js
-import "@shapla/vue-chip/src/index.scss";
-```
-
-with CSS:
-
-```js
-import "@shapla/vue-chip/dist/style.css";
+@include shapla.delete-icon;
+@include shapla.chip;
 ```
 
 ### Javascript Instantiation
 
 ```js
-import ShaplaChip from "@shapla/vue-chip";
+import { ShaplaChip } from "@shapla/vue-components";
 
 export default {
   name: "Hello",
@@ -54,7 +51,7 @@ export default {
 ### Props
 
 | Property    | Type    | Required | Default | Description                              |
-|-------------|---------|----------|---------|------------------------------------------|
+| ----------- | ------- | -------- | ------- | ---------------------------------------- |
 | `text`      | String  | **no**   | ``      | Chip text                                |
 | `imageSrc`  | String  | **no**   | ``      | Chip contact image url                   |
 | `deletable` | Boolean | **no**   | `false` | If set `true`, Delete icon will appear   |

@@ -10,7 +10,7 @@ A simple component for input slider for Vue 3
 # Installation
 
 ```
-npm install --save @shapla/vue-slider
+npm install --save @shapla/vue-components
 ```
 
 # Usage
@@ -18,7 +18,7 @@ npm install --save @shapla/vue-slider
 Add the component:
 
 ```js
-import ShaplaRangeSlider from "@shapla/vue-slider";
+import { ShaplaRangeSlider } from "@shapla/vue-components";
 
 export default {
   name: "Hello",
@@ -37,7 +37,7 @@ export default {
 <shapla-range-slider v-model="number" :default="20" />
 ```
 
-### Props for `columns`
+### Props
 
 | Property     | Type    | Required | Default | Description                                    |
 | ------------ | ------- | -------- | ------- | ---------------------------------------------- |

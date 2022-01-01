@@ -10,29 +10,23 @@ A simple customized input text field.
 # Installation
 
 ```
-npm install --save @shapla/vue-input
+npm install --save @shapla/vue-components
 ```
 
 # Usage
 
-### Styles
+### Styles (with Sass)
 
-with Sass:
+```scss
+@use "@shapla/vue-components/src/index.scss" as shapla;
 
-```js
-import "@shapla/vue-input/src/index.scss";
-```
-
-with CSS:
-
-```js
-import "@shapla/vue-input/dist/style.css";
+@include shapla.text-field;
 ```
 
 ### Javascript Instantiation
 
 ```js
-import ShaplaInput from "@shapla/vue-input";
+import { ShaplaInput } from "@shapla/vue-components";
 
 export default {
   name: "Hello",

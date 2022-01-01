@@ -2,8 +2,6 @@
 
 A simple notification component for Vue 3
 
-[<img src="./packages/notification/screenshot.png" style="width: 100%;" />](https://github.com/sayful1/shapla-vue-components)
-
 ## Table of contents
 
 - [Installation](#installation)
@@ -12,7 +10,7 @@ A simple notification component for Vue 3
 # Installation
 
 ```
-npm install --save @shapla/vue-notification
+npm install --save @shapla/vue-components
 ```
 
 # Usage
@@ -23,24 +21,18 @@ npm install --save @shapla/vue-notification
 
 **You can import `Notify` anywhere of your app to trigger notification**
 
-### Styles
+### Styles (with SCSS)
 
-with Sass:
+```scss
+@use "@shapla/vue-notification/src/index.scss" as shapla;
 
-```js
-import "@shapla/vue-notification/src/index.scss";
-```
-
-with CSS:
-
-```js
-import "@shapla/vue-notification/dist/style.css";
+@include shapla.notification;
 ```
 
 ### Javascript Instantiation
 
 ```js
-import Notify, { ShaplaNotificationContainer } from "@shapla/vue-notification";
+import { ShaplaNotificationContainer, Notify } from "@shapla/vue-components";
 
 export default {
   name: "Hello",

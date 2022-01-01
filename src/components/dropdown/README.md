@@ -10,29 +10,23 @@ A simple and interactive dropdown menu for discoverable content for Vue 3
 # Installation
 
 ```
-npm install --save @shapla/vue-dropdown
+npm install --save @shapla/vue-components
 ```
 
 # Usage
 
-### Styles
+### Styles (with Sass)
 
-with Sass:
+```scss
+@use "@shapla/vue-components/src/index.scss" as shapla;
 
-```js
-import "@shapla/vue-dropdown/src/index.scss";
-```
-
-with CSS:
-
-```js
-import "@shapla/vue-dropdown/dist/style.css";
+@include shapla.dropdown;
 ```
 
 ### Javascript Instantiation
 
 ```js
-import ShaplaDropdown from "@shapla/vue-dropdown";
+import { ShaplaDropdown } from "@shapla/vue-components";
 
 export default {
   name: "Hello",
@@ -72,7 +66,7 @@ export default {
 ### Props
 
 | Property    | Type    | Required | Default | Description                                                              |
-|-------------|---------|----------|---------|--------------------------------------------------------------------------|
+| ----------- | ------- | -------- | ------- | ------------------------------------------------------------------------ |
 | `hoverable` | Boolean | **no**   | `true`  | If set `true`, the dropdown will show up when hovering the trigger slot. |
 | `right`     | Boolean | **no**   | `false` | Set `true` to have a right-aligned dropdown.                             |
 | `role`      | String  | **no**   | `menu`  | Role of component. Mostly for accessibility.                             |

@@ -10,7 +10,7 @@ A simple dashboard layout to build your app dashboard for Vue 3
 # Installation
 
 ```
-npm install --save @shapla/vue-dashboard
+npm install --save @shapla/vue-components
 ```
 
 # Usage
@@ -19,8 +19,10 @@ npm install --save @shapla/vue-dashboard
 
 with Sass:
 
-```js
-import "@shapla/vue-dashboard/src/index.scss";
+```scss
+@use "@shapla/vue-components/src/index.scss" as shapla;
+
+@include shapla.dashboard;
 ```
 
 with CSS:
@@ -80,7 +82,7 @@ export default {
 ### Props
 
 | Property          | Type    | Required | Default   | Description                                                          |
-|-------------------|---------|----------|-----------|----------------------------------------------------------------------|
+| ----------------- | ------- | -------- | --------- | -------------------------------------------------------------------- |
 | `activateSideNav` | Boolean | **no**   | `false`   | Boolean value hide/show sidenav                                      |
 | `title`           | String  | **no**   | ``        | Dashboard title                                                      |
 | `userDisplayName` | String  | **no**   | ``        | User display name                                                    |

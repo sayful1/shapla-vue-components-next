@@ -10,29 +10,23 @@ A simple responsive horizontal navigation tabs component based on Bulma Tabs for
 # Installation
 
 ```
-npm install --save @shapla/vue-tabs
+npm install --save @shapla/vue-components
 ```
 
 # Usage
 
-### Styles
+### Styles (with SCSS)
 
-with Sass:
+```scss
+@use "@shapla/vue-components/src/index.scss" as shapla;
 
-```js
-import "@shapla/vue-tabs/src/index.scss";
-```
-
-with CSS:
-
-```js
-import "@shapla/vue-tabs/dist/style.css";
+@include shapla.tabs;
 ```
 
 ### Javascript Instantiation
 
 ```js
-import { ShaplaTabs, ShaplaTab } from "@shapla/vue-tabs";
+import { ShaplaTabs, ShaplaTab } from "@shapla/vue-components";
 
 export default {
   name: "Hello",

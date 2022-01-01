@@ -1,4 +1,4 @@
-# shapla-columns
+# Shapla Columns
 
 A simple way to build responsive columns for Vue 3
 
@@ -15,24 +15,18 @@ npm install --save @shapla/vue-columns
 
 # Usage
 
-### Styles
+### Styles (with SCSS)
 
-with SCSS:
+```scss
+@use "@shapla/vue-components/src/index.scss" as shapla;
 
-```js
-import "@shapla/vue-columns/src/index.scss";
-```
-
-with CSS:
-
-```js
-import "@shapla/vue-columns/dist/style.css";
+@include shapla.columns;
 ```
 
 ### Javascript Instantiation
 
 ```js
-import { ShaplaColumns, ShaplaColumn } from "@shapla/vue-columns";
+import { ShaplaColumns, ShaplaColumn } from "@shapla/vue-components";
 
 export default {
   name: "Hello",
@@ -56,7 +50,7 @@ export default {
 ### Props for `ShaplaColumns`
 
 | Property    | Type    | Required | Default   | Description                                                                                                                                                                                                                    |
-|-------------|---------|----------|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ----------- | ------- | -------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `multiline` | Boolean | **no**   | `false`   | Whenever you want to start a new line, you can also add the `multiline` property and add more column elements than would fit in a single row                                                                                   |
 | `centered`  | Boolean | **no**   | `false`   | For centering columns, you can add the `centered` property                                                                                                                                                                     |
 | `vcentered` | Boolean | **no**   | `false`   | To align your columns vertically, add the `vcentered` property to the columns container.                                                                                                                                       |
@@ -71,7 +65,7 @@ If you want to change the size of a single column, you can use one of the follow
 Each props can take value from 1 to 12 as it 12 columns grid system.
 
 | Property     | Type   | Required | Default | Description                                      |
-|--------------|--------|----------|---------|--------------------------------------------------|
+| ------------ | ------ | -------- | ------- | ------------------------------------------------ |
 | `mobile`     | Number | **no**   | `null`  | When screen size less than 769px.                |
 | `tablet`     | Number | **no**   | `null`  | When screen size (greater than/equal to) 769px.  |
 | `desktop`    | Number | **no**   | `null`  | When screen size (greater than/equal to) 1088px. |

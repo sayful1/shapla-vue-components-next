@@ -10,29 +10,23 @@ A loading spinner component for Vue 3
 # Installation
 
 ```
-npm install --save @shapla/vue-spinner
+npm install --save @shapla/vue-components
 ```
 
 # Usage
 
-### Styles
+### Styles (with SCSS)
 
-with Sass:
+```scss
+@use "@shapla/vue-components/src/index.scss" as shapla;
 
-```js
-import "@shapla/vue-spinner/src/index.scss";
-```
-
-with CSS:
-
-```js
-import "@shapla/vue-spinner/dist/style.css";
+@include shapla.spinner;
 ```
 
 ### Javascript Instantiation
 
 ```js
-import ShaplaSpinner from "@shapla/vue-spinner";
+import { ShaplaSpinner } from "@shapla/vue-components";
 
 export default {
   name: "Hello",

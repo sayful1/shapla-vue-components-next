@@ -10,15 +10,23 @@ Switch is an enhanced version of the standard HTML input checkbox element for Vu
 # Installation
 
 ```
-npm install --save @shapla/vue-switch
+npm install --save @shapla/vue-components
 ```
 
 # Usage
 
-Add the component:
+### Styles (with SCSS)
+
+```scss
+@use "@shapla/vue-components/src/index.scss" as shapla;
+
+@include shapla.input-switch;
+```
+
+### Javascript Instantiation
 
 ```js
-import ShaplaSwitch from "@shapla/vue-switch";
+import { ShaplaSwitch } from "@shapla/vue-components";
 
 export default {
   name: "Hello",

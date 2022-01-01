@@ -24,7 +24,7 @@ For example, to use button and progress bar components:
 ### Styles (SCSS)
 
 ```scss
-@use '@shapla/vue-components/src/index.scss' as shapla;
+@use "@shapla/vue-components/src/index.scss" as shapla;
 
 @include shapla.button;
 @include shapla.progress;
@@ -33,20 +33,26 @@ For example, to use button and progress bar components:
 ### Javascript Instantiation
 
 ```js
-import {ShaplaButton, ShaplaProgress} from '@shapla/vue-components';
+import { ShaplaButton, ShaplaProgress } from "@shapla/vue-components";
 
 export default {
-    name: 'Hello',
+  name: "Hello",
 
-    components: {
-        ShaplaButton,
-        ShaplaProgress
-    }
-}
-
+  components: {
+    ShaplaButton,
+    ShaplaProgress,
+  },
+};
 ```
 
 ```vue
-<shapla-progress :value="1" :max="10" :striped="true" :animated="true" size="small" theme="primary"/>
+<shapla-progress
+  :value="1"
+  :max="10"
+  :striped="true"
+  :animated="true"
+  size="small"
+  theme="primary"
+/>
 <shapla-button @click="handleClick">button text</shapla-button>
 ```

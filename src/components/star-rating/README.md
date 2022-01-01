@@ -10,29 +10,23 @@ A simple, highly customisable star rating component for Vue 3
 # Installation
 
 ```
-npm install --save @shapla/vue-star-rating
+npm install --save @shapla/vue-components
 ```
 
 # Usage
 
-### Styles
+### Styles (with SCSS)
 
-with Sass:
+```scss
+@use "@shapla/vue-components/src/index.scss" as shapla;
 
-```js
-import "@shapla/vue-star-rating/src/index.scss";
-```
-
-with CSS:
-
-```js
-import "@shapla/vue-star-rating/dist/style.css";
+@include shapla.star-rating;
 ```
 
 ### Javascript Instantiation
 
 ```js
-import ShaplaStarRating from "@shapla/vue-star-rating";
+import { ShaplaStarRating } from "@shapla/vue-components";
 
 export default {
   name: "Hello",

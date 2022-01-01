@@ -10,29 +10,24 @@ A classic modal overlay component for Vue 3, in which you can include any conten
 # Installation
 
 ```
-npm install --save @shapla/vue-modal
+npm install --save @shapla/vue-components
 ```
 
 # Usage
 
-### Styles
+### Styles (with SCSS)
 
-```js
-import "@shapla/vue-modal/src/index.scss";
+```scss
+@use "@shapla/vue-components/src/index.scss" as shapla;
+
+@include shapla.modal;
+@include shapla.delete-icon;
 ```
-
-with CSS:
-
-```js
-import "@shapla/vue-modal/dist/style.css";
-```
-
-_Note: `@shapla/vue-modal` component has dependency over `@shapla/vue-cross`, also remember to include that style_
 
 ### Javascript Instantiation
 
 ```js
-import ShaplaModal from "@shapla/vue-modal";
+import { ShaplaModal } from "@shapla/vue-components";
 
 export default {
   name: "Hello",

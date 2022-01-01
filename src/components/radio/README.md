@@ -10,29 +10,23 @@ A custom radio component that works like native radio component for Vue 3.
 # Installation
 
 ```
-npm install --save @shapla/vue-radio
+npm install --save @shapla/vue-components
 ```
 
 # Usage
 
-### Styles
+### Styles (with SCSS)
 
-with Sass:
+```scss
+@use "@shapla/vue-components/src/index.scss" as shapla;
 
-```js
-import "@shapla/vue-radio/src/index.scss";
-```
-
-with CSS:
-
-```js
-import "@shapla/vue-radio/dist/style.css";
+@include shapla.radio;
 ```
 
 ### Javascript Instantiation
 
 ```js
-import ShaplaRadio from "@shapla/vue-radio";
+import { ShaplaRadio } from "@shapla/vue-components";
 
 export default {
   name: "Hello",
