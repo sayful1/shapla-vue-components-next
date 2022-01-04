@@ -2,7 +2,7 @@
 import {computed, ref} from "vue";
 import {routes} from "./routers";
 import invert from "./invert";
-import {ShaplaDashboard, ShaplaButton, ShaplaDropdown,} from "../src";
+import {ShaplaDashboard, ShaplaButton, ShaplaDropdown,ShaplaCross} from "../src";
 
 const hexToRgb = (hex, alpha) => {
   hex = hex.replace("#", "");
@@ -25,6 +25,7 @@ const hexToRgb = (hex, alpha) => {
   }
 };
 
+const showUnderDevelopmentNote = ref(true);
 const activeSidenav = ref(false);
 const isMobile = ref(false);
 const calculateDeviceScreenSize = () => {
@@ -114,21 +115,22 @@ const colorThemeStyles = computed(() => {
 
 <template>
   <shapla-dashboard
-    class="shapla-vue-components-demo"
-    :class="dashboardClass"
-    :activate-side-nav="activeSidenav"
-    title="Shapla Vue Components"
-    :show-sidenav-profile="false"
-    :show-overlay="isMobile"
-    :style="colorThemeStyles"
-    :show-burger-icon="isMobile"
-    header-theme="default"
-    @open:sidenav="activeSidenav = true"
-    @close:sidenav="closeSidenav"
+      class="shapla-vue-components-demo"
+      :class="dashboardClass"
+      :sidenav-class="['app-docs-sidenav',dashboardClass]"
+      :activate-side-nav="activeSidenav"
+      title="Shapla Vue Components"
+      :show-sidenav-profile="false"
+      :show-overlay="isMobile"
+      :style="colorThemeStyles"
+      :show-burger-icon="isMobile"
+      header-theme="default"
+      @open:sidenav="activeSidenav = true"
+      @close:sidenav="closeSidenav"
   >
     <template #navbar-end>
       <div class="space-x-4">
-        <shapla-dropdown :hoverable="false" right>
+        <shapla-dropdown v-show="!isMobile" :hoverable="false" right>
           <template #trigger>
             <shapla-button class="button--color-theme">Change Color Theme</shapla-button>
           </template>
@@ -171,23 +173,27 @@ const colorThemeStyles = computed(() => {
     <template #sidenav-menu>
       <ul class="sidenav-list">
         <li
-          v-for="route in routes"
-          :key="route.name"
-          class="sidenav-list__item"
+            v-for="route in routes"
+            :key="route.name"
+            class="sidenav-list__item"
         >
           <router-link
-            class="sidenav-list__link"
-            active-class="is-active"
-            :to="route.path"
-            @click="closeSidenav"
+              class="sidenav-list__link"
+              active-class="is-active"
+              :to="route.path"
+              @click="closeSidenav"
           >
             {{ route.name }}
           </router-link>
         </li>
       </ul>
     </template>
-    <div class="shapla-vue-components-demo__content">
-      <router-view />
+    <div class="shapla-vue-components-demo__content" style="padding-bottom: 8rem">
+      <div class="note--incomplete-info" v-if="showUnderDevelopmentNote">
+        <shapla-cross medium class="note--incomplete-info__cross" @click="showUnderDevelopmentNote = false"></shapla-cross>
+        This document is still under development.
+      </div>
+      <router-view/>
     </div>
   </shapla-dashboard>
 </template>
@@ -196,76 +202,35 @@ const colorThemeStyles = computed(() => {
 @import "style.scss";
 
 .shapla-vue-components-demo {
-  box-sizing: border-box;
+  &.shapla-dashboard {
+    // For Desktop
+    &:not(.is-mobile) {
+      .shapla-dashboard-content {
+        width: calc(100% - var(--shapla-dashboard-sidenav-width));
+        margin-left: var(--shapla-dashboard-sidenav-width);
+      }
+    }
 
-  *,
-  *:before,
-  *:after {
-    box-sizing: border-box;
-  }
-
-  &__content {
-    padding-bottom: 8rem;
-  }
-}
-
-.shapla-dashboard:not(.is-mobile) {
-  .shapla-dashboard-content {
-    width: calc(100% - var(--shapla-dashboard-sidenav-width));
-    margin-left: var(--shapla-dashboard-sidenav-width);
+    .shapla-dashboard-content__inner {
+      overflow-x: hidden;
+    }
   }
 }
 
-.shapla-sidenav.shapla-sidenav--left {
+.app-docs-sidenav {
   .shapla-sidenav__background,
   .shapla-sidenav__body {
     top: var(--shapla-dashboard-header-height);
   }
-}
 
-.shapla-sidenav__body {
-  z-index: 0;
-}
-
-.shapla-sidenav__content {
-  height: calc(100% - var(--shapla-dashboard-header-height));
-}
-
-.shapla-dashboard-content__inner {
-  overflow-x: hidden;
-}
-
-.color-theme-fields {
-  padding: 1rem;
-}
-
-.color-theme-field {
-  display: flex;
-  color: #323232;
-
-  &__label,
-  &__value {
-    display: flex;
-    width: 50%;
+  &:not(.is-mobile){
+    .shapla-sidenav__body {
+      z-index: 0;
+    }
   }
 
-  &__label {
-    padding-right: 0.5rem;
+  .shapla-sidenav__content {
+    height: calc(100% - var(--shapla-dashboard-header-height));
   }
-
-  &__value {
-    justify-content: flex-end;
-  }
-}
-
-.button--color-theme {
-  background-color: transparent;
-}
-
-.button--buy-coffee {
-  --shapla-button-color: #EE9102;
-  --shapla-button-color-dark: #ea8601;
-  --shapla-button-color-alpha: rgba(238, 145, 2, 0.25);
-  --shapla-button-on-color: rgba(0, 0, 0, 0.87);
 }
 </style>

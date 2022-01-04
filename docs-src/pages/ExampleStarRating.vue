@@ -57,7 +57,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-@import url("https://unpkg.com/@shapla/vue-columns/dist/style.css");
-</style>

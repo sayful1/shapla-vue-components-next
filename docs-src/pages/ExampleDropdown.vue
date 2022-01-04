@@ -115,10 +115,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-.test-dropdown-container {
-  padding: 2rem;
-  box-sizing: border-box;
-}
-</style>

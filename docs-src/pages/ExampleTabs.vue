@@ -67,7 +67,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss">
-@import url("https://unpkg.com/@fortawesome/fontawesome-free/css/all.css");
-</style>

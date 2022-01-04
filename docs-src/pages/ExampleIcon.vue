@@ -47,7 +47,3 @@ export default {
   },
 };
 </script>
-<style lang="scss">
-@import url("https://unpkg.com/@fortawesome/fontawesome-free/css/all.css");
-@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
-</style>

@@ -81,9 +81,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-.test-toggle-container {
-  padding: 2rem;
-}
-</style>

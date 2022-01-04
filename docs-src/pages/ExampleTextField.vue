@@ -222,18 +222,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-@import url("https://unpkg.com/@shapla/vue-columns/dist/style.css");
-
-.test-text-field {
-  padding: 1rem;
-  box-sizing: border-box;
-
-  *,
-  *:before,
-  *:after {
-    box-sizing: border-box;
-  }
-}
-</style>

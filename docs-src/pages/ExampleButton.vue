@@ -185,11 +185,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-.shapla-buttons {
-  > * {
-    margin: 5px;
-  }
-}
-</style>

@@ -28,6 +28,7 @@
       :nav-width="navWidth"
       :show-overlay="showOverlay"
       position="left"
+      :class="sidenavClass"
       @close="closeSideNavigation"
     >
       <div v-if="showSidenavProfile" class="shapla-dashboard-sidenav-profile" :class="sidenavProfileClass">
@@ -81,6 +82,7 @@ export default defineComponent({
     showSidenavProfile: {type: Boolean, default: true},
     showOverlay: {type: Boolean, default: true},
     navWidth: {type: String, default: "300px"},
+    sidenavClass: {type:[String,Array,Object],default:''}
   },
   emits: ["open:sidenav", "close:sidenav"],
   setup(props, {emit}) {

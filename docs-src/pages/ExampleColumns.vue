@@ -164,21 +164,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-.shapla-columns-example h2 {
-  font-size: 20px;
-  margin-bottom: 10px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-  padding-bottom: 10px;
-}
-
-.shapla-columns-example h2:not(:first-child) {
-  margin-top: 20px;
-}
-
-.card-column-box {
-  background: rgba(0, 0, 0, 0.12);
-  padding: 5px;
-}
-</style>
