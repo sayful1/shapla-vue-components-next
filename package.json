@@ -11,15 +11,17 @@
   ],
   "keywords": [
     "vue",
-    "vue-component"
+    "vue-component",
+    "modal",
+    "notification"
   ],
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sayful1/shapla-components-for-vue3.git"
+    "url": "https://github.com/sayful1/shapla-vue-components-next.git"
   },
   "bugs": {
-    "url": "https://github.com/sayful1/shapla-components-for-vue3/issues"
+    "url": "https://github.com/sayful1/shapla-vue-components-next/issues"
   },
   "unpkg": "./dist/components.umd.js",
   "main": "./dist/components.umd.js",
@@ -28,12 +30,13 @@
   "files": [
     "dist/*",
     "src/*",
-    "*.json",
-    "*.js"
+    "LICENSE",
+    "package.json",
+    "README.md"
   ],
   "scripts": {
     "install": "npm install --ignore-scripts esbuild",
-    "install:demo": "npm i --no-save vue@3 vue-router@4 highlight.js",
+    "install:docs": "npm i --no-save vue@3 vue-router@4 highlight.js",
     "dev": "vite",
     "build": "vite build && npm run build:dts",
     "build:dts": "vue-tsc --declaration --emitDeclarationOnly --declarationDir dist",
@@ -46,7 +49,7 @@
     "vue": "^3.0"
   },
   "dependencies": {
-    "shapla-css": "^2.5.0"
+    "shapla-css": "^2.5"
   },
   "devDependencies": {
     "@babel/core": "^7.16.5",

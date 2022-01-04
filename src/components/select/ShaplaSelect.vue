@@ -212,8 +212,8 @@ export default defineComponent({
     );
 
     onMounted(() => {
-      window.addEventListener("click", (event) => {
-        if (!element.value.contains(event.target)) {
+      window.addEventListener("click", (event:Event) => {
+        if (!(element.value as HTMLElement | null)?.contains(event.target as HTMLElement)) {
           state.showDropdown = false;
         }
       });

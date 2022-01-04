@@ -105,7 +105,7 @@
         :active="openNoFooterCardModal"
         title="No Footer Card Modal"
         :show-card-footer="false"
-        @close="openNoFooterCardModal"
+        @close="openNoFooterCardModal = false"
       >
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam, officia!
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab accusantium
