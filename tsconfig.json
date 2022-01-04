@@ -4,7 +4,6 @@
     "module": "esnext",
     "strict": false,
     "jsx": "preserve",
-    "declarationDir": "./dist",
     "useDefineForClassFields": true,
     "moduleResolution": "node",
     "sourceMap": true,

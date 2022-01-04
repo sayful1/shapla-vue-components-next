@@ -11,7 +11,7 @@ export default defineConfig({
     outDir: "docs",
     lib: {
       formats: ["umd"],
-      entry: "demo/main.ts",
+      entry: "docs-src/main.ts",
       name: "ShaplaComponent",
       fileName: "docs-script",
     },
