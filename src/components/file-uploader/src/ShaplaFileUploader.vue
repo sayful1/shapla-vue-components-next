@@ -1,42 +1,59 @@
 <template>
   <div class="shapla-file-uploader-container">
     <div
-      class="shapla-file-uploader"
-      :class="{ 'shapla-file-uploader--dragged': isDraggedOver }"
-      @dragover.prevent="enter"
-      @dragenter.prevent="enter"
-      @dragleave.prevent="leave"
-      @dragend.prevent="leave"
-      @drop.prevent="drop"
+        class="shapla-file-uploader"
+        :class="{ 'shapla-file-uploader--dragged': isDraggedOver }"
+        @dragover.prevent="enter"
+        @dragenter.prevent="enter"
+        @dragleave.prevent="leave"
+        @dragend.prevent="leave"
+        @drop.prevent="drop"
     >
       <input
-        :id="inputId"
-        ref="input"
-        type="file"
-        name="files[]"
-        class="shapla-file-uploader__input"
-        multiple
-        @change="select"
-      >
+          :id="inputId"
+          ref="input"
+          type="file"
+          name="files[]"
+          class="shapla-file-uploader__input"
+          multiple
+          @change="select"
+      />
 
       <div class="shapla-file-uploader-message">
         <div class="shapla-file-uploader-message__icon">
-          <svg class="icon-plus" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-            <path d="M384 250v12c0 6.6-5.4 12-12 12h-98v98c0 6.6-5.4 12-12 12h-12c-6.6 0-12-5.4-12-12v-98h-98c-6.6 0-12-5.4-12-12v-12c0-6.6 5.4-12 12-12h98v-98c0-6.6 5.4-12 12-12h12c6.6 0 12 5.4 12 12v98h98c6.6 0 12 5.4 12 12zm120 6c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-32 0c0-119.9-97.3-216-216-216-119.9 0-216 97.3-216 216 0 119.9 97.3 216 216 216 119.9 0 216-97.3 216-216z" />
+          <svg
+              class="icon-plus"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 512 512"
+          >
+            <path d="M384 250v12c0 6.6-5.4 12-12 12h-98v98c0 6.6-5.4 12-12 12h-12c-6.6 0-12-5.4-12-12v-98h-98c-6.6 0-12-5.4-12-12v-12c0-6.6 5.4-12 12-12h98v-98c0-6.6 5.4-12 12-12h12c6.6 0 12 5.4 12 12v98h98c6.6 0 12 5.4 12 12zm120 6c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-32 0c0-119.9-97.3-216-216-216-119.9 0-216 97.3-216 216 0 119.9 97.3 216 216 216 119.9 0 216-97.3 216-216z"
+            />
           </svg>
         </div>
-        <div class="shapla-file-uploader-message__drag" v-html="textLineOne" />
-        <div class="shapla-file-uploader-message__browse" v-html="textLineTwo" />
-        <label :for="inputId" class="shapla-file-uploader-message__select-files shapla-button is-primary">{{
-          textButton
-        }}</label>
-        <div class="shapla-file-uploader-message__maxsize" v-html="textMaxUploadLimit" />
+        <div class="shapla-file-uploader-message__drag" v-html="textLineOne"/>
+        <div
+            class="shapla-file-uploader-message__browse"
+            v-html="textLineTwo"
+        />
+        <label
+            :for="inputId"
+            class="shapla-file-uploader-message__select-files shapla-button is-primary"
+        >{{ textButton }}</label>
+        <div
+            class="shapla-file-uploader-message__maxsize"
+            v-html="textMaxUploadLimit"
+        />
       </div>
 
-      <shapla-files-upload-status v-if="showFileUploadStatus" :files="files" />
+      <shapla-files-upload-status v-if="showFileUploadStatus" :files="files"/>
     </div>
     <div v-if="showFilesUploadStatus" class="shapla-file-uploader-files">
-      <shapla-file-upload-status v-for="(file, index) in files" :key="index" :file="file" />
+      <shapla-file-upload-status
+          v-for="(file, index) in files"
+          :key="index"
+          :file="file"
+          @cancel="onCancelUpload"
+      />
     </div>
   </div>
 </template>
@@ -46,6 +63,7 @@ import {reactive, ref, toRefs, defineComponent} from "vue";
 import ShaplaFilesUploadStatus from "./ShaplaFilesUploadStatus.vue";
 import ShaplaFileUploadStatus from "./ShaplaFileUploadStatus.vue";
 import timeRemaining from "./helpers/timeremaining";
+import {FileObjectInterfaces} from "./helpers/interfaces";
 
 export default defineComponent({
   name: "ShaplaFileUploader",
@@ -58,23 +76,28 @@ export default defineComponent({
     textLineOne: {type: String, default: "Drag &amp; drop files"},
     textLineTwo: {type: String, default: "or"},
     textButton: {type: String, default: "Select files to upload"},
-    textMaxUploadLimit: {type: String, default: "Maximum upload file size: 2MB"},
-    params: {
-      type: Object, required: false, default: () => {
-        return {};
-      },
+    textMaxUploadLimit: {
+      type: String,
+      default: "Maximum upload file size: 2MB",
     },
+    params: {type: Object, required: false, default: () => ({})},
     showFileUploadStatus: {type: Boolean, default: true},
     showFilesUploadStatus: {type: Boolean, default: true},
   },
   emits: ["init", "progress", "success", "fail", "error", "before:send"],
   setup(props, {emit}) {
-    const input = ref(null);
-    const state = reactive({files: [], isDraggedOver: false});
+    const input = ref<null | HTMLInputElement>(null);
+    const state = reactive<{
+      files: FileObjectInterfaces[];
+      isDraggedOver: boolean;
+    }>({
+      files: [],
+      isDraggedOver: false,
+    });
     const enter = () => (state.isDraggedOver = true);
     const leave = () => (state.isDraggedOver = false);
 
-    const generateFileObject = (file) => {
+    const generateFileObject = (file: File) => {
       let fileObjectIndex =
           state.files.push({
             id: Date.now() + Math.floor(Math.random() * 100).toString(),
@@ -93,7 +116,7 @@ export default defineComponent({
       return state.files[fileObjectIndex];
     };
 
-    const upload = (fileObject) => {
+    const upload = (fileObject: FileObjectInterfaces) => {
       let formData = new FormData();
       formData.append(props.paramName, fileObject.file);
 
@@ -159,87 +182,49 @@ export default defineComponent({
       xhr.send(formData);
     };
 
-    const addFiles = (files) => {
-      let i, file;
-
-      for (i = 0; i < files.length; i++) {
-        file = files[i];
+    const addFiles = (files: FileList) => {
+      for (let i = 0; i < files.length; i++) {
+        let file = files[i] as File;
 
         upload(generateFileObject(file));
       }
     };
 
-    const drop = (e) => {
+    const drop = (e: DragEvent) => {
       leave();
-      addFiles(e.dataTransfer.files);
+      const list = e.dataTransfer?.files
+      if (list instanceof FileList) {
+        addFiles(list);
+      }
     };
 
     const select = () => {
-      addFiles(input.value.files);
+      const list = input.value?.files
+      if (list instanceof FileList) {
+        addFiles(list);
+      }
     };
 
-    return {...toRefs(state), enter, leave, drop, select, input};
+    const onCancelUpload = (file: FileObjectInterfaces) => {
+      file.xhr?.abort();
+      file.cancelled = true;
+    };
+
+    return {
+      ...toRefs(state),
+      enter,
+      leave,
+      drop,
+      select,
+      input,
+      onCancelUpload,
+    };
   },
-})
+});
 </script>
 
 <style lang="scss">
-@import "shapla-css/src/colors.scss";
+@use "shapla-css/src/index.scss" as shapla;
 
-.shapla-file-uploader {
-  width: 100%;
-  background-color: $background;
-  position: relative;
-  border: 3px dashed rgba(#000, 0.12);
-
-  &--dragged {
-    border-color: $text-primary;
-  }
-
-  &__input {
-    display: none !important;
-  }
-}
-
-.shapla-file-uploader-message {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 20px;
-
-  &__icon {
-    color: $primary;
-    height: 32px;
-    width: 32px;
-
-    svg.icon-plus {
-      fill: currentColor;
-    }
-  }
-
-  &__drag {
-    color: $text-primary;
-    font-weight: bold;
-    margin-top: 0.5rem;
-  }
-
-  &__select-files {
-    margin-bottom: 1rem;
-    margin-top: 1rem;
-    padding: calc(0.5em - 1px) 1em;
-    background-color: $primary;
-    color: $on-primary;
-    border-radius: 4px;
-  }
-
-  &__browse {
-    color: $text-secondary;
-  }
-
-  &__maxsize {
-    color: $text-hint;
-    font-size: 12px;
-  }
-}
+@include shapla.file-uploader;
 </style>

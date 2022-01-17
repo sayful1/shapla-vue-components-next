@@ -1,12 +1,12 @@
 <template>
   <shapla-modal-confirm
-    :active="showConfirm"
-    :icon="params.icon"
-    :title="params.title"
-    :message="params.message"
-    :confirm-button="params.confirmButton"
-    :cancel-button="params.cancelButton"
-    @click="handleClick"
+      :active="showConfirm"
+      :icon="params.icon"
+      :title="params.title"
+      :message="params.message"
+      :confirm-button="params.confirmButton"
+      :cancel-button="params.cancelButton"
+      @click="handleClick"
   />
 </template>
 
@@ -29,13 +29,13 @@ export default defineComponent({
     const params = ref<ConfirmDataInterface>(defaultParamsData);
     const showConfirm = ref<boolean>(false);
 
-    const handleClick = (confirmed) => {
+    const handleClick = (confirmed: boolean) => {
       showConfirm.value = false;
       Dialog.dispatch("click.ShaplaVueConfirmModal", confirmed);
     };
 
     onMounted(() => {
-      Dialog.on("show.ShaplaVueConfirmModal", (newParams) => {
+      Dialog.on("show.ShaplaVueConfirmModal", (newParams: ConfirmDataInterface) => {
         params.value = Object.assign(defaultParamsData, newParams);
         showConfirm.value = true;
       });

@@ -1,12 +1,12 @@
 <template>
   <div :class="classes">
     <div
-      :class="barClasses"
-      role="progressbar"
-      :aria-valuenow="value"
-      aria-valuemin="0"
-      :aria-valuemax="max"
-      :style="barStyle"
+        :class="barClasses"
+        role="progressbar"
+        :aria-valuenow="value"
+        aria-valuemin="0"
+        :aria-valuemax="max"
+        :style="barStyle"
     >
       <slot>{{ label }}</slot>
     </div>
@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-import {defineComponent} from "vue";
+import {computed, defineComponent} from "vue";
 
 export default defineComponent({
   name: "ShaplaProgress",
@@ -33,42 +33,45 @@ export default defineComponent({
           ["default", "primary", "secondary"].indexOf(value) !== -1,
     },
   },
-  computed: {
-    classes() {
+  setup(props) {
+    const classes = computed(() => {
       let classes = ["shapla-progress"];
-      if ("default" !== this.size) {
-        classes.push(`is-${this.size}`);
+      if ("default" !== props.size) {
+        classes.push(`is-${props.size}`);
       }
 
-      if (!this.value && this.value !== 0) {
+      if (!props.value && props.value !== 0) {
         classes.push("is-indeterminate");
-        classes.push(`is-${this.theme}`);
+        classes.push(`is-${props.theme}`);
       }
 
       return classes;
-    },
-    barClasses() {
+    })
+    const barClasses = computed(() => {
       let classes = ["shapla-progress-bar"];
-      if ("default" !== this.theme) {
-        classes.push(`is-${this.theme}`);
+      if ("default" !== props.theme) {
+        classes.push(`is-${props.theme}`);
       }
-      if (this.striped) {
+      if (props.striped) {
         classes.push(`is-striped`);
       }
-      if (this.animated) {
+      if (props.animated) {
         classes.push(`is-animated`);
       }
 
       return classes;
-    },
-    barStyle() {
-      if (this.value) {
-        let width = Math.round((this.value / this.max) * 100);
+    })
+
+    const barStyle = computed(() => {
+      if (props.value) {
+        let width = Math.round((props.value / props.max) * 100);
         return {width: `${width}%`};
       }
       return {};
-    },
-  },
+    })
+
+    return {classes, barClasses, barStyle}
+  }
 })
 </script>
 

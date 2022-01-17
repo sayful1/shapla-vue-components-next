@@ -64,7 +64,7 @@ export default defineComponent({
   },
   emits: ["click"],
   setup(props, {emit}) {
-    const handleClick = (confirmed) => {
+    const handleClick = (confirmed:boolean) => {
       emit("click", confirmed);
     };
 

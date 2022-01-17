@@ -12,9 +12,9 @@ class Notify {
    *
    * @param callback
    */
-  static on(callback) {
-    document.addEventListener("show.ShaplaVueNotification", (e: CustomEvent) =>
-      callback(e.detail)
+  static on(callback: EventListener | ((options: NotificationDataArgsInterface) => void)) {
+    document.addEventListener("show.ShaplaVueNotification", ((e: CustomEvent) =>
+      callback(e.detail)) as EventListener
     );
   }
 
@@ -23,9 +23,9 @@ class Notify {
    *
    * @param data
    */
-  static dispatch(data) {
+  static dispatch(data: NotificationDataArgsInterface) {
     document.dispatchEvent(
-      new CustomEvent("show.ShaplaVueNotification", { detail: data })
+      new CustomEvent<NotificationDataArgsInterface>("show.ShaplaVueNotification", {detail: data})
     );
   }
 
@@ -50,7 +50,7 @@ class Notify {
    * @param args
    * @return {Object}
    */
-  static getParams(message: string | NotificationDataArgsInterface, ...args) {
+  static getParams(message: string | NotificationDataArgsInterface, ...args: (string | number)[]) {
     let params: NotificationDataArgsInterface = {
       id: Notify.createUUID(),
       type: "primary",
@@ -71,8 +71,8 @@ class Notify {
     }
 
     if (args.length > 1) {
-      params.title = args[0];
-      params.timeout = args[1];
+      params.title = typeof args[0] === "string" ? args[0] : '';
+      params.timeout = typeof args[1] === "number" ? args[1] : 3000;
     } else {
       if (typeof args[0] === "number") {
         params.timeout = args[0];
@@ -89,7 +89,7 @@ class Notify {
    *
    * @param {object} params
    */
-  static create(params) {
+  static create(params: NotificationDataArgsInterface) {
     Notify.dispatch(params);
   }
 
@@ -99,7 +99,7 @@ class Notify {
    * @param message
    * @param params
    */
-  static default(message, ...params) {
+  static default(message: string | NotificationDataArgsInterface, ...params: (string | number)[]) {
     Notify.primary(message, ...params);
   }
 
@@ -109,7 +109,7 @@ class Notify {
    * @param message
    * @param params
    */
-  static primary(message, ...params) {
+  static primary(message: string | NotificationDataArgsInterface, ...params: (string | number)[]) {
     const _params = Notify.getParams(message, ...params);
     _params.type = "primary";
     Notify.create(_params);
@@ -121,7 +121,7 @@ class Notify {
    * @param message
    * @param params
    */
-  static success(message, ...params) {
+  static success(message: string | NotificationDataArgsInterface, ...params: (string | number)[]) {
     const _params = Notify.getParams(message, ...params);
     _params.type = "success";
     Notify.create(_params);
@@ -133,7 +133,7 @@ class Notify {
    * @param message
    * @param params
    */
-  static info(message, ...params) {
+  static info(message: string | NotificationDataArgsInterface, ...params: (string | number)[]) {
     const _params = Notify.getParams(message, ...params);
     _params.type = "info";
     Notify.create(_params);
@@ -145,7 +145,7 @@ class Notify {
    * @param message
    * @param params
    */
-  static warning(message, ...params) {
+  static warning(message: string | NotificationDataArgsInterface, ...params: (string | number)[]) {
     const _params = Notify.getParams(message, ...params);
     _params.type = "warning";
     Notify.create(_params);
@@ -157,12 +157,12 @@ class Notify {
    * @param message
    * @param params
    */
-  static error(message, ...params) {
+  static error(message: string | NotificationDataArgsInterface, ...params: (string | number)[]) {
     const _params = Notify.getParams(message, ...params);
     _params.type = "error";
     Notify.create(_params);
   }
 }
 
-export { Notify, NotificationDataArgsInterface };
+export {Notify, NotificationDataArgsInterface};
 export default Notify;

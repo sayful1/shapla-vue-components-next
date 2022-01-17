@@ -14,8 +14,8 @@ class Dialog {
    * @param event
    * @param callback
    */
-  static on(event, callback) {
-    document.addEventListener(event, (e: CustomEvent) => callback(e.detail));
+  static on(event: string, callback: EventListener | ((confirmed: boolean) => void)) {
+    document.addEventListener(event, ((e: CustomEvent) => callback(e.detail)) as EventListener);
   }
 
   /**
@@ -24,8 +24,8 @@ class Dialog {
    * @param event
    * @param data
    */
-  static dispatch(event, data) {
-    document.dispatchEvent(new CustomEvent(event, {detail: data}));
+  static dispatch(event: string, data: ConfirmDataInterface) {
+    document.dispatchEvent(new CustomEvent<ConfirmDataInterface>(event, {detail: data}));
   }
 
   /**
@@ -67,16 +67,14 @@ class Dialog {
    * @param {Object} params
    * @returns {Promise}
    */
-  static confirm(message, params = {}) {
+  static confirm(message: ConfirmDataInterface | string, params: ConfirmDataInterface = {}) {
     const _params = this.getParams(message, params);
     _params.type = "confirm";
 
     return new Promise((resolve) => {
       this.show(_params);
 
-      Dialog.on("click.ShaplaVueConfirmModal", (confirmed) =>
-        resolve(confirmed)
-      );
+      Dialog.on("click.ShaplaVueConfirmModal", (confirmed: boolean) => resolve(confirmed));
     });
   }
 
@@ -86,7 +84,7 @@ class Dialog {
    * @param message
    * @param params
    */
-  static alert(message, params = {}) {
+  static alert(message: string | ConfirmDataInterface, params: ConfirmDataInterface = {}) {
     const _params: ConfirmDataInterface = this.getParams(message, params);
     _params.type = "alert";
     _params.cancelButton = false;

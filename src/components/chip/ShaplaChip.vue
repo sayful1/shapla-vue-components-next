@@ -2,7 +2,7 @@
   <div class="shapla-chip" :class="chipClasses" :style="chipStyle">
     <img v-if="imageSrc" class="shapla-chip__contact" :src="imageSrc">
     <span class="shapla-chip__text"><slot>{{ text }}</slot></span>
-    <shapla-cross v-if="deletable" :small="small" class="shapla-chip__action" @click="deleteChip" />
+    <shapla-cross v-if="deletable" :small="small" class="shapla-chip__action" @click="deleteChip"/>
   </div>
 </template>
 
@@ -37,7 +37,7 @@ export default defineComponent({
     });
 
     const chipStyle = computed(() => {
-      let style = {};
+      let style: { [key: string]: string } = {};
       if (props.small) {
         style["--shapla-chip-height"] = "24px";
       }

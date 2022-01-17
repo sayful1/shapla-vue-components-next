@@ -1,10 +1,10 @@
 <template>
   <div class="shapla-notification" :class="itemClass">
-    <shapla-cross v-if="showDismisses" @click="requestClose" />
+    <shapla-cross v-if="showDismisses" @click="requestClose"/>
     <div v-if="title" class="shapla-notification__title">
       {{ title }}
     </div>
-    <div v-if="message" class="shapla-notification__message" v-html="message" />
+    <div v-if="message" class="shapla-notification__message" v-html="message"/>
   </div>
 </template>
 
@@ -27,7 +27,7 @@ export default defineComponent({
   },
   emits: ["close"],
   setup(props, {emit}) {
-    let timer = null;
+    let timer: null | number = null;
 
     const itemClass = computed(() => {
       return [`has-${props.type}`];
@@ -39,7 +39,7 @@ export default defineComponent({
 
     onMounted(() => {
       if (props.timeout !== 0) {
-        timer = setTimeout(requestClose, props.timeout);
+        timer = window.setTimeout(requestClose, props.timeout);
       }
     });
 

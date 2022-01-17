@@ -1,25 +1,25 @@
 <template>
   <div ref="root" class="shapla-dropdown" :class="{ 'is-hoverable': hoverable }">
     <div
-      class="shapla-dropdown-trigger" aria-haspopup="true" :aria-expanded="isActive ? 'true' : 'false'"
-      @click="isActive = !isActive"
+        class="shapla-dropdown-trigger" aria-haspopup="true" :aria-expanded="isActive ? 'true' : 'false'"
+        @click="isActive = !isActive"
     >
-      <slot name="trigger" />
+      <slot name="trigger"/>
     </div>
     <shapla-dropdown-menu
-      :active="isActive"
-      :role="role"
-      :right="right"
-      :up="up"
-      :direction="direction"
-      :max-items="maxItems"
+        :active="isActive"
+        :role="role"
+        :right="right"
+        :up="up"
+        :direction="direction"
+        :max-items="maxItems"
     >
       <template #before-content>
-        <slot name="before-content" />
+        <slot name="before-content"/>
       </template>
-      <slot />
+      <slot/>
       <template #after-content>
-        <slot name="after-content" />
+        <slot name="after-content"/>
       </template>
     </shapla-dropdown-menu>
   </div>
@@ -44,15 +44,15 @@ export default defineComponent({
     },
   },
   setup() {
-    const root = ref(null);
+    const root = ref<HTMLElement | null>(null);
     const state = reactive<{ isActive: boolean }>({isActive: false});
 
     watch(
         () => state.isActive,
         (isActive) => {
           if (isActive) {
-            document.addEventListener("click", (event) => {
-              if (!root.value.contains(event.target)) {
+            document.addEventListener("click", (event: Event) => {
+              if (!root.value?.contains(event.target as HTMLElement)) {
                 state.isActive = false;
               }
             });

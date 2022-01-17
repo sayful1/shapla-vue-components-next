@@ -1,19 +1,19 @@
 <template>
   <label class="shapla-checkbox" :class="labelClasses">
     <input
-      type="checkbox"
-      class="shapla-checkbox__input"
-      :checked="shouldBeChecked"
-      :value="value"
-      :disabled="disabled"
-      @change="updateInput"
-      @focus="isFocus = true"
-      @blur="isFocus = false"
+        type="checkbox"
+        class="shapla-checkbox__input"
+        :checked="shouldBeChecked"
+        :value="value"
+        :disabled="disabled"
+        @change="updateInput"
+        @focus="isFocus = true"
+        @blur="isFocus = false"
     >
     <span class="shapla-checkbox__label"><slot>{{ label }}</slot></span>
-    <span class="shapla-checkbox__focus-helper" />
+    <span class="shapla-checkbox__focus-helper"/>
     <span class="shapla-checkbox__box-outline" @mouseenter="isHovered = true" @mouseleave="isHovered = false">
-      <span class="shapla-checkbox__tick-outline" />
+      <span class="shapla-checkbox__tick-outline"/>
     </span>
   </label>
 </template>
@@ -54,19 +54,21 @@ export default defineComponent({
 
     const labelClasses = computed(() => {
       let classes = [];
-      if (shouldBeChecked.value === true) classes.push("is-checked");
+      if (shouldBeChecked.value) classes.push("is-checked");
       if (state.isFocus) classes.push("is-focused");
       if (state.isHovered) classes.push("is-hovered");
       if (props.disabled) classes.push("is-disabled");
       return classes;
     });
 
-    const updateInput = (event) => {
-      let isChecked = event.target.checked;
+    const updateInput = (event: InputEvent) => {
+      let isChecked = (event.target as HTMLInputElement).checked;
 
       if (props.modelValue instanceof Array) {
-        let newValue = [];
-        props.modelValue.forEach((el) => newValue.push(el));
+        const newValue: Array<any> = [];
+        props.modelValue.forEach((el) => {
+          newValue.push(el)
+        });
 
         if (isChecked) {
           newValue.push(props.value);

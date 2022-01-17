@@ -5,8 +5,8 @@ class ToggleEvent {
    * @param event
    * @param callback
    */
-  static on(event, callback) {
-    document.addEventListener(event, (e: CustomEvent) => callback(e.detail));
+  static on(event: string, callback: EventListener | (() => void)) {
+    document.addEventListener(event, ((e: CustomEvent) => callback(e.detail)) as EventListener);
   }
 
   /**
@@ -15,7 +15,7 @@ class ToggleEvent {
    * @param event
    * @param data
    */
-  static dispatch(event, data) {
+  static dispatch(event: string, data: any) {
     document.dispatchEvent(new CustomEvent(event, {detail: data}));
   }
 }

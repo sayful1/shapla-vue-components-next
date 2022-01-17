@@ -7,18 +7,18 @@
         <slot name="row-actions" :row="item">
           <span v-for="action in actions" :key="action.key" :class="action.key">
             <a href="#" @click.prevent="actionClicked(action.key, item)">{{
-              action.label
-            }}</a>
+                action.label
+              }}</a>
           </span>
         </slot>
       </div>
 
       <button
-        v-if="isMobile" class="data-table-toggle-button" aria-label="Show more details"
-        @click="toggleRow($event)"
+          v-if="isMobile" class="data-table-toggle-button" aria-label="Show more details"
+          @click="toggleRow($event)"
       >
-        <data-table-icon icon="expand-less" class="triangle-up" />
-        <data-table-icon icon="expand-more" class="triangle-down" />
+        <data-table-icon icon="expand-less" class="triangle-up"/>
+        <data-table-icon icon="expand-more" class="triangle-down"/>
       </button>
     </template>
   </td>
@@ -27,7 +27,7 @@
 <script lang="ts">
 import DataTableIcon from "./DataTableIcon.vue";
 import {computed, defineComponent, PropType} from "vue";
-import {TableActionDataInterface, TableColumnDataInterface} from "../TableInterfaces";
+import {TableActionDataInterface, TableColumnDataInterface, ItemInterface} from "../TableInterfaces";
 
 export default defineComponent({
   name: "BodyCell",
@@ -41,12 +41,12 @@ export default defineComponent({
   },
   emits: ["click:toggle", "click:action"],
   setup(props, {emit}) {
-    const toggleRow = (event) => emit("click:toggle", event);
-    const actionClicked = (key, item) => emit("click:action", key, item);
+    const toggleRow = (event: Event) => emit("click:toggle", event);
+    const actionClicked = (key: string, item: ItemInterface) => emit("click:action", key, item);
     const isNumeric = computed(
         () =>
             typeof props.column.numeric !== "undefined" &&
-            props.column.numeric === true
+            props.column.numeric
     );
 
     const bodyCellClass = computed(() => {

@@ -16,17 +16,17 @@
 
 <script>
 import pad from "./helpers/pad.ts";
-import {computed, defineComponent} from "vue";
+import { computed, defineComponent } from "vue";
 
 export default defineComponent({
   name: "ShaplaFilesUploadStatus",
   props: {
-    files: {type: Array, default: () => []},
+    files: { type: Array, default: () => [] },
   },
   setup(props) {
     const unfinishedFiles = computed(() => {
       let i,
-          files = [];
+        files = [];
       for (i = 0; i < props.files.length; i++) {
         if (!(props.files[i].finished || props.files[i].cancelled)) {
           files.push(props.files[i]);
@@ -37,7 +37,7 @@ export default defineComponent({
 
     const overallProgress = computed(() => {
       let _unfinishedFiles = unfinishedFiles.value,
-          totalProgress = 0;
+        totalProgress = 0;
 
       if (_unfinishedFiles.length === 0) {
         return 0;
@@ -53,7 +53,7 @@ export default defineComponent({
     const secondsRemaining = computed(() => {
       let secondsRemaining = 0;
       unfinishedFiles.value.forEach(
-          (file) => (secondsRemaining += file.secondsRemaining)
+        (file) => (secondsRemaining += file.secondsRemaining)
       );
 
       return secondsRemaining;
@@ -61,34 +61,12 @@ export default defineComponent({
 
     const timeRemaining = computed(() => {
       let minutes = Math.floor(secondsRemaining.value / 60),
-          seconds = secondsRemaining.value - minutes * 60;
+        seconds = secondsRemaining.value - minutes * 60;
 
       return pad.left("00", minutes) + ":" + pad.left("00", seconds);
     });
 
-    return {overallProgress, timeRemaining};
+    return { overallProgress, timeRemaining };
   },
-})
+});
 </script>
-
-<style lang="scss">
-.shapla-file-uploader-status {
-  padding: 0 20px 20px;
-  text-align: center;
-
-  &__items {
-    align-items: center;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  &__item {
-    margin: 0;
-    padding: 0 1rem;
-  }
-}
-</style>

@@ -1,19 +1,19 @@
 <template>
   <label class="shapla-switch" :class="switchClasses">
     <input
-      type="checkbox"
-      class="shapla-switch__input"
-      :checked="shouldBeChecked"
-      :value="value"
-      :disabled="disabled"
-      @change="updateInput"
-      @focus="handleFocusEvent"
-      @blur="handleBlurEvent"
+        type="checkbox"
+        class="shapla-switch__input"
+        :checked="shouldBeChecked"
+        :value="value"
+        :disabled="disabled"
+        @change="updateInput"
+        @focus="handleFocusEvent"
+        @blur="handleBlurEvent"
     >
     <span class="shapla-switch__label"><slot>{{ label }}</slot></span>
-    <span class="shapla-switch__track" />
+    <span class="shapla-switch__track"/>
     <span class="shapla-switch__thumb">
-      <span class="shapla-switch__focus-helper" />
+      <span class="shapla-switch__focus-helper"/>
     </span>
   </label>
 </template>
@@ -53,8 +53,8 @@ export default defineComponent({
       return classes;
     });
 
-    const getValue = (event) => {
-      let isChecked = event.target.checked;
+    const getValue = (event: Event) => {
+      let isChecked = (event.target as HTMLInputElement).checked;
 
       if (props.modelValue instanceof Array) {
         let newValue = [...props.modelValue];
@@ -71,18 +71,18 @@ export default defineComponent({
       return isChecked ? props.trueValue : props.falseValue;
     };
 
-    const updateInput = (event) => {
+    const updateInput = (event: Event) => {
       if (!props.readonly) emit("update:modelValue", getValue(event));
     };
 
-    const handleFocusEvent = (event) => {
+    const handleFocusEvent = (event: Event) => {
       if (!props.disabled && !props.readonly) {
         state.isFocus = true;
         emit("focus", getValue(event));
       }
     };
 
-    const handleBlurEvent = (event) => {
+    const handleBlurEvent = (event: Event) => {
       if (!props.disabled && !props.readonly) {
         state.isFocus = false;
         emit("blur", getValue(event));

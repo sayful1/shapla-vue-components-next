@@ -18,7 +18,8 @@
             height="20"
             viewBox="0 0 20 20"
           >
-            <path d="M7.8 10c0 1.215 0.986 2.2 2.201 2.2s2.199-0.986 2.199-2.2c0-1.215-0.984-2.199-2.199-2.199s-2.201 0.984-2.201 2.199z" />
+            <path d="M7.8 10c0 1.215 0.986 2.2 2.201 2.2s2.199-0.986 2.199-2.2c0-1.215-0.984-2.199-2.199-2.199s-2.201 0.984-2.201 2.199z"
+            />
           </svg>
         </div>
         <div class="shapla-file-uploader-file__time-remaining">
@@ -43,7 +44,8 @@
           class="shapla-file-uploader-file__action-cancel"
           href="#"
           @click.prevent="cancel"
-        >Cancel</a>
+          >Cancel</a
+        >
       </slot>
     </div>
   </div>
@@ -51,28 +53,29 @@
 
 <script lang="ts">
 import pad from "./helpers/pad";
-import {computed, defineComponent} from "vue";
+import { computed, defineComponent } from "vue";
 
 export default defineComponent({
   name: "ShaplaFileUploadStatus",
   props: {
-    file: {type: Object, required: true},
-    showCancel: {type: Boolean, default: true},
+    file: { type: Object, required: true },
+    showCancel: { type: Boolean, default: true },
   },
-  setup(props) {
+  emits: ["cancel"],
+  setup(props, { emit }) {
     const isInProgress = computed(
-        () => !props.file.finished && !props.file.failed && !props.file.cancelled
+      () => !props.file.finished && !props.file.failed && !props.file.cancelled
     );
     const isProcessing = computed(
-        () =>
-            !!(
-                props.file.progress &&
-                props.file.progress === 100 &&
-                !props.file.finished
-            )
+      () =>
+        !!(
+          props.file.progress &&
+          props.file.progress === 100 &&
+          !props.file.finished
+        )
     );
     const canCancel = computed(
-        () => !props.file.finished && !props.file.cancelled && !isProcessing.value
+      () => !props.file.finished && !props.file.cancelled && !isProcessing.value
     );
     const fillClass = computed(() => {
       let classes = ["shapla-file-uploader-file__progress-line"];
@@ -83,15 +86,13 @@ export default defineComponent({
 
     const timeRemaining = computed(() => {
       let minutes = Math.floor(props.file.secondsRemaining / 60),
-          seconds = props.file.secondsRemaining - minutes * 60;
+        seconds = props.file.secondsRemaining - minutes * 60;
 
       return pad.left("00", minutes) + ":" + pad.left("00", seconds);
     });
 
     const cancel = () => {
-      props.file.xhr.abort();
-      // eslint-disable-next-line vue/no-mutating-props
-      props.file.cancelled = true;
+      emit("cancel", props.file);
     };
 
     return {
@@ -105,81 +106,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style lang="scss">
-@import "shapla-css/src/colors.scss";
-
-.shapla-file-uploader-file {
-  display: flex;
-  margin: 20px 0;
-  position: relative;
-  box-shadow: inset 0 1px 2px rgba(#000, 0.12);
-  border-radius: 3px;
-  background-color: #f5f5f5;
-  border: 1px solid rgba(#000, 0.04);
-  padding: 8px;
-
-  &__title {
-    color: $text-primary;
-  }
-
-  &__progress {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    color: $text-secondary;
-  }
-
-  &__separator {
-    margin: 0 5px;
-    height: 1em;
-    width: 1em;
-
-    svg {
-      fill: currentColor;
-      height: 1em;
-      width: 1em;
-    }
-  }
-
-  &__progress-line {
-    border-radius: 3px;
-    background-color: $success-alpha;
-    height: 100%;
-    transition: width 500ms ease;
-    position: absolute;
-    left: 0;
-    top: 0;
-
-    &.is-failed {
-      transition: none;
-      width: 100% !important;
-      background-color: $error-alpha;
-    }
-
-    &.is-finished {
-      width: 100% !important;
-    }
-  }
-
-  &__spacer {
-    flex-grow: 1;
-  }
-
-  &__status,
-  &__actions {
-    display: flex;
-    align-items: center;
-
-    > * {
-      margin-left: 10px;
-    }
-  }
-
-  &__content,
-  &__status,
-  &__actions {
-    z-index: 2;
-  }
-}
-</style>

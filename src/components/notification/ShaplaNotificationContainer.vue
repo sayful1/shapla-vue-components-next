@@ -2,14 +2,14 @@
   <div v-if="items.length" class="shapla-notification-container" :class="containerClasses">
     <transition-group name="shapla-notification-transition" tag="div">
       <shapla-notification
-        v-for="item in items"
-        :key="item.id"
-        :type="item.type"
-        :title="item.title"
-        :message="item.message"
-        :timeout="item.timeout"
-        :show-dismisses="showDismisses"
-        @close="removeItemFromQueue(item)"
+          v-for="item in items"
+          :key="item.id"
+          :type="item.type"
+          :title="item.title"
+          :message="item.message"
+          :timeout="item.timeout"
+          :show-dismisses="showDismisses"
+          @close="removeItemFromQueue(item)"
       />
     </transition-group>
   </div>
@@ -64,7 +64,7 @@ export default defineComponent({
       }
     };
 
-    const removeItemFromQueue = (options) => {
+    const removeItemFromQueue = (options: NotificationDataArgsInterface) => {
       let _items = items.value,
           index = _items.findIndex((item) => item.id === options.id);
       if (index > -1) {

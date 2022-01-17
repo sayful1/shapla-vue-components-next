@@ -3,18 +3,18 @@
     <div class="shapla-spinner-inner" :class="{ 'has-text': showText }">
       <div class="shapla-spinner" :class="getClass">
         <div
-          v-for="index in [1, 2, 3, 4]"
-          :key="index"
-          :class="itemClass(index)"
+            v-for="index in [1, 2, 3, 4]"
+            :key="index"
+            :class="itemClass(index)"
         >
           <div class="shapla-spinner__circle-clipper shapla-spinner__left">
-            <div class="shapla-spinner__circle" />
+            <div class="shapla-spinner__circle"/>
           </div>
           <div class="shapla-spinner__gap-patch">
-            <div class="shapla-spinner__circle" />
+            <div class="shapla-spinner__circle"/>
           </div>
           <div class="shapla-spinner__circle-clipper shapla-spinner__right">
-            <div class="shapla-spinner__circle" />
+            <div class="shapla-spinner__circle"/>
           </div>
         </div>
       </div>
@@ -45,16 +45,16 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const refreshBodyClass = (active) => {
+    const refreshBodyClass = (active: boolean) => {
       const body = document.querySelector("body");
       if (active) {
-        body.classList.add("has-shapla-spinner");
+        body?.classList.add("has-shapla-spinner");
       } else {
-        body.classList.remove("has-shapla-spinner");
+        body?.classList.remove("has-shapla-spinner");
       }
     };
 
-    const itemClass = (index) => {
+    const itemClass = (index: number) => {
       return ["shapla-spinner__layer", "shapla-spinner__layer-" + index];
     };
 

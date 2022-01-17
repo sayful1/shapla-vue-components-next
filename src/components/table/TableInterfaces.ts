@@ -10,4 +10,8 @@ interface TableColumnDataInterface {
   sortable?: boolean,
 }
 
-export {TableActionDataInterface, TableColumnDataInterface}
+interface ItemInterface {
+  [key: string]: any;
+}
+
+export {TableActionDataInterface, TableColumnDataInterface, ItemInterface}

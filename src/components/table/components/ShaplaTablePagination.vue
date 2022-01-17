@@ -3,87 +3,87 @@
     <span class="shapla-pagination-displaying-num">{{ displaying_num }}</span>
     <span v-if="total_pages > 1" class="shapla-pagination-links">
       <a
-        class="shapla-pagination-link shapla-pagination-first-page"
-        :class="{ 'is-disabled': disable_first }"
-        href="#"
-        role="button"
-        @click.prevent="firstPage"
+          class="shapla-pagination-link shapla-pagination-first-page"
+          :class="{ 'is-disabled': disable_first }"
+          href="#"
+          role="button"
+          @click.prevent="firstPage"
       >
         <span v-if="!disable_first" class="screen-reader-text sr-only">{{
-          textFirstPage
-        }}</span>
+            textFirstPage
+          }}</span>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path d="M18.41 16.59L13.82 12l4.59-4.59L17 6l-6 6 6 6zM6 6h2v12H6z" />
-          <path fill="none" d="M24 24H0V0h24v24z" />
+          <path d="M18.41 16.59L13.82 12l4.59-4.59L17 6l-6 6 6 6zM6 6h2v12H6z"/>
+          <path fill="none" d="M24 24H0V0h24v24z"/>
         </svg>
       </a>
 
       <a
-        class="shapla-pagination-link shapla-pagination-previous-page"
-        :class="{ 'is-disabled': disable_prev }"
-        href="#"
-        role="button"
-        @click.prevent="prePage"
+          class="shapla-pagination-link shapla-pagination-previous-page"
+          :class="{ 'is-disabled': disable_prev }"
+          href="#"
+          role="button"
+          @click.prevent="prePage"
       >
         <span v-if="!disable_prev" class="screen-reader-text sr-only">{{
-          textPreviousPage
-        }}</span>
+            textPreviousPage
+          }}</span>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
-          <path fill="none" d="M0 0h24v24H0z" />
+          <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+          <path fill="none" d="M0 0h24v24H0z"/>
         </svg>
       </a>
 
       <span class="shapla-pagination-input-container">
         <label for="current-page-selector" class="screen-reader-text sr-only">{{
-          textCurrentPage
-        }}</label>
+            textCurrentPage
+          }}</label>
         <input
-          id="current-page-selector"
-          type="text"
-          class="shapla-pagination-current-page"
-          min="1"
-          :value="currentPage"
-          :max="total_pages"
-          aria-describedby="table-paging"
-          @change="goToPage($event)"
+            id="current-page-selector"
+            type="text"
+            class="shapla-pagination-current-page"
+            min="1"
+            :value="currentPage"
+            :max="total_pages"
+            aria-describedby="table-paging"
+            @change="goToPage($event)"
         >
         <span class="shapla-pagination-paging-text">
           {{ textOf }}
           <span class="shapla-pagination-total-pages">{{
-            total_pages
-          }}</span></span>
+              total_pages
+            }}</span></span>
       </span>
 
       <a
-        href="#"
-        class="shapla-pagination-link shapla-pagination-next-page"
-        :class="{ 'is-disabled': disable_next }"
-        role="button"
-        @click.prevent="nextPage"
+          href="#"
+          class="shapla-pagination-link shapla-pagination-next-page"
+          :class="{ 'is-disabled': disable_next }"
+          role="button"
+          @click.prevent="nextPage"
       >
         <span v-if="!disable_next" class="screen-reader-text sr-only">{{
-          textNextPage
-        }}</span>
+            textNextPage
+          }}</span>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
-          <path d="M0 0h24v24H0z" fill="none" />
+          <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+          <path d="M0 0h24v24H0z" fill="none"/>
         </svg>
       </a>
 
       <a
-        href="#"
-        class="shapla-pagination-link shapla-pagination-last-page"
-        :class="{ 'is-disabled': disable_last }"
-        role="button"
-        @click.prevent="lastPage"
+          href="#"
+          class="shapla-pagination-link shapla-pagination-last-page"
+          :class="{ 'is-disabled': disable_last }"
+          role="button"
+          @click.prevent="lastPage"
       >
         <span v-if="!disable_last" class="screen-reader-text sr-only">{{
-          textLastPage
-        }}</span>
+            textLastPage
+          }}</span>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path d="M5.59 7.41L10.18 12l-4.59 4.59L7 18l6-6-6-6zM16 6h2v12h-2z" />
-          <path fill="none" d="M0 0h24v24H0V0z" />
+          <path d="M5.59 7.41L10.18 12l-4.59 4.59L7 18l6-6-6-6zM16 6h2v12h-2z"/>
+          <path fill="none" d="M0 0h24v24H0V0z"/>
         </svg>
       </a>
     </span>
@@ -138,9 +138,9 @@ export default defineComponent({
     });
 
     // Methods
-    const emitEvent = (page) => emit("paginate", page);
-    const goToPage = (event) => {
-      let page = parseInt(event.target.value);
+    const emitEvent = (page: number) => emit("paginate", page);
+    const goToPage = (event: Event) => {
+      let page = parseInt((event.target as HTMLInputElement).value);
       if (isNaN(page)) page = props.currentPage;
       if (page < 1) page = 1;
       if (page > total_pages.value) page = total_pages.value;

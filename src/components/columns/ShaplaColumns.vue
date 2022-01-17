@@ -1,6 +1,6 @@
 <template>
   <div :class="classes" :style="styles">
-    <slot />
+    <slot/>
   </div>
 </template>
 
@@ -20,7 +20,7 @@ export default defineComponent({
   },
   setup(props) {
     const styles = computed(() => {
-      let styles = {};
+      let styles: { [key: string]: string } = {};
       if (props.columnGap) {
         styles["--shapla-column-gap"] = props.columnGap;
       }

@@ -1,15 +1,15 @@
 <template>
   <div
-    ref="root" class="shapla-dropdown-menu" :class="containerClass"
-    :style="containerStyle"
-    :role="role"
+      ref="root" class="shapla-dropdown-menu" :class="containerClass"
+      :style="containerStyle"
+      :role="role"
   >
     <div class="shapla-dropdown-menu__inner">
-      <slot name="before-content" :direction="autoClass" />
+      <slot name="before-content" :direction="autoClass"/>
       <div class="shapla-dropdown-menu__content">
-        <slot />
+        <slot/>
       </div>
-      <slot name="after-content" :direction="autoClass" />
+      <slot name="after-content" :direction="autoClass"/>
     </div>
   </div>
 </template>
@@ -31,7 +31,7 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const root = ref(null);
+    const root = ref<null | HTMLElement>(null);
     const state = reactive<{ autoClass: string, isActive: boolean }>({autoClass: "", isActive: false});
     const containerClass = computed(() => {
       let classes = [];
@@ -56,14 +56,14 @@ export default defineComponent({
               window.innerHeight ||
               document.documentElement.clientHeight ||
               document.body.clientHeight,
-          elParent = el.parentNode,
+          elParent = el?.parentNode as HTMLElement,
           rect = elParent.getBoundingClientRect(),
-          win = elParent.ownerDocument.defaultView,
-          elFromTop = parseInt(rect.top + win.pageYOffset),
+          win = elParent.ownerDocument.defaultView as Window,
+          elFromTop = rect.top + win.pageYOffset,
           spaceToBottom = browserHeight - elFromTop,
-          elHeight = el.scrollHeight;
+          elHeight = el?.scrollHeight;
 
-      if (elHeight + 15 < spaceToBottom) {
+      if (elHeight && elHeight + 15 < spaceToBottom) {
         state.autoClass = "is-down";
       } else {
         state.autoClass = "is-up";

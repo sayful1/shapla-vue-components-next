@@ -1,10 +1,10 @@
 <template>
   <div class="shapla-featured-image">
     <div v-if="has_image" class="shapla-featured-image__thumbnail">
-      <image-container container-width="150px" container-height="150px">
-        <img :src="imageUrl" :alt="imageAltText">
-      </image-container>
-      <delete-icon :title="removeButtonText" @click="clearImages" />
+      <shapla-image container-width="150px" container-height="150px">
+        <img :src="imageUrl" :alt="imageAltText"/>
+      </shapla-image>
+      <shapla-cross :title="removeButtonText" @click="clearImages"/>
     </div>
     <div v-if="!has_image" class="shapla-featured-image__placeholder">
       {{ placeholderText }}
@@ -16,12 +16,14 @@
 </template>
 
 <script lang="ts">
-import {defineComponent} from "vue";
-import {ShaplaCross as deleteIcon, ShaplaButton, ShaplaImage as imageContainer} from "../../../index";
+import {defineComponent, computed} from "vue";
+import ShaplaCross from "../../cross/ShaplaCross.vue";
+import ShaplaButton from "../../button/ShaplaButton.vue";
+import ShaplaImage from "../../image/ShaplaImage.vue";
 
 export default defineComponent({
   name: "FeaturedImage",
-  components: {deleteIcon, ShaplaButton, imageContainer},
+  components: {ShaplaCross, ShaplaButton, ShaplaImage},
   props: {
     placeholderText: {type: String, default: "No Image Selected"},
     buttonText: {type: String, default: "Add Image"},
@@ -30,20 +32,16 @@ export default defineComponent({
     imageAltText: {type: String, default: ""},
   },
   emits: ["click:add", "click:clear"],
-  computed: {
-    has_image() {
-      return !!(this.imageUrl && this.imageUrl.length);
-    },
+  setup(props, {emit}) {
+    const has_image = computed<boolean>(
+        () => !!(props.imageUrl && props.imageUrl.length)
+    );
+    const addImages = () => emit("click:add");
+    const clearImages = () => emit("click:clear");
+
+    return {has_image, addImages, clearImages};
   },
-  methods: {
-    addImages() {
-      this.$emit("click:add");
-    },
-    clearImages() {
-      this.$emit("click:clear");
-    },
-  },
-})
+});
 </script>
 
 <style lang="scss">

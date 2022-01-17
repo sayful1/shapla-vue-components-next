@@ -1,9 +1,9 @@
 <template>
   <div class="shapla-toggle-panel" :class="panelClass">
     <div
-      class="shapla-toggle-panel__heading"
-      :class="headingClasses"
-      @click.prevent="toggleActive"
+        class="shapla-toggle-panel__heading"
+        :class="headingClasses"
+        @click.prevent="toggleActive"
     >
       <div class="shapla-toggle-panel__title">
         <h4 class="shapla-toggle-panel__title-text">
@@ -12,30 +12,30 @@
           </slot>
         </h4>
         <div
-          v-if="subtext"
-          class="shapla-toggle-panel__title-subtext"
-          v-html="subtext"
+            v-if="subtext"
+            class="shapla-toggle-panel__title-subtext"
+            v-html="subtext"
         />
       </div>
       <div
-        class="shapla-toggle-panel__icon"
-        :class="`is-icon-${toggleIconPosition}`"
+          class="shapla-toggle-panel__icon"
+          :class="`is-icon-${toggleIconPosition}`"
       >
         <template v-if="isSelected">
           <slot name="icon-close">
-            <toggle-icon icon="minus" />
+            <toggle-icon icon="minus"/>
           </slot>
         </template>
         <template v-if="!isSelected">
           <slot name="icon-open">
-            <toggle-icon icon="plus" />
+            <toggle-icon icon="plus"/>
           </slot>
         </template>
       </div>
     </div>
     <div class="shapla-toggle-panel__body" :class="panelBodyClass">
       <div class="shapla-toggle-panel__content">
-        <slot :active="isSelected" />
+        <slot :active="isSelected"/>
       </div>
     </div>
   </div>
@@ -77,7 +77,7 @@ export default defineComponent({
       toggleTitleColor: "default",
     });
 
-    const parentId = ref<string>(null);
+    const parentId = ref<string | null>(null);
     const toggleId = createUUID();
     const toggles = inject<TogglesPropsInterface>("ShaplaTogglesProvider");
 
@@ -116,11 +116,13 @@ export default defineComponent({
     };
 
     onMounted(() => {
-      parentId.value = toggles.uuid;
-      state.toggleIconPosition = toggles.iconPosition || props.iconPosition;
-      state.toggleBoxedMode = toggles.boxedMode || props.boxedMode;
-      state.toggleShowDivider = toggles.showDivider || props.showDivider;
-      state.toggleTitleColor = toggles.titleColor || props.titleColor;
+      if (toggles) {
+        parentId.value = toggles.uuid;
+        state.toggleIconPosition = toggles.iconPosition || props.iconPosition;
+        state.toggleBoxedMode = toggles.boxedMode || props.boxedMode;
+        state.toggleShowDivider = toggles.showDivider || props.showDivider;
+        state.toggleTitleColor = toggles.titleColor || props.titleColor;
+      }
 
       state.isSelected = props.selected;
       if (props.selected) {

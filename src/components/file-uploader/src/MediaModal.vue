@@ -1,49 +1,49 @@
 <template>
   <div class="shapla-media-modal">
     <modal
-      :active="active"
-      :title="title"
-      content-size="large"
-      type="card"
-      @close="closeModal"
+        :active="active"
+        :title="title"
+        content-size="large"
+        type="card"
+        @close="closeModal"
     >
       <div class="shapla-media-modal__inside">
         <tabs alignment="center">
           <tab name="Upload Images" :selected="true">
             <file-uploader
-              :url="url"
-              @init="initEvent"
-              @success="finishedEvent"
-              @before:send="beforeSendEvent"
+                :url="url"
+                @init="initEvent"
+                @success="finishedEvent"
+                @before:send="beforeSendEvent"
             />
           </tab>
           <tab name="Media Library">
             <div v-if="images.length" class="shapla-media-modal__items">
               <div
-                v-for="_image in images"
-                :key="_image.image_id"
-                :class="itemClasses(_image)"
-                @click="selectImage(_image)"
+                  v-for="_image in images"
+                  :key="_image.image_id"
+                  :class="itemClasses(_image)"
+                  @click="selectImage(_image)"
               >
                 <div class="shapla-media-modal__image">
                   <image-container
-                    container-width="100px"
-                    container-height="100px"
+                      container-width="100px"
+                      container-height="100px"
                   >
-                    <img :src="_image.attachment_url" :alt="_image.title">
+                    <img :src="_image.attachment_url" :alt="_image.title"/>
                   </image-container>
                 </div>
               </div>
             </div>
-            <div v-else class="no-item-found" v-html="notFoundText" />
+            <div v-else class="no-item-found" v-html="notFoundText"/>
           </tab>
         </tabs>
       </div>
       <template #foot>
         <shapla-button
-          theme="primary"
-          :disabled="!selectedImages.length"
-          @click="chooseImage"
+            theme="primary"
+            :disabled="!selectedImages.length"
+            @click="chooseImage"
         >
           {{ modalButtonText }}
         </shapla-button>
@@ -53,16 +53,20 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, PropType} from "vue";
+import {defineComponent, PropType, reactive, toRefs} from "vue";
 import {
-  ShaplaModal as modal, ShaplaTabs as tabs, ShaplaTab as tab, ShaplaImage as imageContainer, ShaplaButton
+  ShaplaModal as modal,
+  ShaplaTabs as tabs,
+  ShaplaTab as tab,
+  ShaplaImage as imageContainer,
+  ShaplaButton,
 } from "../../../index";
 import {default as FileUploader} from "./ShaplaFileUploader.vue";
 
 interface ImageDataInterface {
-  image_id: number,
-  title: string,
-  attachment_url: string
+  image_id: number;
+  title: string;
+  attachment_url: string;
 }
 
 export default defineComponent({
@@ -73,7 +77,10 @@ export default defineComponent({
     title: {type: String, default: "Media Images"},
     modalButtonText: {type: String, default: "Set Image"},
     notFoundText: {type: String, default: "No images found."},
-    images: {type: Array as PropType<ImageDataInterface[]>, default: () => []},
+    images: {
+      type: Array as PropType<ImageDataInterface[]>,
+      default: () => [],
+    },
     multiple: {type: Boolean, default: false},
     // File Uploader
     url: {type: String, default: null, required: true},
@@ -88,21 +95,21 @@ export default defineComponent({
     "error",
     "before:send",
   ],
-  data() {
-    return {
+  setup(props, {emit}) {
+    const state = reactive<{ selectedImages: ImageDataInterface[] }>({
       selectedImages: [],
+    });
+
+    const closeModal = () => {
+      state.selectedImages = [];
+      emit("close");
     };
-  },
-  methods: {
-    closeModal() {
-      this.selectedImages = [];
-      this.$emit("close");
-    },
-    itemClasses(image) {
+
+    const itemClasses = (image: ImageDataInterface) => {
       let classes = ["shapla-media-modal__item"];
 
-      if (this.selectedImages.length) {
-        this.selectedImages.forEach((_image) => {
+      if (state.selectedImages.length) {
+        state.selectedImages.forEach((_image) => {
           if (_image.image_id === image.image_id) {
             classes.push("is-selected");
           }
@@ -110,41 +117,48 @@ export default defineComponent({
       }
 
       return classes;
-    },
-    selectImage(image) {
-      if (this.multiple) {
-        this.selectedImages.push(image);
+    };
+    const selectImage = (image: ImageDataInterface) => {
+      if (props.multiple) {
+        state.selectedImages.push(image);
       } else {
-        this.selectedImages = [image];
+        state.selectedImages = [image];
       }
-    },
-    chooseImage() {
-      this.$emit(
+    };
+    const chooseImage = () => {
+      emit(
           "select:image",
-          this.multiple ? this.selectedImages : this.selectedImages[0]
+          props.multiple ? state.selectedImages : state.selectedImages[0]
       );
-      this.closeModal();
-    },
-    initEvent(formData) {
-      this.$emit("init", formData);
-    },
-    progressEvent(fileObject, event) {
-      this.$emit("progress", fileObject, event);
-    },
-    finishedEvent(fileObject, response) {
-      this.$emit("success", fileObject, response);
-    },
-    failedEvent(fileObject, response) {
-      this.$emit("failed", fileObject, response);
-    },
-    errorEvent(fileObject) {
-      this.$emit("error", fileObject);
-    },
-    beforeSendEvent(xhr, formData) {
-      this.$emit("before:send", xhr, formData);
-    },
+      closeModal();
+    };
+
+    const initEvent = (formData: FormData) => emit("init", formData);
+    const progressEvent = (fileObject, event) =>
+        emit("progress", fileObject, event);
+    const finishedEvent = (fileObject, response) =>
+        emit("success", fileObject, response);
+    const failedEvent = (fileObject, response) =>
+        emit("failed", fileObject, response);
+    const errorEvent = (fileObject) => emit("error", fileObject);
+    const beforeSendEvent = (xhr, formData) =>
+        emit("before:send", xhr, formData);
+
+    return {
+      ...toRefs(state),
+      closeModal,
+      itemClasses,
+      selectImage,
+      chooseImage,
+      initEvent,
+      progressEvent,
+      finishedEvent,
+      failedEvent,
+      errorEvent,
+      beforeSendEvent,
+    };
   },
-})
+});
 </script>
 
 <style lang="scss">

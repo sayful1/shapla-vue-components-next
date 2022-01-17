@@ -4,8 +4,8 @@
       <div v-if="showBurgerIcon" class="shapla-dashboard-header__burger" @click="toggleSideNavigation">
         <shapla-icon :hoverable="true">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-            <path d="M0 0h24v24H0z" fill="none" />
-            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" fill="currentColor" />
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" fill="currentColor"/>
           </svg>
         </shapla-icon>
       </div>
@@ -16,20 +16,20 @@
         </div>
       </slot>
 
-      <slot name="navbar-start" />
+      <slot name="navbar-start"/>
 
-      <div class="shapla-dashboard-header__spacer" />
+      <div class="shapla-dashboard-header__spacer"/>
 
-      <slot name="navbar-end" />
+      <slot name="navbar-end"/>
     </div>
 
     <shapla-sidenav
-      :active="activateSideNav"
-      :nav-width="navWidth"
-      :show-overlay="showOverlay"
-      position="left"
-      :class="sidenavClass"
-      @close="closeSideNavigation"
+        :active="activateSideNav"
+        :nav-width="navWidth"
+        :show-overlay="showOverlay"
+        position="left"
+        :class="sidenavClass"
+        @close="closeSideNavigation"
     >
       <div v-if="showSidenavProfile" class="shapla-dashboard-sidenav-profile" :class="sidenavProfileClass">
         <div v-if="avatarUrl" class="shapla-dashboard-sidenav-profile__avatar">
@@ -42,13 +42,13 @@
       </div>
 
       <div class="shapla-dashboard-sidenav-menu" :style="sidenavMenuStyle">
-        <slot name="sidenav-menu" />
+        <slot name="sidenav-menu"/>
       </div>
     </shapla-sidenav>
 
     <div class="shapla-dashboard-content">
       <div class="shapla-dashboard-content__inner">
-        <slot />
+        <slot/>
       </div>
     </div>
   </div>
@@ -82,7 +82,7 @@ export default defineComponent({
     showSidenavProfile: {type: Boolean, default: true},
     showOverlay: {type: Boolean, default: true},
     navWidth: {type: String, default: "300px"},
-    sidenavClass: {type:[String,Array,Object],default:''}
+    sidenavClass: {type: [String, Array, Object], default: ''}
   },
   emits: ["open:sidenav", "close:sidenav"],
   setup(props, {emit}) {
@@ -94,7 +94,7 @@ export default defineComponent({
     const headerClasses = computed(() => [`theme-${props.headerTheme}`]);
     const sidenavProfileClass = computed(() => [`theme-${props.headerTheme}`]);
     const dashboardStyles = computed(() => {
-      let styles = {};
+      let styles: { [key: string]: string } = {};
       styles["--shapla-dashboard-header-height"] = props.headerHeight;
       styles["--shapla-dashboard-sidenav-width"] = props.navWidth;
       return styles;
@@ -118,7 +118,7 @@ export default defineComponent({
     });
 
     onMounted(() => {
-      document.querySelector("body").classList.add("has-shapla-dashboard");
+      document.querySelector("body")?.classList.add("has-shapla-dashboard");
     });
 
     return {
