@@ -3,25 +3,23 @@
     <div :class="tabClasses">
       <ul class="shapla-tabs__nav">
         <li
-          v-for="(tab, index) in tabs"
-          :key="index"
-          class="shapla-tabs__nav-item"
-          :class="navItemClass(tab, index)"
+            v-for="(tab, index) in tabs"
+            :key="index"
+            class="shapla-tabs__nav-item"
+            :class="navItemClass(tab, index)"
         >
-          <a @click.prevent="selectTab(tab, index)" v-html="tab.props.name" />
+          <a :href="tab.props.navTo" @click="selectTab(tab, index, $event)" v-html="tab.props.name"/>
         </li>
       </ul>
     </div>
-    <slot />
+    <slot/>
   </div>
 </template>
 
 <script lang="ts">
-import {provide, reactive, toRefs, onBeforeMount, computed, defineComponent} from "vue";
+import {provide, reactive, toRefs, onBeforeMount, computed, defineComponent, VNode} from "vue";
+import {TabsDataInterface, TabVNodeTypeInterface} from "./interfaces";
 
-interface TabVNodeTypeInterface {
-  name: string
-}
 
 export default defineComponent({
   name: "ShaplaTabs",
@@ -43,7 +41,7 @@ export default defineComponent({
   },
   emits: ["change:tab"],
   setup(props, {emit, slots}) {
-    const state = reactive({
+    const state = reactive<TabsDataInterface>({
       tabs: [],
       selectedIndex: 0,
       count: 0,
@@ -51,17 +49,20 @@ export default defineComponent({
 
     provide("ShaplaTabsProvider", state);
 
-    const selectTab = (tab, index) => {
+    const selectTab = (tab: VNode, index: number, event: Event) => {
+      if (!tab.props?.navTo) {
+        event.preventDefault();
+      }
       state.selectedIndex = index;
       emit("change:tab", tab, index);
     };
 
-    const navItemClass = (tab, index) => {
+    const navItemClass = (tab: VNode, index: number) => {
       let classes = [];
       if (index === state.selectedIndex) {
         classes.push("is-active");
       }
-      if (tab.props.navItemClass) {
+      if (tab.props?.navItemClass) {
         classes.push(tab.props.navItemClass);
       }
       return classes;

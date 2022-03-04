@@ -1,17 +1,12 @@
 <template>
   <div class="shapla-tabs__panel" :class="{'is-active':isActive}">
-    <slot :active="isActive" />
+    <slot :active="isActive"/>
   </div>
 </template>
 
 <script lang="ts">
 import {onBeforeMount, onMounted, watch, inject, defineComponent, reactive, toRefs} from "vue";
-
-interface TabsDataInterface {
-  tabs: [],
-  selectedIndex: number,
-  count: number,
-}
+import {TabsDataInterface} from "./interfaces";
 
 export default defineComponent({
   name: "ShaplaTab",
@@ -19,6 +14,7 @@ export default defineComponent({
     name: {type: String, required: true},
     selected: {type: Boolean, required: false, default: false},
     navItemClass: {type: String, required: false, default: ""},
+    navTo: {type: String, required: false, default: ""},
   },
   setup(props) {
     const state = reactive<{ isActive: boolean, index: number, }>({

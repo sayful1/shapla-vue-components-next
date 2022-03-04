@@ -179,6 +179,7 @@ export default {
         rounded: "If set `true`, rounded style will be used.",
         fab: "If set `true`, circle style will be used.",
         shadow: "If set `true`, box-shadow will be added around button.",
+        loading: "If set `true`, loading circle will be visible inside button.",
       };
     });
     return {handleClick, properties, descriptions};

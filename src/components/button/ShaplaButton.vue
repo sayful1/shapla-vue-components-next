@@ -27,6 +27,7 @@ export default defineComponent({
     rounded: {type: Boolean, default: false},
     fab: {type: Boolean, default: false},
     shadow: {type: Boolean, default: false},
+    loading: {type: Boolean, default: false},
     href: {type: String, default: ""},
   },
   setup(props) {
@@ -37,6 +38,7 @@ export default defineComponent({
       if (props.rounded) classes.push("is-rounded");
       if (props.fab) classes.push("is-fab");
       if (props.shadow) classes.push("has-shadow");
+      if (props.loading) classes.push("is-loading");
       if ("default" !== props.theme) classes.push(`is-${props.theme}`);
       if ("normal" !== props.size) classes.push(`is-${props.size}`);
 
