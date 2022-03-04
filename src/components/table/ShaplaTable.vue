@@ -77,6 +77,7 @@
 
 <script lang="ts">
 import {computed, ref, onMounted, defineComponent, PropType} from "vue";
+import {TableActionDataInterface, TableColumnDataInterface, ItemInterface} from "./TableInterfaces";
 import ShaplaCheckbox from "../checkbox/ShaplaCheckbox.vue";
 import HeaderCell from "./components/HeaderCell.vue";
 import BodyCell from "./components/BodyCell.vue";
@@ -86,7 +87,6 @@ import BodyRowNoItem from "./components/BodyRowNoItem.vue";
 import TableHeader from "./components/TableHeader.vue";
 import TableBody from "./components/TableBody.vue";
 import BodyRow from "./components/BodyRow.vue";
-import {TableActionDataInterface, TableColumnDataInterface, ItemInterface} from "./TableInterfaces";
 
 export default defineComponent({
   name: "ShaplaTable",
@@ -171,9 +171,9 @@ export default defineComponent({
     const selectItem = (item: ItemInterface) => {
       let value = item[props.index] !== undefined ? item[props.index] : item.id,
           selectedItems = props.selectedItems,
-          index = selectedItems.indexOf(value);
+          index = selectedItems.indexOf(value as number);
       if (-1 === index) {
-        selectedItems.push(value);
+        selectedItems.push(value as number);
       } else {
         selectedItems.splice(index, 1);
       }
@@ -188,7 +188,7 @@ export default defineComponent({
           props.items.length &&
           props.selectedItems.length !== props.items.length
       ) {
-        props.items.forEach((item) => selected.push(item[props.index]));
+        props.items.forEach((item) => selected.push(item[props.index] as number));
       }
       emitItemsSelect(selected);
     };

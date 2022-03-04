@@ -38,6 +38,7 @@ export default {
     },
     item: {type: Object, required: true},
   },
+  emits: ['click'],
   data() {
     return {
       localItem: {}

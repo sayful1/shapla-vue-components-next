@@ -11,7 +11,7 @@ interface TableColumnDataInterface {
 }
 
 interface ItemInterface {
-  [key: string]: any;
+  [key: string]: (string | number | boolean | unknown);
 }
 
 export {TableActionDataInterface, TableColumnDataInterface, ItemInterface}

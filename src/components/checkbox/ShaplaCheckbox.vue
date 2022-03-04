@@ -65,9 +65,9 @@ export default defineComponent({
       let isChecked = (event.target as HTMLInputElement).checked;
 
       if (props.modelValue instanceof Array) {
-        const newValue: Array<any> = [];
+        const newValue: Array<string | number | boolean> = [];
         props.modelValue.forEach((el) => {
-          newValue.push(el)
+          newValue.push(el as string | number | boolean)
         });
 
         if (isChecked) {

@@ -77,7 +77,7 @@ export default defineComponent({
       toggleTitleColor: "default",
     });
 
-    const parentId = ref<string | null>(null);
+    const parentId = ref<string>('');
     const toggleId = createUUID();
     const toggles = inject<TogglesPropsInterface>("ShaplaTogglesProvider");
 
@@ -118,10 +118,10 @@ export default defineComponent({
     onMounted(() => {
       if (toggles) {
         parentId.value = toggles.uuid;
-        state.toggleIconPosition = toggles.iconPosition || props.iconPosition;
-        state.toggleBoxedMode = toggles.boxedMode || props.boxedMode;
-        state.toggleShowDivider = toggles.showDivider || props.showDivider;
-        state.toggleTitleColor = toggles.titleColor || props.titleColor;
+        state.toggleIconPosition = (toggles.iconPosition || props.iconPosition) as string;
+        state.toggleBoxedMode = (toggles.boxedMode || props.boxedMode) as boolean;
+        state.toggleShowDivider = (toggles.showDivider || props.showDivider) as boolean;
+        state.toggleTitleColor = (toggles.titleColor || props.titleColor) as string;
       }
 
       state.isSelected = props.selected;
@@ -129,12 +129,12 @@ export default defineComponent({
         state.isOverflowVisible = props.selected;
       }
 
-      ToggleEvent.on("change:ShaplaToggle", (element) => {
+      ToggleEvent.on("change:ShaplaToggle", (element: { parent: string, item: string }) => {
         if (
             toggleId !== element.item &&
             element.parent === parentId.value &&
             state.isSelected &&
-            toggles.accordion
+            toggles?.accordion
         ) {
           state.isSelected = false;
           state.isOverflowVisible = false;
