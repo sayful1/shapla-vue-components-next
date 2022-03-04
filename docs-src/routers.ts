@@ -27,6 +27,7 @@ import ExampleTable from "./pages/ExampleTable.vue";
 import ExampleTabs from "./pages/ExampleTabs.vue";
 import ExampleToggles from "./pages/ExampleToggles.vue";
 import ExampleSlider from "./pages/ExampleSlider.vue";
+import ExampleStepper from "./pages/ExampleStepper.vue";
 
 const routes = [
   { path: "/", name: "Home", component: Home },
@@ -73,6 +74,7 @@ const routes = [
   { path: "/table", name: "Data Table", component: ExampleTable },
   { path: "/tabs", name: "Tabs", component: ExampleTabs },
   { path: "/toggles", name: "Toggles", component: ExampleToggles },
+  { path: "/stepper", name: "Stepper", component: ExampleStepper },
 ];
 
 const router = createRouter({
