@@ -1,48 +1,54 @@
 <template>
-  <div
-    class="shapla-steppers"
-    :class="wrapperClasses"
-  >
-    <div class="shapla-steppers__items">
-      <stepper-item
-        v-for="step in steps"
-        :key="step.key"
-        :item="step"
-        :layout="layout"
-      />
-    </div>
+  <div class="shapla-stepper" :class="containerClasses">
+    <slot/>
   </div>
 </template>
 
-<script>
-import StepperItem from "./components/StepperItem.vue";
+<script lang="ts">
+import {computed, defineComponent, provide} from "vue";
 
-export default {
+export default defineComponent({
   name: "ShaplaStepper",
-  components: {StepperItem},
   props: {
-    steps: {type: Array, required: true},
-    layout: {
-      type: String, default: 'outline',
-      validator: value => ['outline', 'square', 'arrow', 'progress-bar'].indexOf(value) !== -1
+    type: {
+      type: String, default: 'horizontal',
+      validator: (value: string) => ["horizontal", "vertical"].indexOf(value) !== -1
     },
-    orientation: {
-      type: String,
-      default: 'horizontal',
-      validator: value => ['horizontal'].indexOf(value) !== -1
+    labelPlacement: {
+      type: String, default: 'default',
+      validator: (value: string) => ["default", "alternative"].indexOf(value) !== -1
     },
   },
-  computed: {
-    wrapperClasses() {
-      return [
-        `is-layout-${this.layout}`,
-        `is-orientation-${this.orientation}`,
-      ];
-    }
+  setup(props) {
+
+    provide("ShaplaStepperProvider", {
+      props: props,
+      count: 0
+    });
+
+    const containerClasses = computed(() => {
+      let classes = [`is-${props.type}`];
+      if (props.type === 'horizontal') {
+        classes.push(`has-lp-${props.labelPlacement}`)
+      }
+      return classes;
+    })
+    return {containerClasses}
   }
-}
+})
 </script>
 
 <style lang="scss">
-@import "styles/steppers";
+.shapla-stepper {
+  display: flex;
+  width: 100%;
+
+  &.is-horizontal {
+    justify-content: space-between;
+  }
+
+  &.is-vertical {
+    flex-direction: column;
+  }
+}
 </style>
