@@ -49,7 +49,7 @@
     "vue": "^3.0"
   },
   "dependencies": {
-    "shapla-css": "^2.5"
+    "shapla-css": "^2.6"
   },
   "devDependencies": {
     "@babel/core": "^7.16.5",
@@ -64,7 +64,7 @@
     "@vue/test-utils": "^2.0.0-rc.18",
     "@vue/vue3-jest": "^27.0.0-alpha.4",
     "babel-jest": "^27.4.5",
-    "esbuild": "^0.14.14",
+    "esbuild": "^0.14.54",
     "eslint": "^8.5.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-jest": "^25.3.0",

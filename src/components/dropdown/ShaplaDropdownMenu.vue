@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts">
-import {reactive, toRefs, onMounted, watch, ref, computed, defineComponent} from "vue";
+import {reactive, toRefs, onMounted, watch, ref, computed, defineComponent, StyleValue} from "vue";
 
 export default defineComponent({
   name: "ShaplaDropdownMenu",
@@ -48,7 +48,7 @@ export default defineComponent({
         styles.push({"--max-menu-items": props.maxItems});
       }
       return styles;
-    });
+    }) as StyleValue;
 
     const calculateDirection = () => {
       let el = root.value,

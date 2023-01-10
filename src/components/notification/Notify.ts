@@ -1,9 +1,9 @@
 interface NotificationDataArgsInterface {
-  id: string;
-  type: string;
   message: string;
+  id?: string;
+  type?: string;
   title?: string;
-  timeout: number;
+  timeout?: number;
 }
 
 class Notify {
@@ -89,7 +89,7 @@ class Notify {
    *
    * @param {object} params
    */
-  static create(params: NotificationDataArgsInterface) {
+  private static create(params: NotificationDataArgsInterface) {
     Notify.dispatch(params);
   }
 

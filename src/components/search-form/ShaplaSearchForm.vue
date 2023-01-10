@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, onMounted, ref} from "vue";
+import {computed, defineComponent, onMounted, ref, StyleValue} from "vue";
 
 export default defineComponent({
   name: "ShaplaSearchForm",
@@ -48,7 +48,7 @@ export default defineComponent({
         styles.push({"--base-font-size": props.fontSize});
       }
       return styles;
-    })
+    }) as StyleValue;
 
     const input = (event: InputEvent | Event) => {
       let value = (event.target as HTMLInputElement).value
