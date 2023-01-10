@@ -131,7 +131,7 @@ export default defineComponent({
 
     const filteredOptions = computed(() => {
       if (props.options.length < 1) return [];
-      let newOptions = [];
+      const newOptions = [];
       props.options.forEach((option) => {
         if (typeof option == "string") {
           newOptions.push({label: option, value: option});
@@ -200,7 +200,7 @@ export default defineComponent({
         () => props.modelValue,
         (newValue) => {
           if (Array.isArray(newValue) && props.multiple) {
-            let _values = newValue.map((_item) => _item.toString());
+            const _values = newValue.map((_item) => _item.toString());
             state.selectedOptions = filteredOptions.value.filter(
                 (option) => _values.indexOf(option["value"]) !== -1
             );
@@ -218,7 +218,7 @@ export default defineComponent({
         }
       });
       if (props.multiple && Array.isArray(props.modelValue)) {
-        let _values = props.modelValue.map((_item) => _item.toString());
+        const _values = props.modelValue.map((_item) => _item.toString());
         state.selectedOptions = filteredOptions.value.filter(
             (option) => _values.indexOf(option["value"]) !== -1
         );
@@ -239,7 +239,7 @@ export default defineComponent({
     };
 
     const dropdownItemClasses = (option) => {
-      let classes = [];
+      const classes = [];
       if (isItemSelected(option)) classes.push("is-active");
       if (
           hasSelectedOption.value &&
@@ -262,7 +262,7 @@ export default defineComponent({
       if (props.multiple) {
         if (!state.selectedOptions.find((word) => word.value == option.value)) {
           state.selectedOptions.push(option);
-          let values = state.selectedOptions.map((_option) => _option.value);
+          const values = state.selectedOptions.map((_option) => _option.value);
           emitEvent(values);
         }
       } else {
@@ -289,7 +289,7 @@ export default defineComponent({
     };
 
     const scrollIfNeeded = (direction) => {
-      let dropdownContent = element.value.querySelector(
+      const dropdownContent = element.value.querySelector(
               ".shapla-dropdown-menu__content"
           ),
           hoverEl = dropdownContent.querySelector(
@@ -314,7 +314,7 @@ export default defineComponent({
     const handleKeydownEvent = (event) => {
       // Go Up
       if (38 === event.keyCode) {
-        let indexOfSelectedOption = filteredOptions.value.indexOf(
+        const indexOfSelectedOption = filteredOptions.value.indexOf(
                 state.selectedOption
             ),
             preIndex = indexOfSelectedOption - 1;
@@ -326,7 +326,7 @@ export default defineComponent({
       }
       // Go Down
       if (40 === event.keyCode) {
-        let indexOfSelectedOption = filteredOptions.value.indexOf(
+        const indexOfSelectedOption = filteredOptions.value.indexOf(
                 state.selectedOption
             ),
             nextIndex = indexOfSelectedOption + 1;

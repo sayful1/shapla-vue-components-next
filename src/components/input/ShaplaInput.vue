@@ -169,7 +169,7 @@ export default defineComponent({
         () => !!(slots["icon-right"] || props.hasSuccess || props.hasError)
     );
     const containerClasses = computed(() => {
-      let classes = [];
+      const classes = [];
       if (hasNoLabel.value) classes.push("has-no-label");
       if (props.size !== "default") classes.push(`is-${props.size}`);
       if ("ltr" !== direction.value)
@@ -177,7 +177,7 @@ export default defineComponent({
       return classes;
     });
     const inputClasses = computed(() => {
-      let classes = [];
+      const classes = [];
       if (props.hasSuccess) classes.push("is-valid");
       if (props.hasError) classes.push("is-invalid");
       if (hasValue.value) classes.push("has-value");

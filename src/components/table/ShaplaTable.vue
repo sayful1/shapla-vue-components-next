@@ -169,7 +169,7 @@ export default defineComponent({
     });
 
     const selectItem = (item: ItemInterface) => {
-      let value = item[props.index] !== undefined ? item[props.index] : item.id,
+      const value = item[props.index] !== undefined ? item[props.index] : item.id,
           selectedItems = props.selectedItems,
           index = selectedItems.indexOf(value as number);
       if (-1 === index) {
@@ -182,7 +182,7 @@ export default defineComponent({
     };
 
     const selectAllItems = () => {
-      let selected: number[] = [];
+      const selected: number[] = [];
 
       if (
           props.items.length &&
@@ -194,7 +194,7 @@ export default defineComponent({
     };
 
     const toggleRow = (event: Event) => {
-      let el = event.target as HTMLElement,
+      const el = event.target as HTMLElement,
           tr = el.closest("tr"),
           table = el.closest("table");
       table?.querySelectorAll("tr").forEach((element: HTMLTableRowElement) => {
@@ -207,7 +207,7 @@ export default defineComponent({
     };
 
     const toggleExpandRow = (event: Event) => {
-      let el = event.target as HTMLElement,
+      const el = event.target as HTMLElement,
           tr = el.closest("tr"),
           nextTr = tr?.nextElementSibling as HTMLElement,
           up = tr?.querySelector(".expand-triangle-up") as HTMLElement,

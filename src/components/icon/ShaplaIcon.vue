@@ -16,7 +16,7 @@ export default defineComponent({
   },
   setup(props) {
     const classes = computed(() => {
-      let classes = ["shapla-icon"];
+      const classes = ["shapla-icon"];
       if (props.hoverable) classes.push("is-hoverable");
       if (props.size) classes.push("is-" + props.size);
 

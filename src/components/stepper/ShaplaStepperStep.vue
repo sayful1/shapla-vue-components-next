@@ -61,7 +61,7 @@ export default defineComponent({
     })
 
     const contentStyle = computed(() => {
-      let styles = [];
+      const styles = [];
       if (props.active) {
         styles.push({height: 'auto'});
       } else {

@@ -35,7 +35,7 @@ export default defineComponent({
   },
   setup(props) {
     const classes = computed(() => {
-      let classes = ["shapla-progress"];
+      const classes = ["shapla-progress"];
       if ("default" !== props.size) {
         classes.push(`is-${props.size}`);
       }
@@ -48,7 +48,7 @@ export default defineComponent({
       return classes;
     })
     const barClasses = computed(() => {
-      let classes = ["shapla-progress-bar"];
+      const classes = ["shapla-progress-bar"];
       if ("default" !== props.theme) {
         classes.push(`is-${props.theme}`);
       }
@@ -64,7 +64,7 @@ export default defineComponent({
 
     const barStyle = computed(() => {
       if (props.value) {
-        let width = Math.round((props.value / props.max) * 100);
+        const width = Math.round((props.value / props.max) * 100);
         return {width: `${width}%`};
       }
       return {};

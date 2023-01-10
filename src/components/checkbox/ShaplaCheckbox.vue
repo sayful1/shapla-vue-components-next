@@ -53,7 +53,7 @@ export default defineComponent({
     });
 
     const labelClasses = computed(() => {
-      let classes = [];
+      const classes = [];
       if (shouldBeChecked.value) classes.push("is-checked");
       if (state.isFocus) classes.push("is-focused");
       if (state.isHovered) classes.push("is-hovered");
@@ -62,7 +62,7 @@ export default defineComponent({
     });
 
     const updateInput = (event: InputEvent) => {
-      let isChecked = (event.target as HTMLInputElement).checked;
+      const isChecked = (event.target as HTMLInputElement).checked;
 
       if (props.modelValue instanceof Array) {
         const newValue: Array<string | number | boolean> = [];

@@ -58,7 +58,7 @@ export default defineComponent({
     };
 
     const navItemClass = (tab: VNode, index: number) => {
-      let classes = [];
+      const classes = [];
       if (index === state.selectedIndex) {
         classes.push("is-active");
       }
@@ -69,13 +69,13 @@ export default defineComponent({
     };
 
     const tabsClasses = computed(() => {
-      let classes = ["shapla-tabs"];
+      const classes = ["shapla-tabs"];
       if (props.vertical) classes.push("shapla-tabs--vertical");
       return classes;
     });
 
     const tabClasses = computed(() => {
-      let classes = ["shapla-tabs__tab", `is-${props.size}`];
+      const classes = ["shapla-tabs__tab", `is-${props.size}`];
       if (props.fullwidth) classes.push("is-fullwidth");
       if (props.alignment === "center") classes.push("is-centered");
       if (props.alignment === "right") classes.push("is-right");

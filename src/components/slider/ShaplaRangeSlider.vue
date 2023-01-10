@@ -63,7 +63,7 @@ export default defineComponent({
   setup(props, {emit}) {
     const emitEvent = (value: number) => emit("update:modelValue", value);
     const formatNumber = (value: string | number) => {
-      let number = typeof value !== "number" ? Number.parseFloat(value) : value;
+      const number = typeof value !== "number" ? Number.parseFloat(value) : value;
       return Number.isNaN(number) ? 0 : number;
     };
 

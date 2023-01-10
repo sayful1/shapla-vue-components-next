@@ -106,7 +106,7 @@ export default defineComponent({
     };
 
     const itemClasses = (image: ImageDataInterface) => {
-      let classes = ["shapla-media-modal__item"];
+      const classes = ["shapla-media-modal__item"];
 
       if (state.selectedImages.length) {
         state.selectedImages.forEach((_image) => {

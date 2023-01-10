@@ -52,7 +52,7 @@ export default defineComponent({
     const isSortedDesc = computed(() => props.sortOrder === "desc");
 
     const getHeadCellClass = computed(() => {
-      let classes = ["shapla-data-table__header-cell"];
+      const classes = ["shapla-data-table__header-cell"];
       if (props.column && props.column.key)
         classes.push(`shapla-data-table__header-cell-${props.column.key}`);
       if (props.isPrimary) classes.push("column-primary");

@@ -94,14 +94,14 @@ export default defineComponent({
     const headerClasses = computed(() => [`theme-${props.headerTheme}`]);
     const sidenavProfileClass = computed(() => [`theme-${props.headerTheme}`]);
     const dashboardStyles = computed(() => {
-      let styles: { [key: string]: string } = {};
+      const styles: { [key: string]: string } = {};
       styles["--shapla-dashboard-header-height"] = props.headerHeight;
       styles["--shapla-dashboard-sidenav-width"] = props.navWidth;
       return styles;
     });
 
     const dashboardClasses = computed(() => {
-      let classes = [];
+      const classes = [];
       classes.push(`sidenav-type--${props.sideNavType}`);
       if (props.activateSideNav) {
         classes.push("is-sidenav-active");
@@ -110,7 +110,7 @@ export default defineComponent({
     });
 
     const sidenavMenuStyle = computed(() => {
-      let styles = [];
+      const styles = [];
       if (!props.showSidenavProfile) {
         styles.push({"--shapla-dashboard-header-height": "0"});
       }

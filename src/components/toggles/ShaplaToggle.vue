@@ -82,7 +82,7 @@ export default defineComponent({
     const toggles = inject<TogglesPropsInterface>("ShaplaTogglesProvider");
 
     const panelClass = computed(() => {
-      let classes = ["shapla-toggle-panel--default"];
+      const classes = ["shapla-toggle-panel--default"];
       if (!state.toggleShowDivider && !state.toggleBoxedMode)
         classes.push("shapla-toggle-panel--no-divider");
       if (state.toggleBoxedMode)
@@ -92,7 +92,7 @@ export default defineComponent({
     });
 
     const headingClasses = computed(() => {
-      let classes = [];
+      const classes = [];
       if (state.toggleIconPosition !== "left")
         classes.push(`has-icon-${state.toggleIconPosition}`);
       if (state.toggleTitleColor !== "default")

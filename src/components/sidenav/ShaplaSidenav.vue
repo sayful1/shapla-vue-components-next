@@ -30,7 +30,7 @@ export default defineComponent({
     const bodyWidth = ref("300px");
     const closeNav = () => emit("close");
     const navClasses = computed(() => {
-      let classes = [`shapla-sidenav--${props.position}`];
+      const classes = [`shapla-sidenav--${props.position}`];
       if (props.active) classes.push("is-active");
       return classes;
     });

@@ -98,7 +98,7 @@ export default defineComponent({
     const leave = () => (state.isDraggedOver = false);
 
     const generateFileObject = (file: File) => {
-      let fileObjectIndex =
+      const fileObjectIndex =
           state.files.push({
             id: Date.now() + Math.floor(Math.random() * 100).toString(),
             file: file,
@@ -117,10 +117,10 @@ export default defineComponent({
     };
 
     const upload = (fileObject: FileObjectInterfaces) => {
-      let formData = new FormData();
+      const formData = new FormData();
       formData.append(props.paramName, fileObject.file);
 
-      let xhr = new XMLHttpRequest();
+      const xhr = new XMLHttpRequest();
 
       emit("init", formData);
 
@@ -144,7 +144,7 @@ export default defineComponent({
 
       // Define what happens on successful data submission
       xhr.addEventListener("load", () => {
-        let contentType = xhr.getResponseHeader("Content-Type"),
+        const contentType = xhr.getResponseHeader("Content-Type"),
             isJsonResponse =
                 contentType && contentType.indexOf("application/json") !== -1,
             response = isJsonResponse
@@ -167,12 +167,12 @@ export default defineComponent({
 
       xhr.open(props.method, props.url);
 
-      let hasParams =
+      const hasParams =
           props.params &&
           typeof props.params === "object" &&
           Object.keys(props.params).length;
       if (hasParams) {
-        for (let [key, value] of Object.entries(props.params)) {
+        for (const [key, value] of Object.entries(props.params)) {
           formData.append(key, value);
         }
       }
@@ -184,7 +184,7 @@ export default defineComponent({
 
     const addFiles = (files: FileList) => {
       for (let i = 0; i < files.length; i++) {
-        let file = files[i] as File;
+        const file = files[i] as File;
 
         upload(generateFileObject(file));
       }

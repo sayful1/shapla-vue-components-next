@@ -45,7 +45,7 @@ export default defineComponent({
     });
 
     const switchClasses = computed(() => {
-      let classes = [];
+      const classes = [];
       if (shouldBeChecked.value) classes.push("is-checked");
       if (props.disabled) classes.push("is-disabled");
       if (state.isFocus) classes.push("is-focused");
@@ -54,10 +54,10 @@ export default defineComponent({
     });
 
     const getValue = (event: Event) => {
-      let isChecked = (event.target as HTMLInputElement).checked;
+      const isChecked = (event.target as HTMLInputElement).checked;
 
       if (props.modelValue instanceof Array) {
-        let newValue = [...props.modelValue];
+        const newValue = [...props.modelValue];
 
         if (isChecked) {
           newValue.push(props.value);

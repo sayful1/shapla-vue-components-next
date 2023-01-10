@@ -18,14 +18,14 @@ export default defineComponent({
   },
   setup(props) {
     const classes = computed(() => {
-      let _class = ["shapla-image-container"];
+      const _class = ["shapla-image-container"];
       if (!props.containerWidth) _class.push("is-fullwidth");
       if (props.isRounded) _class.push("is-rounded");
       return _class;
     });
 
     const containerStyles = computed(() => {
-      let styles = [];
+      const styles = [];
 
       if (props.containerWidth) {
         styles.push({width: props.containerWidth});

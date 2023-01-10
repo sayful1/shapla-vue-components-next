@@ -28,5 +28,12 @@ module.exports = {
       "warn",
       { singleline: "beside", multiline: "below" },
     ],
+    "prefer-const": [
+      "warn",
+      {
+        "destructuring": "any",
+        "ignoreReadBeforeAssign": false
+      }
+    ],
   },
 };

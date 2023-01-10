@@ -14,8 +14,8 @@
   </div>
 </template>
 
-<script>
-import pad from "./helpers/pad.ts";
+<script lang="ts">
+import pad from "./helpers/pad";
 import { computed, defineComponent } from "vue";
 
 export default defineComponent({
@@ -60,7 +60,7 @@ export default defineComponent({
     });
 
     const timeRemaining = computed(() => {
-      let minutes = Math.floor(secondsRemaining.value / 60),
+      const minutes = Math.floor(secondsRemaining.value / 60),
         seconds = secondsRemaining.value - minutes * 60;
 
       return pad.left("00", minutes) + ":" + pad.left("00", seconds);

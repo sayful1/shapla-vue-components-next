@@ -20,7 +20,7 @@ export default defineComponent({
   },
   setup(props) {
     const styles = computed(() => {
-      let styles: { [key: string]: string } = {};
+      const styles: { [key: string]: string } = {};
       if (props.columnGap) {
         styles["--shapla-column-gap"] = props.columnGap;
       }

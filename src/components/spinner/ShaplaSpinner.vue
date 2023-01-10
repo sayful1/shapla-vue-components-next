@@ -59,13 +59,13 @@ export default defineComponent({
     };
 
     const containerClass = computed(() => {
-      let classes = ["shapla-spinner-container"];
+      const classes = ["shapla-spinner-container"];
       classes.push(`is-${props.position}`);
       return classes;
     });
 
     const getClass = computed(() => {
-      let classes = [];
+      const classes = [];
       classes.push(`is-${props.size}`);
       if (props.single) classes.push("shapla-spinner-container");
       return classes;

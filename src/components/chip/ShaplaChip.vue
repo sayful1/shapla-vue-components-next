@@ -25,7 +25,7 @@ export default defineComponent({
     const deleteChip = () => emit("delete");
 
     const chipClasses = computed(() => {
-      let classes = [];
+      const classes = [];
       if (props.deletable) {
         classes.push("shapla-chip--deletable");
       }
@@ -37,7 +37,7 @@ export default defineComponent({
     });
 
     const chipStyle = computed(() => {
-      let style: { [key: string]: string } = {};
+      const style: { [key: string]: string } = {};
       if (props.small) {
         style["--shapla-chip-height"] = "24px";
       }

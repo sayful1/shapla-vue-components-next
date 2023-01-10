@@ -46,7 +46,7 @@ export default defineComponent({
     });
 
     const getClasses = computed(() => {
-      let classes = [];
+      const classes = [];
       if (shouldBeChecked.value) classes.push("is-checked");
       if (state.isFocus) classes.push("is-focused");
       if (state.isHovered) classes.push("is-hovered");

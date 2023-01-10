@@ -34,7 +34,7 @@ export default defineComponent({
     const root = ref<null | HTMLElement>(null);
     const state = reactive<{ autoClass: string, isActive: boolean }>({autoClass: "", isActive: false});
     const containerClass = computed(() => {
-      let classes = [];
+      const classes = [];
       if (state.isActive) classes.push("is-active");
       if (state.autoClass) classes.push(state.autoClass);
       if (props.right) classes.push("is-right");
@@ -43,7 +43,7 @@ export default defineComponent({
       return classes;
     });
     const containerStyle = computed(() => {
-      let styles = [];
+      const styles = [];
       if (props.maxItems) {
         styles.push({"--max-menu-items": props.maxItems});
       }
@@ -51,7 +51,7 @@ export default defineComponent({
     }) as StyleValue;
 
     const calculateDirection = () => {
-      let el = root.value,
+      const el = root.value,
           browserHeight =
               window.innerHeight ||
               document.documentElement.clientHeight ||

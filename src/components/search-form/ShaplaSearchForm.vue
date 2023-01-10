@@ -43,7 +43,7 @@ export default defineComponent({
     const searchValue = ref("")
 
     const getStyle = computed(() => {
-      let styles = [];
+      const styles = [];
       if (props.fontSize) {
         styles.push({"--base-font-size": props.fontSize});
       }
@@ -51,7 +51,7 @@ export default defineComponent({
     }) as StyleValue;
 
     const input = (event: InputEvent | Event) => {
-      let value = (event.target as HTMLInputElement).value
+      const value = (event.target as HTMLInputElement).value
       emit("input", value);
       searchValue.value = value;
     }

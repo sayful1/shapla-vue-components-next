@@ -56,7 +56,7 @@ export default defineComponent({
   emits: ["close"],
   setup(props, {emit}) {
     const modalClasses = computed(() => {
-      let classes = ["shapla-modal"];
+      const classes = ["shapla-modal"];
       if (props.active) classes.push("is-active");
       return classes;
     });
@@ -66,7 +66,7 @@ export default defineComponent({
     });
 
     const contentClasses = computed(() => {
-      let classes = ["shapla-modal-content", `is-${props.contentSize}`];
+      const classes = ["shapla-modal-content", `is-${props.contentSize}`];
       if (props.type === "card") classes.push("shapla-modal-card");
       if (props.type === "box") classes.push("shapla-modal-box");
       if (props.type === "confirm") classes.push("shapla-modal-confirm");

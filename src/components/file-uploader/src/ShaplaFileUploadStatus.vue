@@ -78,14 +78,14 @@ export default defineComponent({
       () => !props.file.finished && !props.file.cancelled && !isProcessing.value
     );
     const fillClass = computed(() => {
-      let classes = ["shapla-file-uploader-file__progress-line"];
+      const classes = ["shapla-file-uploader-file__progress-line"];
       if (props.file.finished) classes.push("is-finished");
       if (props.file.failed || props.file.cancelled) classes.push("is-failed");
       return classes;
     });
 
     const timeRemaining = computed(() => {
-      let minutes = Math.floor(props.file.secondsRemaining / 60),
+      const minutes = Math.floor(props.file.secondsRemaining / 60),
         seconds = props.file.secondsRemaining - minutes * 60;
 
       return pad.left("00", minutes) + ":" + pad.left("00", seconds);

@@ -32,7 +32,7 @@ export default defineComponent({
   },
   setup(props) {
     const btnClasses = computed(() => {
-      let classes = ["shapla-button"];
+      const classes = ["shapla-button"];
       if (props.fullwidth) classes.push("is-fullwidth");
       if (props.outline) classes.push("is-outline");
       if (props.rounded) classes.push("is-rounded");

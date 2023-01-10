@@ -18,7 +18,7 @@ export default defineComponent({
   },
   setup(props) {
     const classes = computed(() => {
-      let cssClass = ["shapla-column"];
+      const cssClass = ["shapla-column"];
       if (props.mobile) cssClass.push(`is-${props.mobile}-mobile`);
       if (props.tablet) cssClass.push(`is-${props.tablet}-tablet`);
       if (props.desktop) cssClass.push(`is-${props.desktop}-desktop`);

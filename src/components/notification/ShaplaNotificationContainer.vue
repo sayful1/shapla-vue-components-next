@@ -41,10 +41,10 @@ export default defineComponent({
     },
   },
   setup(props) {
-    let items = ref<NotificationDataArgsInterface[]>([]);
+    const items = ref<NotificationDataArgsInterface[]>([]);
 
     const containerClasses = computed(() => {
-      let position = props.position.split("-");
+      const position = props.position.split("-");
       return [
         "shapla-notification--" + props.position,
         "is-position-" + position[0],
@@ -56,7 +56,7 @@ export default defineComponent({
       if (!(options && options.message)) {
         return;
       }
-      let position = props.position.split("-");
+      const position = props.position.split("-");
       if (position[0] === "bottom") {
         items.value.push(options);
       } else {
@@ -65,7 +65,7 @@ export default defineComponent({
     };
 
     const removeItemFromQueue = (options: NotificationDataArgsInterface) => {
-      let _items = items.value,
+      const _items = items.value,
           index = _items.findIndex((item) => item.id === options.id);
       if (index > -1) {
         _items.splice(index, 1);

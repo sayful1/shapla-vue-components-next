@@ -27,7 +27,7 @@ export default defineComponent({
     });
 
     const containerClasses = computed(() => {
-      let classes = [`is-${props.type}`];
+      const classes = [`is-${props.type}`];
       if (props.type === 'horizontal') {
         classes.push(`has-lp-${props.labelPlacement}`)
       }
