@@ -1,7 +1,7 @@
 {
   "name": "@shapla/vue-components",
   "description": "A collection of reusable components for Vue 3.",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "contributors": [
     {
       "name": "Sayful Islam",
@@ -25,7 +25,7 @@
   },
   "unpkg": "./dist/components.umd.js",
   "main": "./dist/components.umd.js",
-  "module": "./dist/components.es.js",
+  "module": "./dist/components.mjs",
   "typings": "./dist/index.d.ts",
   "files": [
     "dist/*",
