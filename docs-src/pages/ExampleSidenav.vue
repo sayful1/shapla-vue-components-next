@@ -97,17 +97,17 @@
 </template>
 
 <script>
-import {ShaplaSidenav} from "../../src";
+import { ShaplaSidenav } from "../../src";
 import DocTab from "../components/DocTab.vue";
-import {computed} from "vue";
+import { computed } from "vue";
 
 export default {
   name: "ExampleSidenav",
-  components: {DocTab, "side-navigation": ShaplaSidenav},
+  components: { DocTab, "side-navigation": ShaplaSidenav },
   setup() {
     const properties = computed(() => ShaplaSidenav.props);
-    const descriptions = {}
-    return {properties, descriptions}
+    const descriptions = {};
+    return { properties, descriptions };
   },
   data() {
     return {

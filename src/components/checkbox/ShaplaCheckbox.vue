@@ -1,43 +1,49 @@
 <template>
   <label class="shapla-checkbox" :class="labelClasses">
     <input
-        type="checkbox"
-        class="shapla-checkbox__input"
-        :checked="shouldBeChecked"
-        :value="value"
-        :disabled="disabled"
-        @change="updateInput"
-        @focus="isFocus = true"
-        @blur="isFocus = false"
+      type="checkbox"
+      class="shapla-checkbox__input"
+      :checked="shouldBeChecked"
+      :value="value"
+      :disabled="disabled"
+      @change="updateInput"
+      @focus="isFocus = true"
+      @blur="isFocus = false"
+    />
+    <span class="shapla-checkbox__label"
+      ><slot>{{ label }}</slot></span
     >
-    <span class="shapla-checkbox__label"><slot>{{ label }}</slot></span>
-    <span class="shapla-checkbox__focus-helper"/>
-    <span class="shapla-checkbox__box-outline" @mouseenter="isHovered = true" @mouseleave="isHovered = false">
-      <span class="shapla-checkbox__tick-outline"/>
+    <span class="shapla-checkbox__focus-helper" />
+    <span
+      class="shapla-checkbox__box-outline"
+      @mouseenter="isHovered = true"
+      @mouseleave="isHovered = false"
+    >
+      <span class="shapla-checkbox__tick-outline" />
     </span>
   </label>
 </template>
 
 <script lang="ts">
-import {reactive, computed, toRefs, defineComponent} from "vue";
+import { reactive, computed, toRefs, defineComponent } from "vue";
 
 export default defineComponent({
   name: "ShaplaCheckbox",
-  model: {prop: "modelValue", event: "update:modelValue"},
+  model: { prop: "modelValue", event: "update:modelValue" },
   props: {
-    label: {type: String, default: ""},
-    value: {type: [String, Number, Boolean], default: "on"},
-    modelValue: {type: [String, Number, Boolean, Array], default: false},
-    trueValue: {type: [String, Number, Boolean], default: true},
-    falseValue: {type: [String, Number, Boolean], default: false},
-    disabled: {type: Boolean, default: false},
-    checked: {type: Boolean, default: undefined},
+    label: { type: String, default: "" },
+    value: { type: [String, Number, Boolean], default: "on" },
+    modelValue: { type: [String, Number, Boolean, Array], default: false },
+    trueValue: { type: [String, Number, Boolean], default: true },
+    falseValue: { type: [String, Number, Boolean], default: false },
+    disabled: { type: Boolean, default: false },
+    checked: { type: Boolean, default: undefined },
   },
   emits: ["update:modelValue"],
-  setup(props, {emit}) {
-    const state = reactive<{ isHovered: boolean, isFocus: boolean }>({
+  setup(props, { emit }) {
+    const state = reactive<{ isHovered: boolean; isFocus: boolean }>({
       isHovered: false,
-      isFocus: false
+      isFocus: false,
     });
 
     const shouldBeChecked = computed(() => {
@@ -67,7 +73,7 @@ export default defineComponent({
       if (props.modelValue instanceof Array) {
         const newValue: Array<string | number | boolean> = [];
         props.modelValue.forEach((el) => {
-          newValue.push(el as string | number | boolean)
+          newValue.push(el as string | number | boolean);
         });
 
         if (isChecked) {
@@ -78,7 +84,10 @@ export default defineComponent({
 
         emit("update:modelValue", newValue);
       } else {
-        emit("update:modelValue", isChecked ? props.trueValue : props.falseValue);
+        emit(
+          "update:modelValue",
+          isChecked ? props.trueValue : props.falseValue
+        );
       }
     };
 
@@ -89,7 +98,7 @@ export default defineComponent({
       updateInput,
     };
   },
-})
+});
 </script>
 
 <style lang="scss">

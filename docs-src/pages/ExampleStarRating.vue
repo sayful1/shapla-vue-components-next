@@ -35,17 +35,17 @@
 </template>
 
 <script>
-import {ShaplaStarRating} from "../../src";
+import { ShaplaStarRating } from "../../src";
 import DocTab from "../components/DocTab.vue";
-import {computed} from "vue";
+import { computed } from "vue";
 
 export default {
   name: "ExampleStarRating",
-  components: {DocTab, "star-rating": ShaplaStarRating},
+  components: { DocTab, "star-rating": ShaplaStarRating },
   setup() {
     const properties = computed(() => ShaplaStarRating.props);
-    const descriptions = {}
-    return {properties, descriptions}
+    const descriptions = {};
+    return { properties, descriptions };
   },
   data() {
     return {

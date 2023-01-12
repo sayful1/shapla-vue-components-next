@@ -1,40 +1,42 @@
 <template>
   <label class="shapla-switch" :class="switchClasses">
     <input
-        type="checkbox"
-        class="shapla-switch__input"
-        :checked="shouldBeChecked"
-        :value="value"
-        :disabled="disabled"
-        @change="updateInput"
-        @focus="handleFocusEvent"
-        @blur="handleBlurEvent"
+      type="checkbox"
+      class="shapla-switch__input"
+      :checked="shouldBeChecked"
+      :value="value"
+      :disabled="disabled"
+      @change="updateInput"
+      @focus="handleFocusEvent"
+      @blur="handleBlurEvent"
+    />
+    <span class="shapla-switch__label"
+      ><slot>{{ label }}</slot></span
     >
-    <span class="shapla-switch__label"><slot>{{ label }}</slot></span>
-    <span class="shapla-switch__track"/>
+    <span class="shapla-switch__track" />
     <span class="shapla-switch__thumb">
-      <span class="shapla-switch__focus-helper"/>
+      <span class="shapla-switch__focus-helper" />
     </span>
   </label>
 </template>
 
 <script lang="ts">
-import {computed, reactive, defineComponent} from "vue";
+import { computed, reactive, defineComponent } from "vue";
 
 export default defineComponent({
   name: "ShaplaSwitch",
   props: {
-    modelValue: {type: [Boolean, String, Array], default: false},
-    value: {type: String, default: "on"},
-    trueValue: {type: [Boolean, String], default: true},
-    falseValue: {type: [Boolean, String], default: false},
-    disabled: {type: Boolean, default: false},
-    readonly: {type: Boolean, default: false},
-    label: {type: String, default: ""},
+    modelValue: { type: [Boolean, String, Array], default: false },
+    value: { type: String, default: "on" },
+    trueValue: { type: [Boolean, String], default: true },
+    falseValue: { type: [Boolean, String], default: false },
+    disabled: { type: Boolean, default: false },
+    readonly: { type: Boolean, default: false },
+    label: { type: String, default: "" },
   },
   emits: ["update:modelValue", "focus", "blur"],
-  setup(props, {emit}) {
-    const state = reactive<{ isFocus: boolean }>({isFocus: false});
+  setup(props, { emit }) {
+    const state = reactive<{ isFocus: boolean }>({ isFocus: false });
 
     const shouldBeChecked = computed(() => {
       if (props.modelValue instanceof Array) {
@@ -97,7 +99,7 @@ export default defineComponent({
       handleBlurEvent,
     };
   },
-})
+});
 </script>
 
 <style lang="scss">

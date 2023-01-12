@@ -12,17 +12,17 @@
 </template>
 
 <script>
-import {ShaplaFileUploader} from "../../src";
-import {computed} from "vue";
+import { ShaplaFileUploader } from "../../src";
+import { computed } from "vue";
 import DocTab from "../components/DocTab.vue";
 
 export default {
   name: "ExampleFileUploader",
-  components: {DocTab, "file-uploader": ShaplaFileUploader },
+  components: { DocTab, "file-uploader": ShaplaFileUploader },
   setup() {
     const properties = computed(() => ShaplaFileUploader.props);
-    const descriptions = {}
-    return {properties, descriptions}
+    const descriptions = {};
+    return { properties, descriptions };
   },
 };
 </script>

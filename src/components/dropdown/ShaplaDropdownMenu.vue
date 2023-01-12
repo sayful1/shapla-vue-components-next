@@ -1,38 +1,54 @@
 <template>
   <div
-      ref="root" class="shapla-dropdown-menu" :class="containerClass"
-      :style="containerStyle"
-      :role="role"
+    ref="root"
+    class="shapla-dropdown-menu"
+    :class="containerClass"
+    :style="containerStyle"
+    :role="role"
   >
     <div class="shapla-dropdown-menu__inner">
-      <slot name="before-content" :direction="autoClass"/>
+      <slot name="before-content" :direction="autoClass" />
       <div class="shapla-dropdown-menu__content">
-        <slot/>
+        <slot />
       </div>
-      <slot name="after-content" :direction="autoClass"/>
+      <slot name="after-content" :direction="autoClass" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import {reactive, toRefs, onMounted, watch, ref, computed, defineComponent, StyleValue} from "vue";
+import {
+  reactive,
+  toRefs,
+  onMounted,
+  watch,
+  ref,
+  computed,
+  defineComponent,
+  StyleValue,
+} from "vue";
 
 export default defineComponent({
   name: "ShaplaDropdownMenu",
   props: {
-    active: {type: Boolean, default: false},
-    role: {type: String, default: "menu"},
-    right: {type: Boolean, default: false},
-    up: {type: Boolean, default: false},
-    maxItems: {type: Number, default: null},
+    active: { type: Boolean, default: false },
+    role: { type: String, default: "menu" },
+    right: { type: Boolean, default: false },
+    up: { type: Boolean, default: false },
+    maxItems: { type: Number, default: null },
     direction: {
-      type: String, default: "auto",
-      validator: (value: string) => ["auto", "up", "down"].indexOf(value) !== -1,
+      type: String,
+      default: "auto",
+      validator: (value: string) =>
+        ["auto", "up", "down"].indexOf(value) !== -1,
     },
   },
   setup(props) {
     const root = ref<null | HTMLElement>(null);
-    const state = reactive<{ autoClass: string, isActive: boolean }>({autoClass: "", isActive: false});
+    const state = reactive<{ autoClass: string; isActive: boolean }>({
+      autoClass: "",
+      isActive: false,
+    });
     const containerClass = computed(() => {
       const classes = [];
       if (state.isActive) classes.push("is-active");
@@ -45,23 +61,23 @@ export default defineComponent({
     const containerStyle = computed(() => {
       const styles = [];
       if (props.maxItems) {
-        styles.push({"--max-menu-items": props.maxItems});
+        styles.push({ "--max-menu-items": props.maxItems });
       }
       return styles;
     }) as StyleValue;
 
     const calculateDirection = () => {
       const el = root.value,
-          browserHeight =
-              window.innerHeight ||
-              document.documentElement.clientHeight ||
-              document.body.clientHeight,
-          elParent = el?.parentNode as HTMLElement,
-          rect = elParent.getBoundingClientRect(),
-          win = elParent.ownerDocument.defaultView as Window,
-          elFromTop = rect.top + win.pageYOffset,
-          spaceToBottom = browserHeight - elFromTop,
-          elHeight = el?.scrollHeight;
+        browserHeight =
+          window.innerHeight ||
+          document.documentElement.clientHeight ||
+          document.body.clientHeight,
+        elParent = el?.parentNode as HTMLElement,
+        rect = elParent.getBoundingClientRect(),
+        win = elParent.ownerDocument.defaultView as Window,
+        elFromTop = rect.top + win.pageYOffset,
+        spaceToBottom = browserHeight - elFromTop,
+        elHeight = el?.scrollHeight;
 
       if (elHeight && elHeight + 15 < spaceToBottom) {
         state.autoClass = "is-down";
@@ -71,22 +87,22 @@ export default defineComponent({
     };
 
     watch(
-        () => props.active,
-        (isActive) => {
-          state.isActive = isActive;
-          if (isActive && props.direction === "auto" && !props.up) {
-            calculateDirection();
-          }
+      () => props.active,
+      (isActive) => {
+        state.isActive = isActive;
+        if (isActive && props.direction === "auto" && !props.up) {
+          calculateDirection();
         }
+      }
     );
 
     onMounted(() => {
       state.isActive = props.active;
     });
 
-    return {...toRefs(state), root, containerClass, containerStyle};
+    return { ...toRefs(state), root, containerClass, containerStyle };
   },
-})
+});
 </script>
 
 <style lang="scss">

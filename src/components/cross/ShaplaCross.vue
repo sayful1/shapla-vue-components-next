@@ -1,17 +1,19 @@
 <script lang="ts">
-import {computed, defineComponent} from "vue";
+import { computed, defineComponent } from "vue";
 
 export default defineComponent({
   name: "ShaplaCross",
   props: {
-    small: {type: Boolean, default: false},
-    medium: {type: Boolean, default: false},
-    large: {type: Boolean, default: false},
-    fixed: {type: Boolean, default: false},
-    ariaLabel: {type: String, default: "close"},
+    small: { type: Boolean, default: false },
+    medium: { type: Boolean, default: false },
+    large: { type: Boolean, default: false },
+    fixed: { type: Boolean, default: false },
+    ariaLabel: { type: String, default: "close" },
     size: {
-      type: String, default: "normal", validator: (value: string) =>
-          ["normal", "small", "medium", "large"].indexOf(value) !== -1,
+      type: String,
+      default: "normal",
+      validator: (value: string) =>
+        ["normal", "small", "medium", "large"].indexOf(value) !== -1,
     },
   },
   setup(props) {
@@ -24,7 +26,7 @@ export default defineComponent({
         "is-large": props.large || props.size === "large",
       };
     });
-    return {classes};
+    return { classes };
   },
 });
 </script>

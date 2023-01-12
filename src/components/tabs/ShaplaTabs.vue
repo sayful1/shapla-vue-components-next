@@ -3,44 +3,61 @@
     <div :class="tabClasses">
       <ul class="shapla-tabs__nav">
         <li
-            v-for="(tab, index) in tabs"
-            :key="index"
-            class="shapla-tabs__nav-item"
-            :class="navItemClass(tab, index)"
+          v-for="(tab, index) in tabs"
+          :key="index"
+          class="shapla-tabs__nav-item"
+          :class="navItemClass(tab, index)"
         >
-          <a :href="tab.props.navTo" @click="selectTab(tab, index, $event)" v-html="tab.props.name"/>
+          <a
+            :href="tab.props.navTo"
+            @click="selectTab(tab, index, $event)"
+            v-html="tab.props.name"
+          />
         </li>
       </ul>
     </div>
-    <slot/>
+    <slot />
   </div>
 </template>
 
 <script lang="ts">
-import {provide, reactive, toRefs, onBeforeMount, computed, defineComponent, VNode} from "vue";
-import {TabsDataInterface, TabVNodeTypeInterface} from "./interfaces";
-
+import {
+  provide,
+  reactive,
+  toRefs,
+  onBeforeMount,
+  computed,
+  defineComponent,
+  VNode,
+} from "vue";
+import { TabsDataInterface, TabVNodeTypeInterface } from "./interfaces";
 
 export default defineComponent({
   name: "ShaplaTabs",
   props: {
     alignment: {
-      type: String, default: "left", validator: (value: string) =>
-          ["left", "center", "right"].indexOf(value) !== -1,
+      type: String,
+      default: "left",
+      validator: (value: string) =>
+        ["left", "center", "right"].indexOf(value) !== -1,
     },
     size: {
-      type: String, default: "default", validator: (value: string) =>
-          ["default", "small", "medium", "large"].indexOf(value) !== -1,
+      type: String,
+      default: "default",
+      validator: (value: string) =>
+        ["default", "small", "medium", "large"].indexOf(value) !== -1,
     },
     tabStyle: {
-      type: String, default: "default", validator: (value: string) =>
-          ["default", "boxed", "rounded", "toggle"].indexOf(value) !== -1,
+      type: String,
+      default: "default",
+      validator: (value: string) =>
+        ["default", "boxed", "rounded", "toggle"].indexOf(value) !== -1,
     },
-    fullwidth: {type: Boolean, default: false},
-    vertical: {type: Boolean, default: false},
+    fullwidth: { type: Boolean, default: false },
+    vertical: { type: Boolean, default: false },
   },
   emits: ["change:tab"],
-  setup(props, {emit, slots}) {
+  setup(props, { emit, slots }) {
     const state = reactive<TabsDataInterface>({
       tabs: [],
       selectedIndex: 0,
@@ -102,7 +119,7 @@ export default defineComponent({
       tabClasses,
     };
   },
-})
+});
 </script>
 
 <style lang="scss">

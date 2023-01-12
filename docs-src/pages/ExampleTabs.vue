@@ -11,7 +11,11 @@
     :desc="descriptions"
   >
     <template #after-props>
-      <section-props heading="Props for `ShaplaTab`" :properties="properties2" :desc="descriptions2" />
+      <section-props
+        heading="Props for `ShaplaTab`"
+        :properties="properties2"
+        :desc="descriptions2"
+      />
     </template>
     <div>
       <h2>Tabs</h2>
@@ -32,12 +36,14 @@
       </tabs>
       <tabs alignment="center" fullwidth>
         <tab
-          name="<span class=&quot;icon is-small&quot;><i class=&quot;fas fa-image&quot; aria-hidden=&quot;true&quot;></i></span>
-          <span>Pictures</span>"
+          name='<span class="icon is-small"><i class="fas fa-image" aria-hidden="true"></i></span>
+          <span>Pictures</span>'
           selected
         >
           <template #name>
-            <span class="icon is-small"><i class="fas fa-image" aria-hidden="true" /></span>
+            <span class="icon is-small"
+              ><i class="fas fa-image" aria-hidden="true"
+            /></span>
             <span>Pictures</span>
           </template>
           Tab One Content
@@ -49,21 +55,21 @@
 </template>
 
 <script>
-import {ShaplaTabs, ShaplaTab} from "../../src";
+import { ShaplaTabs, ShaplaTab } from "../../src";
 import DocTab from "../components/DocTab.vue";
 import SectionProps from "../components/SectionProps.vue";
-import {computed} from "vue";
+import { computed } from "vue";
 
 export default {
   name: "ExampleTabs",
-  components: {SectionProps, DocTab, tabs: ShaplaTabs, tab: ShaplaTab},
+  components: { SectionProps, DocTab, tabs: ShaplaTabs, tab: ShaplaTab },
   setup() {
     const properties = computed(() => ShaplaTabs.props);
     const properties2 = computed(() => ShaplaTab.props);
     const descriptions = {};
-    const descriptions2 = {}
+    const descriptions2 = {};
 
-    return {properties, properties2, descriptions, descriptions2}
-  }
+    return { properties, properties2, descriptions, descriptions2 };
+  },
 };
 </script>

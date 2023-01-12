@@ -61,13 +61,13 @@ import CodeHighlight from "../components/CodeHighlight.vue";
 
 export default {
   name: "SectionUsage",
-  components: {CodeHighlight},
+  components: { CodeHighlight },
   props: {
-    slug: {type: String, default: ""},
-    name: {type: String, default: ""},
-    slug2: {type: String, default: ""},
-    name2: {type: String, default: ""},
-    scssMixin: {type: String, default: ""},
+    slug: { type: String, default: "" },
+    name: { type: String, default: "" },
+    slug2: { type: String, default: "" },
+    name2: { type: String, default: "" },
+    scssMixin: { type: String, default: "" },
   },
 };
 </script>

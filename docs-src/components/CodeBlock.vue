@@ -14,13 +14,13 @@
 
 <script>
 import CodeHighlight from "./CodeHighlight.vue";
-import {ShaplaColumns, ShaplaColumn} from "../../src/index.ts";
+import { ShaplaColumns, ShaplaColumn } from "../../src/index.ts";
 
 export default {
   name: "CodeBlock",
-  components: {ShaplaColumn, ShaplaColumns,CodeHighlight},
-  props:{
-    heading:{type:String,default:''}
-  }
-}
+  components: { ShaplaColumn, ShaplaColumns, CodeHighlight },
+  props: {
+    heading: { type: String, default: "" },
+  },
+};
 </script>

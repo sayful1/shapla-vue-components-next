@@ -1,49 +1,49 @@
 <template>
   <div class="shapla-media-modal">
     <modal
-        :active="active"
-        :title="title"
-        content-size="large"
-        type="card"
-        @close="closeModal"
+      :active="active"
+      :title="title"
+      content-size="large"
+      type="card"
+      @close="closeModal"
     >
       <div class="shapla-media-modal__inside">
         <tabs alignment="center">
           <tab name="Upload Images" :selected="true">
             <file-uploader
-                :url="url"
-                @init="initEvent"
-                @success="finishedEvent"
-                @before:send="beforeSendEvent"
+              :url="url"
+              @init="initEvent"
+              @success="finishedEvent"
+              @before:send="beforeSendEvent"
             />
           </tab>
           <tab name="Media Library">
             <div v-if="images.length" class="shapla-media-modal__items">
               <div
-                  v-for="_image in images"
-                  :key="_image.image_id"
-                  :class="itemClasses(_image)"
-                  @click="selectImage(_image)"
+                v-for="_image in images"
+                :key="_image.image_id"
+                :class="itemClasses(_image)"
+                @click="selectImage(_image)"
               >
                 <div class="shapla-media-modal__image">
                   <image-container
-                      container-width="100px"
-                      container-height="100px"
+                    container-width="100px"
+                    container-height="100px"
                   >
-                    <img :src="_image.attachment_url" :alt="_image.title"/>
+                    <img :src="_image.attachment_url" :alt="_image.title" />
                   </image-container>
                 </div>
               </div>
             </div>
-            <div v-else class="no-item-found" v-html="notFoundText"/>
+            <div v-else class="no-item-found" v-html="notFoundText" />
           </tab>
         </tabs>
       </div>
       <template #foot>
         <shapla-button
-            theme="primary"
-            :disabled="!selectedImages.length"
-            @click="chooseImage"
+          theme="primary"
+          :disabled="!selectedImages.length"
+          @click="chooseImage"
         >
           {{ modalButtonText }}
         </shapla-button>
@@ -53,7 +53,7 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, PropType, reactive, toRefs} from "vue";
+import { defineComponent, PropType, reactive, toRefs } from "vue";
 import {
   ShaplaModal as modal,
   ShaplaTabs as tabs,
@@ -61,7 +61,7 @@ import {
   ShaplaImage as imageContainer,
   ShaplaButton,
 } from "../../../index";
-import {default as FileUploader} from "./ShaplaFileUploader.vue";
+import { default as FileUploader } from "./ShaplaFileUploader.vue";
 
 interface ImageDataInterface {
   image_id: number;
@@ -71,19 +71,19 @@ interface ImageDataInterface {
 
 export default defineComponent({
   name: "MediaModal",
-  components: {modal, tabs, tab, FileUploader, imageContainer, ShaplaButton},
+  components: { modal, tabs, tab, FileUploader, imageContainer, ShaplaButton },
   props: {
-    active: {type: Boolean, default: false},
-    title: {type: String, default: "Media Images"},
-    modalButtonText: {type: String, default: "Set Image"},
-    notFoundText: {type: String, default: "No images found."},
+    active: { type: Boolean, default: false },
+    title: { type: String, default: "Media Images" },
+    modalButtonText: { type: String, default: "Set Image" },
+    notFoundText: { type: String, default: "No images found." },
     images: {
       type: Array as PropType<ImageDataInterface[]>,
       default: () => [],
     },
-    multiple: {type: Boolean, default: false},
+    multiple: { type: Boolean, default: false },
     // File Uploader
-    url: {type: String, default: null, required: true},
+    url: { type: String, default: null, required: true },
   },
   emits: [
     "close",
@@ -95,7 +95,7 @@ export default defineComponent({
     "error",
     "before:send",
   ],
-  setup(props, {emit}) {
+  setup(props, { emit }) {
     const state = reactive<{ selectedImages: ImageDataInterface[] }>({
       selectedImages: [],
     });
@@ -127,22 +127,22 @@ export default defineComponent({
     };
     const chooseImage = () => {
       emit(
-          "select:image",
-          props.multiple ? state.selectedImages : state.selectedImages[0]
+        "select:image",
+        props.multiple ? state.selectedImages : state.selectedImages[0]
       );
       closeModal();
     };
 
     const initEvent = (formData: FormData) => emit("init", formData);
     const progressEvent = (fileObject, event) =>
-        emit("progress", fileObject, event);
+      emit("progress", fileObject, event);
     const finishedEvent = (fileObject, response) =>
-        emit("success", fileObject, response);
+      emit("success", fileObject, response);
     const failedEvent = (fileObject, response) =>
-        emit("failed", fileObject, response);
+      emit("failed", fileObject, response);
     const errorEvent = (fileObject) => emit("error", fileObject);
     const beforeSendEvent = (xhr, formData) =>
-        emit("before:send", xhr, formData);
+      emit("before:send", xhr, formData);
 
     return {
       ...toRefs(state),

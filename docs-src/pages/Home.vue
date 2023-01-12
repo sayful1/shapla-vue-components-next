@@ -1,11 +1,11 @@
 <script lang="ts">
-import {defineComponent} from "vue";
+import { defineComponent } from "vue";
 import CodeHighlight from "../components/CodeHighlight.vue";
 import SectionHero from "../components/SectionHero.vue";
 
 export default defineComponent({
   name: "Home",
-  components: {SectionHero, CodeHighlight},
+  components: { SectionHero, CodeHighlight },
 });
 </script>
 <template>

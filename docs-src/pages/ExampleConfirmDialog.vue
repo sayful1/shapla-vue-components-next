@@ -17,13 +17,13 @@
 </template>
 
 <script>
-import {ShaplaConfirmContainer, Dialog, ShaplaButton} from "../../src";
+import { ShaplaConfirmContainer, Dialog, ShaplaButton } from "../../src";
 import DocTab from "../components/DocTab.vue";
-import {computed} from "vue";
+import { computed } from "vue";
 
 export default {
   name: "ExampleConfirmDialog",
-  components: {DocTab, ShaplaConfirmContainer, ShaplaButton},
+  components: { DocTab, ShaplaConfirmContainer, ShaplaButton },
   setup() {
     const openConfirmModal = () => {
       Dialog.confirm("Are you sure to delete the item?").then((confirm) => {
@@ -41,13 +41,13 @@ export default {
     };
 
     const properties = computed(() => ShaplaConfirmContainer.props);
-    const descriptions = {}
+    const descriptions = {};
 
     return {
       openAlertModal,
       openConfirmModal,
       properties,
-      descriptions
+      descriptions,
     };
   },
 };

@@ -1,9 +1,9 @@
 <template>
   <div class="shapla-toggle-panel" :class="panelClass">
     <div
-        class="shapla-toggle-panel__heading"
-        :class="headingClasses"
-        @click.prevent="toggleActive"
+      class="shapla-toggle-panel__heading"
+      :class="headingClasses"
+      @click.prevent="toggleActive"
     >
       <div class="shapla-toggle-panel__title">
         <h4 class="shapla-toggle-panel__title-text">
@@ -12,30 +12,30 @@
           </slot>
         </h4>
         <div
-            v-if="subtext"
-            class="shapla-toggle-panel__title-subtext"
-            v-html="subtext"
+          v-if="subtext"
+          class="shapla-toggle-panel__title-subtext"
+          v-html="subtext"
         />
       </div>
       <div
-          class="shapla-toggle-panel__icon"
-          :class="`is-icon-${toggleIconPosition}`"
+        class="shapla-toggle-panel__icon"
+        :class="`is-icon-${toggleIconPosition}`"
       >
         <template v-if="isSelected">
           <slot name="icon-close">
-            <toggle-icon icon="minus"/>
+            <toggle-icon icon="minus" />
           </slot>
         </template>
         <template v-if="!isSelected">
           <slot name="icon-open">
-            <toggle-icon icon="plus"/>
+            <toggle-icon icon="plus" />
           </slot>
         </template>
       </div>
     </div>
     <div class="shapla-toggle-panel__body" :class="panelBodyClass">
       <div class="shapla-toggle-panel__content">
-        <slot :active="isSelected"/>
+        <slot :active="isSelected" />
       </div>
     </div>
   </div>
@@ -43,28 +43,36 @@
 
 <script lang="ts">
 import ToggleIcon from "./toggleIcon.vue";
-import {ToggleEvent, createUUID, TogglesPropsInterface} from "./Helper";
-import {inject, ref, onMounted, reactive, computed, toRefs, defineComponent} from "vue";
+import { ToggleEvent, createUUID, TogglesPropsInterface } from "./Helper";
+import {
+  inject,
+  ref,
+  onMounted,
+  reactive,
+  computed,
+  toRefs,
+  defineComponent,
+} from "vue";
 
 export default defineComponent({
   name: "ShaplaToggle",
-  components: {ToggleIcon},
+  components: { ToggleIcon },
   props: {
-    name: {type: String, default: null, required: true},
-    subtext: {type: String, default: null, required: false},
-    selected: {type: Boolean, default: false},
+    name: { type: String, default: null, required: true },
+    subtext: { type: String, default: null, required: false },
+    selected: { type: Boolean, default: false },
     iconPosition: {
       type: String,
       default: undefined,
       validator: (value: string) => -1 !== ["left", "right"].indexOf(value),
     },
-    boxedMode: {type: Boolean, default: undefined},
-    showDivider: {type: Boolean, default: undefined},
+    boxedMode: { type: Boolean, default: undefined },
+    showDivider: { type: Boolean, default: undefined },
     titleColor: {
       type: String,
       default: undefined,
       validator: (value: string) =>
-          -1 !== ["default", "primary", "secondary"].indexOf(value),
+        -1 !== ["default", "primary", "secondary"].indexOf(value),
     },
   },
   setup(props) {
@@ -77,7 +85,7 @@ export default defineComponent({
       toggleTitleColor: "default",
     });
 
-    const parentId = ref<string>('');
+    const parentId = ref<string>("");
     const toggleId = createUUID();
     const toggles = inject<TogglesPropsInterface>("ShaplaTogglesProvider");
 
@@ -118,10 +126,14 @@ export default defineComponent({
     onMounted(() => {
       if (toggles) {
         parentId.value = toggles.uuid;
-        state.toggleIconPosition = (toggles.iconPosition || props.iconPosition) as string;
-        state.toggleBoxedMode = (toggles.boxedMode || props.boxedMode) as boolean;
-        state.toggleShowDivider = (toggles.showDivider || props.showDivider) as boolean;
-        state.toggleTitleColor = (toggles.titleColor || props.titleColor) as string;
+        state.toggleIconPosition = (toggles.iconPosition ||
+          props.iconPosition) as string;
+        state.toggleBoxedMode = (toggles.boxedMode ||
+          props.boxedMode) as boolean;
+        state.toggleShowDivider = (toggles.showDivider ||
+          props.showDivider) as boolean;
+        state.toggleTitleColor = (toggles.titleColor ||
+          props.titleColor) as string;
       }
 
       state.isSelected = props.selected;
@@ -129,17 +141,20 @@ export default defineComponent({
         state.isOverflowVisible = props.selected;
       }
 
-      ToggleEvent.on("change:ShaplaToggle", (element: { parent: string, item: string }) => {
-        if (
+      ToggleEvent.on(
+        "change:ShaplaToggle",
+        (element: { parent: string; item: string }) => {
+          if (
             toggleId !== element.item &&
             element.parent === parentId.value &&
             state.isSelected &&
             toggles?.accordion
-        ) {
-          state.isSelected = false;
-          state.isOverflowVisible = false;
+          ) {
+            state.isSelected = false;
+            state.isOverflowVisible = false;
+          }
         }
-      });
+      );
     });
 
     return {
@@ -152,7 +167,7 @@ export default defineComponent({
       toggleActive,
     };
   },
-})
+});
 </script>
 
 <style lang="scss">

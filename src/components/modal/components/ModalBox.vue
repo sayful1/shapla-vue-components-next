@@ -13,25 +13,28 @@
 </template>
 
 <script lang="ts">
-import {defineComponent} from "vue";
+import { defineComponent } from "vue";
 import ModalCore from "./ModalCore.vue";
 
 export default defineComponent({
   name: "ModalBox",
-  components: {ModalCore},
+  components: { ModalCore },
   props: {
-    active: {type: Boolean, required: true},
-    showCloseIcon: {type: Boolean, default: true},
-    closeOnBackgroundClick: {type: Boolean, default: true},
+    active: { type: Boolean, required: true },
+    showCloseIcon: { type: Boolean, default: true },
+    closeOnBackgroundClick: { type: Boolean, default: true },
     backgroundTheme: {
-      type: String, default: "dark", validator: (value: string) =>
-          ["dark", "light"].indexOf(value) !== -1,
+      type: String,
+      default: "dark",
+      validator: (value: string) => ["dark", "light"].indexOf(value) !== -1,
     },
     contentSize: {
-      type: String, default: "medium", validator: (value: string) =>
-          ["small", "medium", "large", "full"].indexOf(value) !== -1,
+      type: String,
+      default: "medium",
+      validator: (value: string) =>
+        ["small", "medium", "large", "full"].indexOf(value) !== -1,
     },
   },
   emits: ["close"],
-})
+});
 </script>

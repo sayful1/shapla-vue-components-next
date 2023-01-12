@@ -1,32 +1,35 @@
 <template>
   <div class="shapla-notification" :class="itemClass">
-    <shapla-cross v-if="showDismisses" @click="requestClose"/>
+    <shapla-cross v-if="showDismisses" @click="requestClose" />
     <div v-if="title" class="shapla-notification__title">
       {{ title }}
     </div>
-    <div v-if="message" class="shapla-notification__message" v-html="message"/>
+    <div v-if="message" class="shapla-notification__message" v-html="message" />
   </div>
 </template>
 
 <script lang="ts">
 import ShaplaCross from "../cross/ShaplaCross.vue";
-import {computed, onMounted, onUnmounted, defineComponent} from "vue";
+import { computed, onMounted, onUnmounted, defineComponent } from "vue";
 
 export default defineComponent({
   name: "ShaplaNotification",
-  components: {ShaplaCross},
+  components: { ShaplaCross },
   props: {
     type: {
-      type: String, default: "info", validator: (value: string) =>
-          ["primary", "success", "info", "warning", "error"].indexOf(value) !== -1,
+      type: String,
+      default: "info",
+      validator: (value: string) =>
+        ["primary", "success", "info", "warning", "error"].indexOf(value) !==
+        -1,
     },
-    title: {type: String, default: ""},
-    message: {type: String, default: ""},
-    showDismisses: {type: Boolean, default: true},
-    timeout: {type: Number, default: 3000},
+    title: { type: String, default: "" },
+    message: { type: String, default: "" },
+    showDismisses: { type: Boolean, default: true },
+    timeout: { type: Number, default: 3000 },
   },
   emits: ["close"],
-  setup(props, {emit}) {
+  setup(props, { emit }) {
     let timer: null | number = null;
 
     const itemClass = computed(() => {
@@ -54,5 +57,5 @@ export default defineComponent({
       itemClass,
     };
   },
-})
+});
 </script>

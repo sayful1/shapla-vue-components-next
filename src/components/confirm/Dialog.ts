@@ -1,10 +1,10 @@
 interface ConfirmDataInterface {
-  message?: string,
-  title?: string,
-  type?: "alert" | "confirm",
-  icon?: string | "primary" | "success" | "error",
-  confirmButton?: string | boolean,
-  cancelButton?: string | boolean,
+  message?: string;
+  title?: string;
+  type?: "alert" | "confirm";
+  icon?: string | "primary" | "success" | "error";
+  confirmButton?: string | boolean;
+  cancelButton?: string | boolean;
 }
 
 class Dialog {
@@ -14,8 +14,12 @@ class Dialog {
    * @param event
    * @param callback
    */
-  static on(event: string, callback: EventListener | ((confirmed: boolean) => void)) {
-    document.addEventListener(event, ((e: CustomEvent) => callback(e.detail)) as EventListener);
+  static on(
+    event: string,
+    callback: EventListener | ((confirmed: boolean) => void)
+  ) {
+    document.addEventListener(event, ((e: CustomEvent) =>
+      callback(e.detail)) as EventListener);
   }
 
   /**
@@ -25,7 +29,9 @@ class Dialog {
    * @param data
    */
   static dispatch(event: string, data: ConfirmDataInterface) {
-    document.dispatchEvent(new CustomEvent<ConfirmDataInterface>(event, {detail: data}));
+    document.dispatchEvent(
+      new CustomEvent<ConfirmDataInterface>(event, { detail: data })
+    );
   }
 
   /**
@@ -44,20 +50,26 @@ class Dialog {
    * @param {Object} params
    * @return {Object}
    */
-  static getParams(message: string | ConfirmDataInterface, params: ConfirmDataInterface = {}): ConfirmDataInterface {
+  static getParams(
+    message: string | ConfirmDataInterface,
+    params: ConfirmDataInterface = {}
+  ): ConfirmDataInterface {
     if (typeof message === "string") {
       params.message = message;
     } else {
       params = message;
     }
 
-    return Object.assign({
-      icon: "primary",
-      title: "",
-      message: "Are you sure?",
-      confirmButton: "OK",
-      cancelButton: "Cancel",
-    }, params);
+    return Object.assign(
+      {
+        icon: "primary",
+        title: "",
+        message: "Are you sure?",
+        confirmButton: "OK",
+        cancelButton: "Cancel",
+      },
+      params
+    );
   }
 
   /**
@@ -67,14 +79,19 @@ class Dialog {
    * @param {Object} params
    * @returns {Promise}
    */
-  static confirm(message: ConfirmDataInterface | string, params: ConfirmDataInterface = {}) {
+  static confirm(
+    message: ConfirmDataInterface | string,
+    params: ConfirmDataInterface = {}
+  ) {
     const _params = this.getParams(message, params);
     _params.type = "confirm";
 
     return new Promise((resolve) => {
       this.show(_params);
 
-      Dialog.on("click.ShaplaVueConfirmModal", (confirmed: boolean) => resolve(confirmed));
+      Dialog.on("click.ShaplaVueConfirmModal", (confirmed: boolean) =>
+        resolve(confirmed)
+      );
     });
   }
 
@@ -84,7 +101,10 @@ class Dialog {
    * @param message
    * @param params
    */
-  static alert(message: string | ConfirmDataInterface, params: ConfirmDataInterface = {}) {
+  static alert(
+    message: string | ConfirmDataInterface,
+    params: ConfirmDataInterface = {}
+  ) {
     const _params: ConfirmDataInterface = this.getParams(message, params);
     _params.type = "alert";
     _params.cancelButton = false;
@@ -92,5 +112,5 @@ class Dialog {
   }
 }
 
-export {Dialog, ConfirmDataInterface};
+export { Dialog, ConfirmDataInterface };
 export default Dialog;

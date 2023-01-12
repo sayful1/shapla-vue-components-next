@@ -5,16 +5,16 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent} from "vue";
+import { computed, defineComponent } from "vue";
 
 export default defineComponent({
   name: "ShaplaColumn",
   props: {
-    mobile: {type: Number, default: null},
-    tablet: {type: Number, default: null},
-    desktop: {type: Number, default: null},
-    widescreen: {type: Number, default: null},
-    fullhd: {type: Number, default: null},
+    mobile: { type: Number, default: null },
+    tablet: { type: Number, default: null },
+    desktop: { type: Number, default: null },
+    widescreen: { type: Number, default: null },
+    fullhd: { type: Number, default: null },
   },
   setup(props) {
     const classes = computed(() => {
@@ -28,7 +28,7 @@ export default defineComponent({
       return cssClass;
     });
 
-    return {classes};
+    return { classes };
   },
-})
+});
 </script>

@@ -8,8 +8,10 @@
       @change="emitChange"
       @focus="isFocus = true"
       @blur="isFocus = false"
+    />
+    <span class="shapla-radio__label"
+      ><slot>{{ label }}</slot></span
     >
-    <span class="shapla-radio__label"><slot>{{ label }}</slot></span>
     <span
       class="shapla-radio__outer-circle"
       @mouseenter="isHovered = true"
@@ -20,22 +22,22 @@
 </template>
 
 <script lang="ts">
-import {computed, reactive, toRefs, defineComponent} from "vue";
+import { computed, reactive, toRefs, defineComponent } from "vue";
 
 export default defineComponent({
   name: "ShaplaRadio",
-  model: {prop: "modelValue", event: "update:modelValue"},
+  model: { prop: "modelValue", event: "update:modelValue" },
   props: {
-    label: {type: String, default: "", required: false},
-    value: {type: String, default: null},
-    modelValue: {type: [String, Number, Boolean], default: ""},
-    checked: {type: Boolean, default: undefined},
+    label: { type: String, default: "", required: false },
+    value: { type: String, default: null },
+    modelValue: { type: [String, Number, Boolean], default: "" },
+    checked: { type: Boolean, default: undefined },
   },
   emits: ["update:modelValue"],
-  setup(props, {emit}) {
-    const state = reactive<{ isHovered: boolean, isFocus: boolean }>({
+  setup(props, { emit }) {
+    const state = reactive<{ isHovered: boolean; isFocus: boolean }>({
       isHovered: false,
-      isFocus: false
+      isFocus: false,
     });
     const emitChange = () => emit("update:modelValue", props.value);
     const shouldBeChecked = computed(() => {
@@ -53,9 +55,9 @@ export default defineComponent({
       return classes;
     });
 
-    return {...toRefs(state), shouldBeChecked, getClasses, emitChange};
+    return { ...toRefs(state), shouldBeChecked, getClasses, emitChange };
   },
-})
+});
 </script>
 
 <style lang="scss">

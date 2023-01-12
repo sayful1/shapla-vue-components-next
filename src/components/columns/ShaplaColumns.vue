@@ -1,22 +1,22 @@
 <template>
   <div :class="classes" :style="styles">
-    <slot/>
+    <slot />
   </div>
 </template>
 
 <script lang="ts">
-import {computed, defineComponent} from "vue";
+import { computed, defineComponent } from "vue";
 
 export default defineComponent({
   name: "ShaplaColumns",
   props: {
-    multiline: {type: Boolean, default: false},
-    centered: {type: Boolean, default: false},
-    gapless: {type: Boolean, default: false},
-    vcentered: {type: Boolean, default: false},
-    mobile: {type: Boolean, default: false},
-    desktop: {type: Boolean, default: false},
-    columnGap: {type: String, default: null},
+    multiline: { type: Boolean, default: false },
+    centered: { type: Boolean, default: false },
+    gapless: { type: Boolean, default: false },
+    vcentered: { type: Boolean, default: false },
+    mobile: { type: Boolean, default: false },
+    desktop: { type: Boolean, default: false },
+    columnGap: { type: String, default: null },
   },
   setup(props) {
     const styles = computed(() => {
@@ -45,7 +45,7 @@ export default defineComponent({
       classes,
     };
   },
-})
+});
 </script>
 
 <style lang="scss">

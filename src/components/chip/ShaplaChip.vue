@@ -1,27 +1,34 @@
 <template>
   <div class="shapla-chip" :class="chipClasses" :style="chipStyle">
-    <img v-if="imageSrc" class="shapla-chip__contact" :src="imageSrc">
-    <span class="shapla-chip__text"><slot>{{ text }}</slot></span>
-    <shapla-cross v-if="deletable" :small="small" class="shapla-chip__action" @click="deleteChip"/>
+    <img v-if="imageSrc" class="shapla-chip__contact" :src="imageSrc" />
+    <span class="shapla-chip__text"
+      ><slot>{{ text }}</slot></span
+    >
+    <shapla-cross
+      v-if="deletable"
+      :small="small"
+      class="shapla-chip__action"
+      @click="deleteChip"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import ShaplaCross from "../cross/ShaplaCross.vue";
-import {computed, defineComponent} from "vue";
+import { computed, defineComponent } from "vue";
 
 export default defineComponent({
   name: "ShaplaChip",
-  components: {ShaplaCross},
+  components: { ShaplaCross },
   props: {
-    text: {type: String, default: null, required: false},
-    imageSrc: {type: String, default: null, required: false},
-    deletable: {type: Boolean, default: false},
-    small: {type: Boolean, default: false},
-    height: {type: String, default: "32px"},
+    text: { type: String, default: null, required: false },
+    imageSrc: { type: String, default: null, required: false },
+    deletable: { type: Boolean, default: false },
+    small: { type: Boolean, default: false },
+    height: { type: String, default: "32px" },
   },
   emits: ["delete"],
-  setup(props, {emit}) {
+  setup(props, { emit }) {
     const deleteChip = () => emit("delete");
 
     const chipClasses = computed(() => {
@@ -47,9 +54,9 @@ export default defineComponent({
       return style;
     });
 
-    return {deleteChip, chipClasses, chipStyle};
+    return { deleteChip, chipClasses, chipStyle };
   },
-})
+});
 </script>
 
 <style lang="scss">

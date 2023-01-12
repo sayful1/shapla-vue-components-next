@@ -31,7 +31,9 @@
       <div class="shapla-buttons">
         <shapla-button disabled>Default disabled</shapla-button>
         <shapla-button theme="primary" disabled>Primary disabled</shapla-button>
-        <shapla-button theme="secondary" disabled>Secondary disabled</shapla-button>
+        <shapla-button theme="secondary" disabled
+          >Secondary disabled</shapla-button
+        >
         <shapla-button theme="success" disabled>Success disabled</shapla-button>
         <shapla-button theme="warning" disabled>Warning disabled</shapla-button>
         <shapla-button theme="error" disabled>Error disabled</shapla-button>
@@ -48,12 +50,36 @@
     </code-block>
     <code-block heading="Link Button">
       <div class="shapla-buttons">
-        <shapla-button href="https://example.com" target="_blank">Link Default</shapla-button>
-        <shapla-button theme="primary" href="https://example.com" target="_blank">Link Primary</shapla-button>
-        <shapla-button theme="secondary" href="https://example.com" target="_blank">Link Secondary</shapla-button>
-        <shapla-button theme="success" href="https://example.com" target="_blank">Link Success</shapla-button>
-        <shapla-button theme="warning" href="https://example.com" target="_blank">Link Warning</shapla-button>
-        <shapla-button theme="error" href="https://example.com" target="_blank">Link Error</shapla-button>
+        <shapla-button href="https://example.com" target="_blank"
+          >Link Default</shapla-button
+        >
+        <shapla-button
+          theme="primary"
+          href="https://example.com"
+          target="_blank"
+          >Link Primary</shapla-button
+        >
+        <shapla-button
+          theme="secondary"
+          href="https://example.com"
+          target="_blank"
+          >Link Secondary</shapla-button
+        >
+        <shapla-button
+          theme="success"
+          href="https://example.com"
+          target="_blank"
+          >Link Success</shapla-button
+        >
+        <shapla-button
+          theme="warning"
+          href="https://example.com"
+          target="_blank"
+          >Link Warning</shapla-button
+        >
+        <shapla-button theme="error" href="https://example.com" target="_blank"
+          >Link Error</shapla-button
+        >
       </div>
       <template #code>
         <pre><code> // file ButtonDemo.vue
@@ -80,7 +106,9 @@
     </code-block>
     <code-block heading="Fullwidth">
       <div class="shapla-buttons">
-        <shapla-button theme="primary" fullwidth>Fullwidth Button</shapla-button>
+        <shapla-button theme="primary" fullwidth
+          >Fullwidth Button</shapla-button
+        >
       </div>
       <template #code>
         <pre><code> // file ButtonDemo.vue
@@ -109,11 +137,21 @@
     <code-block heading="Outline Disabled Status">
       <div class="shapla-buttons">
         <shapla-button outline disabled>Default disabled</shapla-button>
-        <shapla-button theme="primary" outline disabled>Primary disabled</shapla-button>
-        <shapla-button theme="secondary" outline disabled>Secondary disabled</shapla-button>
-        <shapla-button theme="success" outline disabled>Success disabled</shapla-button>
-        <shapla-button theme="warning" outline disabled>Warning disabled</shapla-button>
-        <shapla-button theme="error" outline disabled>Error disabled</shapla-button>
+        <shapla-button theme="primary" outline disabled
+          >Primary disabled</shapla-button
+        >
+        <shapla-button theme="secondary" outline disabled
+          >Secondary disabled</shapla-button
+        >
+        <shapla-button theme="success" outline disabled
+          >Success disabled</shapla-button
+        >
+        <shapla-button theme="warning" outline disabled
+          >Warning disabled</shapla-button
+        >
+        <shapla-button theme="error" outline disabled
+          >Error disabled</shapla-button
+        >
       </div>
       <template #code>
         <pre><code> // file ButtonDemo.vue
@@ -128,8 +166,12 @@
     <code-block heading="Button with shadow">
       <div class="shapla-buttons">
         <shapla-button shadow>Default with shadow</shapla-button>
-        <shapla-button shadow theme="primary">Primary with shadow</shapla-button>
-        <shapla-button shadow theme="secondary">Secondary with shadow</shapla-button>
+        <shapla-button shadow theme="primary"
+          >Primary with shadow</shapla-button
+        >
+        <shapla-button shadow theme="secondary"
+          >Secondary with shadow</shapla-button
+        >
         <shapla-button fab shadow>+</shapla-button>
       </div>
       <template #code>
@@ -155,14 +197,14 @@
 </template>
 
 <script>
-import {ShaplaButton} from "../../src/index.ts";
+import { ShaplaButton } from "../../src/index.ts";
 import DocTab from "../components/DocTab.vue";
 import CodeBlock from "../components/CodeBlock.vue";
-import {computed} from "vue";
+import { computed } from "vue";
 
 export default {
   name: "ExampleButton",
-  components: {CodeBlock, DocTab, ShaplaButton},
+  components: { CodeBlock, DocTab, ShaplaButton },
   setup() {
     const handleClick = () => {
       alert("Click event");
@@ -171,7 +213,7 @@ export default {
     const descriptions = computed(() => {
       return {
         theme:
-            "Value can be `default` or `primary` or `secondary` or `success` or `warning` or `error`.",
+          "Value can be `default` or `primary` or `secondary` or `success` or `warning` or `error`.",
         size: "Value can be `normal` or `small` or `medium` or `large`.",
         fullwidth: "If set `true`, button will take full width. ",
         disabled: "If set `true`, disabled attribute will be added.",
@@ -182,7 +224,7 @@ export default {
         loading: "If set `true`, loading circle will be visible inside button.",
       };
     });
-    return {handleClick, properties, descriptions};
+    return { handleClick, properties, descriptions };
   },
 };
 </script>

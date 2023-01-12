@@ -68,41 +68,45 @@
 </template>
 
 <script>
-import {ShaplaTable, ShaplaTablePagination as Pagination, ShaplaTableStatusList as StatusList,} from "../../src";
+import {
+  ShaplaTable,
+  ShaplaTablePagination as Pagination,
+  ShaplaTableStatusList as StatusList,
+} from "../../src";
 import DocTab from "../components/DocTab.vue";
-import {computed} from "vue";
+import { computed } from "vue";
 
 export default {
   name: "ExampleTable",
-  components: {DocTab, "data-table": ShaplaTable, Pagination, StatusList},
+  components: { DocTab, "data-table": ShaplaTable, Pagination, StatusList },
   setup() {
     const properties = computed(() => ShaplaTable.props);
-    const descriptions = {}
-    return {properties, descriptions}
+    const descriptions = {};
+    return { properties, descriptions };
   },
   data() {
     return {
       statuses: [
-        {key: "all", label: "All", count: 11, active: true},
-        {key: "active", label: "Active", count: 9, active: false},
-        {key: "trash", label: "Trash", count: 2, active: false},
+        { key: "all", label: "All", count: 11, active: true },
+        { key: "active", label: "Active", count: 9, active: false },
+        { key: "trash", label: "Trash", count: 2, active: false },
       ],
       columns: [
-        {key: "title", label: "Title", numeric: false},
-        {key: "bangle", label: "Bangle", numeric: true},
-        {key: "english", label: "English", numeric: true},
-        {key: "math", label: "Math", numeric: true, sortable: true},
+        { key: "title", label: "Title", numeric: false },
+        { key: "bangle", label: "Bangle", numeric: true },
+        { key: "english", label: "English", numeric: true },
+        { key: "math", label: "Math", numeric: true, sortable: true },
       ],
       items: [
-        {id: 1, title: "Sayful Islam", bangle: 70, english: 80, math: 100},
-        {id: 2, title: "Akhi", bangle: 70, english: 80, math: 90},
-        {id: 3, title: "Saif Al Araf", bangle: 70, english: 80, math: 80},
+        { id: 1, title: "Sayful Islam", bangle: 70, english: 80, math: 100 },
+        { id: 2, title: "Akhi", bangle: 70, english: 80, math: 90 },
+        { id: 3, title: "Saif Al Araf", bangle: 70, english: 80, math: 80 },
       ],
       actions: [
-        {key: "edit", label: "Edit"},
-        {key: "trash", label: "Delete"},
+        { key: "edit", label: "Edit" },
+        { key: "trash", label: "Delete" },
       ],
-      bulkActions: [{key: "trash", label: "Move to Trash"}],
+      bulkActions: [{ key: "trash", label: "Move to Trash" }],
       sortBy: "math",
       sortOrder: "asc",
       selectedItems: [],

@@ -1,5 +1,9 @@
 <template>
-  <div ref="element" class="shapla-select-field" :class="{ 'is-searchable': searchable }">
+  <div
+    ref="element"
+    class="shapla-select-field"
+    :class="{ 'is-searchable': searchable }"
+  >
     <div class="shapla-select-field__control">
       <text-field
         :id="id"
@@ -17,18 +21,31 @@
         @keydown="handleKeydownEvent"
       >
         <template #icon-right>
-          <span v-if="clearable && (hasSelectedOption || hasValue)" class="icon is-right icon--delete">
+          <span
+            v-if="clearable && (hasSelectedOption || hasValue)"
+            class="icon is-right icon--delete"
+          >
             <delete-icon @click="clearSelectedValue" />
           </span>
           <span class="icon is-right">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-              <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"
+              />
               <path fill="none" d="M0 0h24v24H0V0z" />
             </svg>
           </span>
         </template>
       </text-field>
-      <div v-if="multiple && selectedOptions.length" class="shapla-select-field__selected-values">
+      <div
+        v-if="multiple && selectedOptions.length"
+        class="shapla-select-field__selected-values"
+      >
         <shapla-chip
           v-for="_option in selectedOptions"
           :key="_option.value"
@@ -41,13 +58,27 @@
       </div>
       <dropdown-menu :active="showDropdown" :max-items="5" role="listbox">
         <template #before-content="slotProps">
-          <span v-if="searchable && slotProps.direction === 'is-down'" class="shapla-dropdown-item is-search-input">
-            <input v-model="search" type="text" class="shapla-select-field__search">
+          <span
+            v-if="searchable && slotProps.direction === 'is-down'"
+            class="shapla-dropdown-item is-search-input"
+          >
+            <input
+              v-model="search"
+              type="text"
+              class="shapla-select-field__search"
+            />
           </span>
         </template>
         <template #after-content="slotProps">
-          <span v-if="searchable && slotProps.direction === 'is-up'" class="shapla-dropdown-item is-search-input">
-            <input v-model="search" type="text" class="shapla-select-field__search">
+          <span
+            v-if="searchable && slotProps.direction === 'is-up'"
+            class="shapla-dropdown-item is-search-input"
+          >
+            <input
+              v-model="search"
+              type="text"
+              class="shapla-select-field__search"
+            />
           </span>
         </template>
         <span
@@ -62,24 +93,48 @@
         >
           <span v-html="_option['label']" />
           <span v-if="isItemSelected(_option)" class="icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
               <path d="M0 0h24v24H0z" fill="none" />
               <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
             </svg>
           </span>
         </span>
-        <span v-if="!filteredOptions.length" class="shapla-dropdown-item is-link no-options">
+        <span
+          v-if="!filteredOptions.length"
+          class="shapla-dropdown-item is-link no-options"
+        >
           <slot name="no-options">{{ noOptionsText }}</slot>
         </span>
       </dropdown-menu>
     </div>
-    <small v-if="hasError" class="shapla-text-field__help-text is-invalid" v-html="validationText" />
-    <small v-if="helpText" class="shapla-text-field__help-text" v-html="helpText" />
+    <small
+      v-if="hasError"
+      class="shapla-text-field__help-text is-invalid"
+      v-html="validationText"
+    />
+    <small
+      v-if="helpText"
+      class="shapla-text-field__help-text"
+      v-html="helpText"
+    />
   </div>
 </template>
 
 <script lang="ts">
-import {ref, onMounted, watch, reactive, toRefs, computed, defineComponent} from "vue";
+import {
+  ref,
+  onMounted,
+  watch,
+  reactive,
+  toRefs,
+  computed,
+  defineComponent,
+} from "vue";
 import ShaplaChip from "../chip/ShaplaChip.vue";
 import ShaplaCross from "../cross/ShaplaCross.vue";
 import ShaplaDropdownMenu from "../dropdown/ShaplaDropdownMenu.vue";
@@ -94,31 +149,31 @@ export default defineComponent({
     "shapla-chip": ShaplaChip,
   },
   props: {
-    label: {type: String, default: ""},
-    modelValue: {type: [String, Number, Boolean, Array], default: null},
-    options: {type: Array, default: () => []},
-    labelKey: {type: String, default: "label"},
-    valueKey: {type: String, default: "value"},
-    clearable: {type: Boolean, default: true},
-    autocomplete: {type: String, default: null},
-    name: {type: String, default: null, required: false},
-    id: {type: String, default: null, required: false},
-    helpText: {type: String, default: null, required: false},
-    validationText: {type: String, default: null, required: false},
-    hasError: {type: Boolean, default: false},
-    hasSuccess: {type: Boolean, default: false},
-    disabled: {type: Boolean, default: false},
-    required: {type: Boolean, default: false},
-    searchable: {type: Boolean, default: false},
-    closeOnSelect: {type: Boolean, default: true},
-    clearSearchOnSelect: {type: Boolean, default: true},
-    multiple: {type: Boolean, default: false},
-    noOptionsText: {type: String, default: "Sorry, no matching options."},
-    singularSelectedText: {type: String, default: "item selected"},
-    pluralSelectedText: {type: String, default: "items selected"},
+    label: { type: String, default: "" },
+    modelValue: { type: [String, Number, Boolean, Array], default: null },
+    options: { type: Array, default: () => [] },
+    labelKey: { type: String, default: "label" },
+    valueKey: { type: String, default: "value" },
+    clearable: { type: Boolean, default: true },
+    autocomplete: { type: String, default: null },
+    name: { type: String, default: null, required: false },
+    id: { type: String, default: null, required: false },
+    helpText: { type: String, default: null, required: false },
+    validationText: { type: String, default: null, required: false },
+    hasError: { type: Boolean, default: false },
+    hasSuccess: { type: Boolean, default: false },
+    disabled: { type: Boolean, default: false },
+    required: { type: Boolean, default: false },
+    searchable: { type: Boolean, default: false },
+    closeOnSelect: { type: Boolean, default: true },
+    clearSearchOnSelect: { type: Boolean, default: true },
+    multiple: { type: Boolean, default: false },
+    noOptionsText: { type: String, default: "Sorry, no matching options." },
+    singularSelectedText: { type: String, default: "item selected" },
+    pluralSelectedText: { type: String, default: "items selected" },
   },
   emits: ["update:modelValue"],
-  setup(props, {emit}) {
+  setup(props, { emit }) {
     const element = ref(null);
     const state = reactive({
       selectedOption: null,
@@ -134,7 +189,7 @@ export default defineComponent({
       const newOptions = [];
       props.options.forEach((option) => {
         if (typeof option == "string") {
-          newOptions.push({label: option, value: option});
+          newOptions.push({ label: option, value: option });
         } else if (["number", "boolean"].indexOf(typeof option) !== -1) {
           newOptions.push({
             label: option.toString(),
@@ -150,11 +205,11 @@ export default defineComponent({
 
       if (state.search.length) {
         return newOptions.filter(
-            (option) =>
-                option["label"]
-                    .toLowerCase()
-                    .includes(state.search.toLowerCase()) ||
-                option["value"].toLowerCase().includes(state.search.toLowerCase())
+          (option) =>
+            option["label"]
+              .toLowerCase()
+              .includes(state.search.toLowerCase()) ||
+            option["value"].toLowerCase().includes(state.search.toLowerCase())
         );
       }
 
@@ -183,44 +238,48 @@ export default defineComponent({
         return !!props.modelValue.length;
       }
       return !(
-          props.modelValue === null ||
-          props.modelValue === "" ||
-          props.modelValue === undefined
+        props.modelValue === null ||
+        props.modelValue === "" ||
+        props.modelValue === undefined
       );
     });
     const hasSelectedOption = computed(() => {
       return !!(
-          state.selectedOption &&
-          typeof state.selectedOption === "object" &&
-          Object.keys(state.selectedOption).length
+        state.selectedOption &&
+        typeof state.selectedOption === "object" &&
+        Object.keys(state.selectedOption).length
       );
     });
 
     watch(
-        () => props.modelValue,
-        (newValue) => {
-          if (Array.isArray(newValue) && props.multiple) {
-            const _values = newValue.map((_item) => _item.toString());
-            state.selectedOptions = filteredOptions.value.filter(
-                (option) => _values.indexOf(option["value"]) !== -1
-            );
-          }
-          if (!newValue) {
-            state.selectedOption = {};
-          }
+      () => props.modelValue,
+      (newValue) => {
+        if (Array.isArray(newValue) && props.multiple) {
+          const _values = newValue.map((_item) => _item.toString());
+          state.selectedOptions = filteredOptions.value.filter(
+            (option) => _values.indexOf(option["value"]) !== -1
+          );
         }
+        if (!newValue) {
+          state.selectedOption = {};
+        }
+      }
     );
 
     onMounted(() => {
-      window.addEventListener("click", (event:Event) => {
-        if (!(element.value as HTMLElement | null)?.contains(event.target as HTMLElement)) {
+      window.addEventListener("click", (event: Event) => {
+        if (
+          !(element.value as HTMLElement | null)?.contains(
+            event.target as HTMLElement
+          )
+        ) {
           state.showDropdown = false;
         }
       });
       if (props.multiple && Array.isArray(props.modelValue)) {
         const _values = props.modelValue.map((_item) => _item.toString());
         state.selectedOptions = filteredOptions.value.filter(
-            (option) => _values.indexOf(option["value"]) !== -1
+          (option) => _values.indexOf(option["value"]) !== -1
         );
       }
     });
@@ -234,16 +293,16 @@ export default defineComponent({
     };
     const isItemSelected = (option) => {
       return Array.isArray(props.modelValue)
-          ? props.modelValue.indexOf(option["value"]) !== -1
-          : props.modelValue == option["value"];
+        ? props.modelValue.indexOf(option["value"]) !== -1
+        : props.modelValue == option["value"];
     };
 
     const dropdownItemClasses = (option) => {
       const classes = [];
       if (isItemSelected(option)) classes.push("is-active");
       if (
-          hasSelectedOption.value &&
-          option["value"] === state.selectedOption["value"]
+        hasSelectedOption.value &&
+        option["value"] === state.selectedOption["value"]
       )
         classes.push("is-hover");
 
@@ -282,31 +341,31 @@ export default defineComponent({
     const removeSelectedItem = (_option) => {
       state.selectedOptions.splice(state.selectedOptions.indexOf(_option), 1);
       emitEvent(
-          state.selectedOptions.length
-              ? state.selectedOptions.map((option) => option.value)
-              : []
+        state.selectedOptions.length
+          ? state.selectedOptions.map((option) => option.value)
+          : []
       );
     };
 
     const scrollIfNeeded = (direction) => {
       const dropdownContent = element.value.querySelector(
-              ".shapla-dropdown-menu__content"
-          ),
-          hoverEl = dropdownContent.querySelector(
-              ".shapla-dropdown-item.is-hover"
-          ),
-          hoverElHeight = hoverEl ? hoverEl.clientHeight : 0,
-          hoverElFromTop = hoverEl ? hoverEl.offsetTop : 0;
+          ".shapla-dropdown-menu__content"
+        ),
+        hoverEl = dropdownContent.querySelector(
+          ".shapla-dropdown-item.is-hover"
+        ),
+        hoverElHeight = hoverEl ? hoverEl.clientHeight : 0,
+        hoverElFromTop = hoverEl ? hoverEl.offsetTop : 0;
 
       if ("up" === direction && hoverElFromTop < dropdownContent.clientHeight) {
         dropdownContent.scrollTop =
-            hoverElFromTop + hoverElHeight - dropdownContent.clientHeight;
+          hoverElFromTop + hoverElHeight - dropdownContent.clientHeight;
       }
 
       if ("down" === direction) {
         setTimeout(() => {
           dropdownContent.scrollTop =
-              hoverElFromTop + hoverElHeight - dropdownContent.clientHeight;
+            hoverElFromTop + hoverElHeight - dropdownContent.clientHeight;
         }, 50);
       }
     };
@@ -315,9 +374,9 @@ export default defineComponent({
       // Go Up
       if (38 === event.keyCode) {
         const indexOfSelectedOption = filteredOptions.value.indexOf(
-                state.selectedOption
-            ),
-            preIndex = indexOfSelectedOption - 1;
+            state.selectedOption
+          ),
+          preIndex = indexOfSelectedOption - 1;
         if (preIndex >= 0) {
           state.selectedOption = filteredOptions.value[preIndex];
         }
@@ -327,9 +386,9 @@ export default defineComponent({
       // Go Down
       if (40 === event.keyCode) {
         const indexOfSelectedOption = filteredOptions.value.indexOf(
-                state.selectedOption
-            ),
-            nextIndex = indexOfSelectedOption + 1;
+            state.selectedOption
+          ),
+          nextIndex = indexOfSelectedOption + 1;
         if (nextIndex < filteredOptions.value.length) {
           state.selectedOption = filteredOptions.value[nextIndex];
         }
@@ -363,7 +422,7 @@ export default defineComponent({
       handleKeydownEvent,
     };
   },
-})
+});
 </script>
 
 <style lang="scss">

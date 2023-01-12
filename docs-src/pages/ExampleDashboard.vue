@@ -34,18 +34,18 @@
 </template>
 
 <script>
-import {ShaplaDashboard} from "../../src";
+import { ShaplaDashboard } from "../../src";
 import DocTab from "../components/DocTab.vue";
 import CodeBlock from "../components/CodeBlock.vue";
-import {computed} from "vue";
+import { computed } from "vue";
 
 export default {
   name: "ExampleDashboard",
-  components: {DocTab, CodeBlock},
+  components: { DocTab, CodeBlock },
   setup() {
     const properties = computed(() => ShaplaDashboard.props);
     const descriptions = {};
-    return {properties, descriptions};
+    return { properties, descriptions };
   },
 };
 </script>

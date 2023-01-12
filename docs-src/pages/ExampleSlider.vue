@@ -12,17 +12,17 @@
 </template>
 
 <script>
-import {ShaplaRangeSlider} from "../../src";
+import { ShaplaRangeSlider } from "../../src";
 import DocTab from "../components/DocTab.vue";
-import {computed} from "vue";
+import { computed } from "vue";
 
 export default {
   name: "ExampleSlider",
-  components: {DocTab, ShaplaRangeSlider},
+  components: { DocTab, ShaplaRangeSlider },
   setup() {
     const properties = computed(() => ShaplaRangeSlider.props);
-    const descriptions = {}
-    return {properties, descriptions}
+    const descriptions = {};
+    return { properties, descriptions };
   },
   data() {
     return {

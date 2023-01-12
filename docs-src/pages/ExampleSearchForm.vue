@@ -12,17 +12,17 @@
 </template>
 
 <script>
-import {ShaplaSearchForm} from "../../src";
+import { ShaplaSearchForm } from "../../src";
 import DocTab from "../components/DocTab.vue";
-import {computed} from "vue";
+import { computed } from "vue";
 
 export default {
   name: "ExampleSearchForm",
-  components: {DocTab, ShaplaSearchForm},
+  components: { DocTab, ShaplaSearchForm },
   setup() {
     const properties = computed(() => ShaplaSearchForm.props);
-    const descriptions = {}
-    return {properties, descriptions}
+    const descriptions = {};
+    return { properties, descriptions };
   },
 };
 </script>

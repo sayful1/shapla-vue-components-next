@@ -1,15 +1,19 @@
 <template>
-  <div v-if="items.length" class="shapla-notification-container" :class="containerClasses">
+  <div
+    v-if="items.length"
+    class="shapla-notification-container"
+    :class="containerClasses"
+  >
     <transition-group name="shapla-notification-transition" tag="div">
       <shapla-notification
-          v-for="item in items"
-          :key="item.id"
-          :type="item.type"
-          :title="item.title"
-          :message="item.message"
-          :timeout="item.timeout"
-          :show-dismisses="showDismisses"
-          @close="removeItemFromQueue(item)"
+        v-for="item in items"
+        :key="item.id"
+        :type="item.type"
+        :title="item.title"
+        :message="item.message"
+        :timeout="item.timeout"
+        :show-dismisses="showDismisses"
+        @close="removeItemFromQueue(item)"
       />
     </transition-group>
   </div>
@@ -17,27 +21,29 @@
 
 <script lang="ts">
 import ShaplaNotification from "./ShaplaNotification.vue";
-import Notify, {NotificationDataArgsInterface} from "./Notify";
-import {ref, onMounted, computed, defineComponent} from "vue";
+import Notify, { NotificationDataArgsInterface } from "./Notify";
+import { ref, onMounted, computed, defineComponent } from "vue";
 
 export default defineComponent({
   name: "ShaplaNotificationContainer",
-  components: {ShaplaNotification},
-  model: {prop: "options", event: "queued"},
+  components: { ShaplaNotification },
+  model: { prop: "options", event: "queued" },
   props: {
-    showDismisses: {type: Boolean, default: true},
-    timeout: {type: Number, default: 4000},
+    showDismisses: { type: Boolean, default: true },
+    timeout: { type: Number, default: 4000 },
     position: {
-      type: String, default: "top-right", validator: (value: string) =>
-          [
-            "top-left",
-            "top-center",
-            "top-right",
-            "bottom-left",
-            "bottom-center",
-            "bottom-right",
-            "center-center",
-          ].indexOf(value) !== -1,
+      type: String,
+      default: "top-right",
+      validator: (value: string) =>
+        [
+          "top-left",
+          "top-center",
+          "top-right",
+          "bottom-left",
+          "bottom-center",
+          "bottom-right",
+          "center-center",
+        ].indexOf(value) !== -1,
     },
   },
   setup(props) {
@@ -66,7 +72,7 @@ export default defineComponent({
 
     const removeItemFromQueue = (options: NotificationDataArgsInterface) => {
       const _items = items.value,
-          index = _items.findIndex((item) => item.id === options.id);
+        index = _items.findIndex((item) => item.id === options.id);
       if (index > -1) {
         _items.splice(index, 1);
       }
@@ -74,7 +80,9 @@ export default defineComponent({
 
     onMounted(() => {
       // if event specified use it, else if no snack prop then use default.
-      Notify.on((options: NotificationDataArgsInterface) => addItemToQueue(options));
+      Notify.on((options: NotificationDataArgsInterface) =>
+        addItemToQueue(options)
+      );
     });
     return {
       items,
@@ -82,7 +90,7 @@ export default defineComponent({
       removeItemFromQueue,
     };
   },
-})
+});
 </script>
 
 <style lang="scss">

@@ -11,7 +11,7 @@
       <div>
         <h2>Position</h2>
         <label v-for="_position in positions" :key="_position.value">
-          <input v-model="position" type="radio" :value="_position.value">
+          <input v-model="position" type="radio" :value="_position.value" />
           {{ _position.label }}
         </label>
       </div>
@@ -40,16 +40,16 @@
 </template>
 
 <script>
-import {Notify, ShaplaModal, ShaplaNotificationContainer} from "../../src";
-import {computed} from "vue";
+import { Notify, ShaplaModal, ShaplaNotificationContainer } from "../../src";
+import { computed } from "vue";
 import DocTab from "../components/DocTab.vue";
 
 export default {
   name: "ExampleNotification",
-  components: {DocTab, ShaplaNotificationContainer },
+  components: { DocTab, ShaplaNotificationContainer },
   setup() {
     const properties = computed(() => ShaplaModal.props);
-    const descriptions = {}
+    const descriptions = {};
     const showNotification = (type = "default") => {
       if ("success" === type) {
         Notify.success({
@@ -83,7 +83,7 @@ export default {
     return {
       showNotification,
       properties,
-      descriptions
+      descriptions,
     };
   },
   data() {

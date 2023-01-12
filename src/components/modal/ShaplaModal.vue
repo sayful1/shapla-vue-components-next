@@ -1,7 +1,12 @@
 <template>
   <div :class="modalClasses">
     <div :class="backgroundClasses" @click="backgroundClick" />
-    <shapla-cross v-if="showCloseIcon && !is_card" :fixed="true" size="large" @click="close" />
+    <shapla-cross
+      v-if="showCloseIcon && !is_card"
+      :fixed="true"
+      size="large"
+      @click="close"
+    />
 
     <div :class="contentClasses">
       <template v-if="is_card">
@@ -14,7 +19,10 @@
         <div class="shapla-modal-card__body">
           <slot />
         </div>
-        <div v-if="showCardFooter" class="shapla-modal-card__footer is-pulled-right">
+        <div
+          v-if="showCardFooter"
+          class="shapla-modal-card__footer is-pulled-right"
+        >
           <slot name="foot">
             <button class="shapla-button" @click.prevent="close">Cancel</button>
           </slot>
@@ -30,31 +38,34 @@
 
 <script lang="ts">
 import ShaplaCross from "../cross/ShaplaCross.vue";
-import {refreshBodyClass} from "./helpers";
-import {computed, onMounted, watch, defineComponent} from "vue";
+import { refreshBodyClass } from "./helpers";
+import { computed, onMounted, watch, defineComponent } from "vue";
 
 export default defineComponent({
   name: "ShaplaModal",
-  components: {ShaplaCross},
+  components: { ShaplaCross },
   props: {
-    active: {type: Boolean, required: true},
-    title: {type: String, default: "Untitled"},
-    type: {type: String, default: "card"}, // Also support 'box', 'confirm' design
-    closeOnBackgroundClick: {type: Boolean, default: true},
-    showCloseIcon: {type: Boolean, default: true},
-    showCardFooter: {type: Boolean, default: true},
-    contentClass: {type: String, default: ""},
+    active: { type: Boolean, required: true },
+    title: { type: String, default: "Untitled" },
+    type: { type: String, default: "card" }, // Also support 'box', 'confirm' design
+    closeOnBackgroundClick: { type: Boolean, default: true },
+    showCloseIcon: { type: Boolean, default: true },
+    showCardFooter: { type: Boolean, default: true },
+    contentClass: { type: String, default: "" },
     backgroundTheme: {
-      type: String, default: "dark", validator: (value: string) =>
-          ["dark", "light"].indexOf(value) !== -1,
+      type: String,
+      default: "dark",
+      validator: (value: string) => ["dark", "light"].indexOf(value) !== -1,
     },
     contentSize: {
-      type: String, default: "medium", validator: (value: string) =>
-          ["small", "medium", "large", "full"].indexOf(value) !== -1,
+      type: String,
+      default: "medium",
+      validator: (value: string) =>
+        ["small", "medium", "large", "full"].indexOf(value) !== -1,
     },
   },
   emits: ["close"],
-  setup(props, {emit}) {
+  setup(props, { emit }) {
     const modalClasses = computed(() => {
       const classes = ["shapla-modal"];
       if (props.active) classes.push("is-active");
@@ -94,10 +105,10 @@ export default defineComponent({
     });
 
     watch(
-        () => props.active,
-        (newValue) => {
-          refreshBodyClass(newValue);
-        }
+      () => props.active,
+      (newValue) => {
+        refreshBodyClass(newValue);
+      }
     );
 
     return {
@@ -109,7 +120,7 @@ export default defineComponent({
       contentClasses,
     };
   },
-})
+});
 </script>
 
 <style lang="scss">

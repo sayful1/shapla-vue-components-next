@@ -173,9 +173,9 @@
 </template>
 
 <script>
-import {ShaplaInput} from "../../src";
+import { ShaplaInput } from "../../src";
 import DocTab from "../components/DocTab.vue";
-import {computed} from "vue";
+import { computed } from "vue";
 
 export default {
   name: "ExampleTextField",
@@ -185,8 +185,8 @@ export default {
   },
   setup() {
     const properties = computed(() => ShaplaInput.props);
-    const descriptions = {}
-    return {properties, descriptions}
+    const descriptions = {};
+    return { properties, descriptions };
   },
   data() {
     return {
@@ -214,9 +214,9 @@ export default {
     },
     validateEmail(value) {
       return (
-          /^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,4})$/.test(
-              value
-          ) !== false
+        /^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,4})$/.test(
+          value
+        ) !== false
       );
     },
   },

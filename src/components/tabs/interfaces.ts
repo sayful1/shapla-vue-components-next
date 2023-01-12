@@ -1,13 +1,13 @@
-import {VNode} from "vue";
+import { VNode } from "vue";
 
 interface TabsDataInterface {
-  tabs: VNode[],
-  selectedIndex: number,
-  count: number,
+  tabs: VNode[];
+  selectedIndex: number;
+  count: number;
 }
 
 interface TabVNodeTypeInterface {
-  name: string
+  name: string;
 }
 
-export {TabsDataInterface, TabVNodeTypeInterface}
+export { TabsDataInterface, TabVNodeTypeInterface };

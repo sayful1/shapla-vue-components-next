@@ -48,14 +48,14 @@
 </template>
 
 <script>
-import { ShaplaChip} from "../../src/index.ts";
+import { ShaplaChip } from "../../src/index.ts";
 import DocTab from "../components/DocTab.vue";
 import CodeBlock from "../components/CodeBlock.vue";
-import {computed} from "vue";
+import { computed } from "vue";
 
 export default {
   name: "ExampleChip",
-  components: { ShaplaChip,DocTab,CodeBlock },
+  components: { ShaplaChip, DocTab, CodeBlock },
   setup() {
     const properties = computed(() => ShaplaChip.props);
     const descriptions = computed(() => {
@@ -67,7 +67,7 @@ export default {
         height: "Custom height of chip.",
       };
     });
-    return { properties, descriptions};
+    return { properties, descriptions };
   },
 };
 </script>

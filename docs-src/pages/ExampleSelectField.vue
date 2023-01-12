@@ -80,18 +80,18 @@
 </template>
 
 <script>
-import {ShaplaSelect} from "../../src";
-import {countriesList, studentsList} from "./testData";
+import { ShaplaSelect } from "../../src";
+import { countriesList, studentsList } from "./testData";
 import DocTab from "../components/DocTab.vue";
-import {computed} from "vue";
+import { computed } from "vue";
 
 export default {
   name: "ExampleSelectField",
-  components: {DocTab, "select-field": ShaplaSelect},
+  components: { DocTab, "select-field": ShaplaSelect },
   setup() {
     const properties = computed(() => ShaplaSelect.props);
-    const descriptions = {}
-    return {properties, descriptions}
+    const descriptions = {};
+    return { properties, descriptions };
   },
   data() {
     return {
@@ -107,7 +107,7 @@ export default {
         false,
         0,
         1,
-        {label: "Sayful", value: "SA"},
+        { label: "Sayful", value: "SA" },
       ],
       country: ["ST"],
       students: [1],

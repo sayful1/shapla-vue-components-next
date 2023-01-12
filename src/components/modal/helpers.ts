@@ -14,5 +14,5 @@ const ShaplaModalHelper = {
   refreshBodyClass,
 };
 
-export {refreshBodyClass};
+export { refreshBodyClass };
 export default ShaplaModalHelper;

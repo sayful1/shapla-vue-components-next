@@ -1,12 +1,12 @@
 <template>
   <div :class="classes">
     <div
-        :class="barClasses"
-        role="progressbar"
-        :aria-valuenow="value"
-        aria-valuemin="0"
-        :aria-valuemax="max"
-        :style="barStyle"
+      :class="barClasses"
+      role="progressbar"
+      :aria-valuenow="value"
+      aria-valuemin="0"
+      :aria-valuemax="max"
+      :style="barStyle"
     >
       <slot>{{ label }}</slot>
     </div>
@@ -14,23 +14,27 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent} from "vue";
+import { computed, defineComponent } from "vue";
 
 export default defineComponent({
   name: "ShaplaProgress",
   props: {
-    label: {type: String, default: null},
-    value: {type: Number, default: null},
-    max: {type: Number, default: 1},
-    striped: {type: Boolean, default: false},
-    animated: {type: Boolean, default: false},
+    label: { type: String, default: null },
+    value: { type: Number, default: null },
+    max: { type: Number, default: 1 },
+    striped: { type: Boolean, default: false },
+    animated: { type: Boolean, default: false },
     size: {
-      type: String, default: "default", validator: (value: string) =>
-          ["default", "tiny", "small", "medium", "large"].indexOf(value) !== -1,
+      type: String,
+      default: "default",
+      validator: (value: string) =>
+        ["default", "tiny", "small", "medium", "large"].indexOf(value) !== -1,
     },
     theme: {
-      type: String, default: "default", validator: (value: string) =>
-          ["default", "primary", "secondary"].indexOf(value) !== -1,
+      type: String,
+      default: "default",
+      validator: (value: string) =>
+        ["default", "primary", "secondary"].indexOf(value) !== -1,
     },
   },
   setup(props) {
@@ -46,7 +50,7 @@ export default defineComponent({
       }
 
       return classes;
-    })
+    });
     const barClasses = computed(() => {
       const classes = ["shapla-progress-bar"];
       if ("default" !== props.theme) {
@@ -60,19 +64,19 @@ export default defineComponent({
       }
 
       return classes;
-    })
+    });
 
     const barStyle = computed(() => {
       if (props.value) {
         const width = Math.round((props.value / props.max) * 100);
-        return {width: `${width}%`};
+        return { width: `${width}%` };
       }
       return {};
-    })
+    });
 
-    return {classes, barClasses, barStyle}
-  }
-})
+    return { classes, barClasses, barStyle };
+  },
+});
 </script>
 
 <style lang="scss">

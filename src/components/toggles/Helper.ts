@@ -5,8 +5,14 @@ class ToggleEvent {
    * @param event
    * @param callback
    */
-  static on(event: string, callback: EventListener | ((element: { parent: string, item: string }) => void)) {
-    document.addEventListener(event, ((e: CustomEvent) => callback(e.detail)) as EventListener);
+  static on(
+    event: string,
+    callback:
+      | EventListener
+      | ((element: { parent: string; item: string }) => void)
+  ) {
+    document.addEventListener(event, ((e: CustomEvent) =>
+      callback(e.detail)) as EventListener);
   }
 
   /**
@@ -15,8 +21,8 @@ class ToggleEvent {
    * @param event
    * @param data
    */
-  static dispatch(event: string, data: { parent: string, item: string }) {
-    document.dispatchEvent(new CustomEvent(event, {detail: data}));
+  static dispatch(event: string, data: { parent: string; item: string }) {
+    document.dispatchEvent(new CustomEvent(event, { detail: data }));
   }
 }
 
@@ -30,13 +36,13 @@ const createUUID = (): string => {
 };
 
 interface TogglesPropsInterface {
-  accordion: boolean,
-  iconPosition: string,
-  boxedMode: boolean,
-  showDivider: boolean,
-  titleColor: string,
-  uuid: string,
+  accordion: boolean;
+  iconPosition: string;
+  boxedMode: boolean;
+  showDivider: boolean;
+  titleColor: string;
+  uuid: string;
 }
 
-export {ToggleEvent, createUUID, TogglesPropsInterface};
+export { ToggleEvent, createUUID, TogglesPropsInterface };
 export default ToggleEvent;

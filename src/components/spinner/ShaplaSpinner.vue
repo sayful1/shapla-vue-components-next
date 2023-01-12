@@ -3,18 +3,18 @@
     <div class="shapla-spinner-inner" :class="{ 'has-text': showText }">
       <div class="shapla-spinner" :class="getClass">
         <div
-            v-for="index in [1, 2, 3, 4]"
-            :key="index"
-            :class="itemClass(index)"
+          v-for="index in [1, 2, 3, 4]"
+          :key="index"
+          :class="itemClass(index)"
         >
           <div class="shapla-spinner__circle-clipper shapla-spinner__left">
-            <div class="shapla-spinner__circle"/>
+            <div class="shapla-spinner__circle" />
           </div>
           <div class="shapla-spinner__gap-patch">
-            <div class="shapla-spinner__circle"/>
+            <div class="shapla-spinner__circle" />
           </div>
           <div class="shapla-spinner__circle-clipper shapla-spinner__right">
-            <div class="shapla-spinner__circle"/>
+            <div class="shapla-spinner__circle" />
           </div>
         </div>
       </div>
@@ -26,22 +26,28 @@
 </template>
 
 <script lang="ts">
-import {computed, onMounted, watch, defineComponent} from "vue";
+import { computed, onMounted, watch, defineComponent } from "vue";
 
 export default defineComponent({
   name: "ShaplaSpinner",
   props: {
-    active: {type: Boolean, default: true, required: true},
-    single: {type: Boolean, default: false, required: false},
-    showText: {type: Boolean, default: false, required: false},
-    loadingText: {type: String, default: "Loading...", required: false},
+    active: { type: Boolean, default: true, required: true },
+    single: { type: Boolean, default: false, required: false },
+    showText: { type: Boolean, default: false, required: false },
+    loadingText: { type: String, default: "Loading...", required: false },
     position: {
-      type: String, default: "fixed", required: false, validator: (value: string) =>
-          ["fixed", "absolute", "static"].indexOf(value) !== -1,
+      type: String,
+      default: "fixed",
+      required: false,
+      validator: (value: string) =>
+        ["fixed", "absolute", "static"].indexOf(value) !== -1,
     },
     size: {
-      type: String, default: "default", required: false, validator: (value: string) =>
-          ["default", "large", "medium", "small"].indexOf(value) !== -1,
+      type: String,
+      default: "default",
+      required: false,
+      validator: (value: string) =>
+        ["default", "large", "medium", "small"].indexOf(value) !== -1,
     },
   },
   setup(props) {
@@ -76,10 +82,10 @@ export default defineComponent({
     });
 
     watch(
-        () => props.active,
-        (newValue) => {
-          refreshBodyClass(newValue);
-        }
+      () => props.active,
+      (newValue) => {
+        refreshBodyClass(newValue);
+      }
     );
 
     return {
@@ -88,7 +94,7 @@ export default defineComponent({
       getClass,
     };
   },
-})
+});
 </script>
 
 <style lang="scss">

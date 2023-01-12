@@ -7,12 +7,12 @@
 </template>
 
 <script lang="ts">
-import {defineComponent} from "vue";
+import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "ToggleIcon",
   props: {
-    icon: {type: String, required: true},
+    icon: { type: String, required: true },
   },
-})
+});
 </script>

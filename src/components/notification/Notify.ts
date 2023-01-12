@@ -12,10 +12,11 @@ class Notify {
    *
    * @param callback
    */
-  static on(callback: EventListener | ((options: NotificationDataArgsInterface) => void)) {
+  static on(
+    callback: EventListener | ((options: NotificationDataArgsInterface) => void)
+  ) {
     document.addEventListener("show.ShaplaVueNotification", ((e: CustomEvent) =>
-      callback(e.detail)) as EventListener
-    );
+      callback(e.detail)) as EventListener);
   }
 
   /**
@@ -25,7 +26,10 @@ class Notify {
    */
   static dispatch(data: NotificationDataArgsInterface) {
     document.dispatchEvent(
-      new CustomEvent<NotificationDataArgsInterface>("show.ShaplaVueNotification", {detail: data})
+      new CustomEvent<NotificationDataArgsInterface>(
+        "show.ShaplaVueNotification",
+        { detail: data }
+      )
     );
   }
 
@@ -50,7 +54,10 @@ class Notify {
    * @param args
    * @return {Object}
    */
-  static getParams(message: string | NotificationDataArgsInterface, ...args: (string | number)[]) {
+  static getParams(
+    message: string | NotificationDataArgsInterface,
+    ...args: (string | number)[]
+  ) {
     let params: NotificationDataArgsInterface = {
       id: Notify.createUUID(),
       type: "primary",
@@ -71,7 +78,7 @@ class Notify {
     }
 
     if (args.length > 1) {
-      params.title = typeof args[0] === "string" ? args[0] : '';
+      params.title = typeof args[0] === "string" ? args[0] : "";
       params.timeout = typeof args[1] === "number" ? args[1] : 3000;
     } else {
       if (typeof args[0] === "number") {
@@ -99,7 +106,10 @@ class Notify {
    * @param message
    * @param params
    */
-  static default(message: string | NotificationDataArgsInterface, ...params: (string | number)[]) {
+  static default(
+    message: string | NotificationDataArgsInterface,
+    ...params: (string | number)[]
+  ) {
     Notify.primary(message, ...params);
   }
 
@@ -109,7 +119,10 @@ class Notify {
    * @param message
    * @param params
    */
-  static primary(message: string | NotificationDataArgsInterface, ...params: (string | number)[]) {
+  static primary(
+    message: string | NotificationDataArgsInterface,
+    ...params: (string | number)[]
+  ) {
     const _params = Notify.getParams(message, ...params);
     _params.type = "primary";
     Notify.create(_params);
@@ -121,7 +134,10 @@ class Notify {
    * @param message
    * @param params
    */
-  static success(message: string | NotificationDataArgsInterface, ...params: (string | number)[]) {
+  static success(
+    message: string | NotificationDataArgsInterface,
+    ...params: (string | number)[]
+  ) {
     const _params = Notify.getParams(message, ...params);
     _params.type = "success";
     Notify.create(_params);
@@ -133,7 +149,10 @@ class Notify {
    * @param message
    * @param params
    */
-  static info(message: string | NotificationDataArgsInterface, ...params: (string | number)[]) {
+  static info(
+    message: string | NotificationDataArgsInterface,
+    ...params: (string | number)[]
+  ) {
     const _params = Notify.getParams(message, ...params);
     _params.type = "info";
     Notify.create(_params);
@@ -145,7 +164,10 @@ class Notify {
    * @param message
    * @param params
    */
-  static warning(message: string | NotificationDataArgsInterface, ...params: (string | number)[]) {
+  static warning(
+    message: string | NotificationDataArgsInterface,
+    ...params: (string | number)[]
+  ) {
     const _params = Notify.getParams(message, ...params);
     _params.type = "warning";
     Notify.create(_params);
@@ -157,12 +179,15 @@ class Notify {
    * @param message
    * @param params
    */
-  static error(message: string | NotificationDataArgsInterface, ...params: (string | number)[]) {
+  static error(
+    message: string | NotificationDataArgsInterface,
+    ...params: (string | number)[]
+  ) {
     const _params = Notify.getParams(message, ...params);
     _params.type = "error";
     Notify.create(_params);
   }
 }
 
-export {Notify, NotificationDataArgsInterface};
+export { Notify, NotificationDataArgsInterface };
 export default Notify;

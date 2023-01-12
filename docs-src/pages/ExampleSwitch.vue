@@ -45,17 +45,17 @@
 </template>
 
 <script>
-import {ShaplaSwitch} from "../../src";
+import { ShaplaSwitch } from "../../src";
 import DocTab from "../components/DocTab.vue";
-import {computed} from "vue";
+import { computed } from "vue";
 
 export default {
   name: "ExampleSwitch",
-  components: {DocTab, ShaplaSwitch},
+  components: { DocTab, ShaplaSwitch },
   setup() {
     const properties = computed(() => ShaplaSwitch.props);
-    const descriptions = {}
-    return {properties, descriptions}
+    const descriptions = {};
+    return { properties, descriptions };
   },
   data() {
     return {

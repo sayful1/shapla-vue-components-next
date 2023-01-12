@@ -9,13 +9,13 @@
 </template>
 
 <script>
-import {ShaplaTable} from "../../src/index.ts";
+import { ShaplaTable } from "../../src/index.ts";
 
 export default {
   name: "SectionProps",
-  components: {ShaplaTable},
+  components: { ShaplaTable },
   props: {
-    heading: {type: String, default: "Properties"},
+    heading: { type: String, default: "Properties" },
     properties: {
       type: Object,
       default: () => {
@@ -33,19 +33,24 @@ export default {
     return {
       tableRows: [],
       columns: [
-        {key: "property", label: "Property"},
-        {key: "type", label: "Type"},
-        {key: "required", label: "Required"},
-        {key: "default", label: "Default"},
-        {key: "description", label: "Description"},
+        { key: "property", label: "Property" },
+        { key: "type", label: "Type" },
+        { key: "required", label: "Required" },
+        { key: "default", label: "Default" },
+        { key: "description", label: "Description" },
       ],
     };
   },
   mounted() {
-    let descriptions = this.desc
+    let descriptions = this.desc;
     if (!Object.keys(descriptions).length) {
-      descriptions = Object.keys(this.properties).reduce((previousValue, currentValue) =>
-          ({...previousValue, [currentValue]: ''}), {});
+      descriptions = Object.keys(this.properties).reduce(
+        (previousValue, currentValue) => ({
+          ...previousValue,
+          [currentValue]: "",
+        }),
+        {}
+      );
     }
 
     for (const [key, value] of Object.entries(this.properties)) {

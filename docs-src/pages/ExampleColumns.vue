@@ -12,7 +12,11 @@
     :desc="descriptions"
   >
     <template #after-props>
-      <section-props heading="Props for `ShaplaColumn`" :properties="properties2" :desc="desc" />
+      <section-props
+        heading="Props for `ShaplaColumn`"
+        :properties="properties2"
+        :desc="desc"
+      />
     </template>
     <code-block heading="Columns with default gap (0.75rem)">
       <columns>
@@ -130,26 +134,36 @@
 </template>
 
 <script>
-import {ShaplaColumn, ShaplaColumns} from "../../src/index.ts";
+import { ShaplaColumn, ShaplaColumns } from "../../src/index.ts";
 import DocTab from "../components/DocTab.vue";
 import CodeBlock from "../components/CodeBlock.vue";
 import SectionProps from "../components/SectionProps.vue";
-import {computed} from "vue";
+import { computed } from "vue";
 
 export default {
   name: "ColumnsExample",
-  components: {columns: ShaplaColumns, column: ShaplaColumn, DocTab, CodeBlock, SectionProps},
+  components: {
+    columns: ShaplaColumns,
+    column: ShaplaColumn,
+    DocTab,
+    CodeBlock,
+    SectionProps,
+  },
   setup() {
     const properties = computed(() => ShaplaColumns.props);
     const properties2 = computed(() => ShaplaColumn.props);
     const descriptions = {
-      multiline: "Whenever you want to start a new line, you can also add the `multiline` property and add more column elements than would fit in a single row",
+      multiline:
+        "Whenever you want to start a new line, you can also add the `multiline` property and add more column elements than would fit in a single row",
       centered: "For centering columns, you can add the `centered` property",
-      vcentered: "To align your columns vertically, add the `vcentered` property to the columns container.",
+      vcentered:
+        "To align your columns vertically, add the `vcentered` property to the columns container.",
       gapless: "To remove the space between the columns.",
-      mobile: "By default, columns are only activated from tablet onwards. To make columns to work on mobile too, add the `mobile`",
+      mobile:
+        "By default, columns are only activated from tablet onwards. To make columns to work on mobile too, add the `mobile`",
       desktop: "To make columns works on desktop upwards",
-      columnGap: "If you want to use custom column gap, you can change this value",
+      columnGap:
+        "If you want to use custom column gap, you can change this value",
     };
 
     const desc = {
@@ -158,9 +172,9 @@ export default {
       desktop: "When screen size (greater than/equal to) 1024px.",
       widescreen: "When screen size (greater than/equal to) 1280px.",
       fullhd: "When screen size (greater than/equal to) 1400px.",
-    }
+    };
 
-    return {properties, properties2, descriptions, desc}
-  }
+    return { properties, properties2, descriptions, desc };
+  },
 };
 </script>

@@ -22,25 +22,25 @@
 </template>
 
 <script>
-import {ShaplaRadio} from "../../src";
+import { ShaplaRadio } from "../../src";
 import DocTab from "../components/DocTab.vue";
-import {computed} from "vue";
+import { computed } from "vue";
 
 export default {
   name: "ExampleRadio",
-  components: {DocTab, ShaplaRadio},
+  components: { DocTab, ShaplaRadio },
   setup() {
     const properties = computed(() => ShaplaRadio.props);
-    const descriptions = {}
-    return {properties, descriptions}
+    const descriptions = {};
+    return { properties, descriptions };
   },
   data() {
     return {
       radioTest: "",
       testOptions: [
-        {label: "One", value: "one"},
-        {label: "Two", value: "two"},
-        {label: "Three", value: "three"},
+        { label: "One", value: "one" },
+        { label: "Two", value: "two" },
+        { label: "Three", value: "three" },
       ],
     };
   },

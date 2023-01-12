@@ -8,27 +8,38 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent} from "vue";
+import { computed, defineComponent } from "vue";
 
 export default defineComponent({
   name: "ShaplaButton",
   props: {
     theme: {
-      type: String, default: "default", validator: (value: string) =>
-          ["default", "primary", "secondary", "success", "warning", "error",].indexOf(value) !== -1,
+      type: String,
+      default: "default",
+      validator: (value: string) =>
+        [
+          "default",
+          "primary",
+          "secondary",
+          "success",
+          "warning",
+          "error",
+        ].indexOf(value) !== -1,
     },
     size: {
-      type: String, default: "normal", validator: (value: string) =>
-          ["small", "normal", "medium", "large"].indexOf(value) !== -1,
+      type: String,
+      default: "normal",
+      validator: (value: string) =>
+        ["small", "normal", "medium", "large"].indexOf(value) !== -1,
     },
-    fullwidth: {type: Boolean, default: false},
-    disabled: {type: Boolean, default: false},
-    outline: {type: Boolean, default: false},
-    rounded: {type: Boolean, default: false},
-    fab: {type: Boolean, default: false},
-    shadow: {type: Boolean, default: false},
-    loading: {type: Boolean, default: false},
-    href: {type: String, default: ""},
+    fullwidth: { type: Boolean, default: false },
+    disabled: { type: Boolean, default: false },
+    outline: { type: Boolean, default: false },
+    rounded: { type: Boolean, default: false },
+    fab: { type: Boolean, default: false },
+    shadow: { type: Boolean, default: false },
+    loading: { type: Boolean, default: false },
+    href: { type: String, default: "" },
   },
   setup(props) {
     const btnClasses = computed(() => {
@@ -45,9 +56,9 @@ export default defineComponent({
       return classes;
     });
 
-    return {btnClasses};
+    return { btnClasses };
   },
-})
+});
 </script>
 
 <style lang="scss">

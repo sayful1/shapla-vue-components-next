@@ -17,11 +17,18 @@
           <a
             href="https://example.com"
             class="shapla-dropdown-item is-link is-active"
-          >Link 1</a>
-          <a href="https://example.com" class="shapla-dropdown-item is-link">Link 2</a>
+            >Link 1</a
+          >
+          <a href="https://example.com" class="shapla-dropdown-item is-link"
+            >Link 2</a
+          >
           <span class="dropdown-divider" />
-          <a href="https://example.com" class="shapla-dropdown-item is-link">Link 3</a>
-          <a href="https://example.com" class="shapla-dropdown-item is-link">Link 4</a>
+          <a href="https://example.com" class="shapla-dropdown-item is-link"
+            >Link 3</a
+          >
+          <a href="https://example.com" class="shapla-dropdown-item is-link"
+            >Link 4</a
+          >
         </dropdown>
         <dropdown :hoverable="true" :right="true">
           <template #trigger>
@@ -30,11 +37,18 @@
           <a
             href="https://example.com"
             class="shapla-dropdown-item is-link is-active"
-          >Link 1</a>
-          <a href="https://example.com" class="shapla-dropdown-item is-link">Link 2</a>
+            >Link 1</a
+          >
+          <a href="https://example.com" class="shapla-dropdown-item is-link"
+            >Link 2</a
+          >
           <span class="dropdown-divider" />
-          <a href="https://example.com" class="shapla-dropdown-item is-link">Link 3</a>
-          <a href="https://example.com" class="shapla-dropdown-item is-link">Link 4</a>
+          <a href="https://example.com" class="shapla-dropdown-item is-link"
+            >Link 3</a
+          >
+          <a href="https://example.com" class="shapla-dropdown-item is-link"
+            >Link 4</a
+          >
         </dropdown>
         <div class="mt-16">
           <dropdown :hoverable="false" :right="false" :up="true">
@@ -44,11 +58,18 @@
             <a
               href="https://example.com"
               class="shapla-dropdown-item is-link is-active"
-            >Link 1</a>
-            <a href="https://example.com" class="shapla-dropdown-item is-link">Link 2</a>
+              >Link 1</a
+            >
+            <a href="https://example.com" class="shapla-dropdown-item is-link"
+              >Link 2</a
+            >
             <span class="dropdown-divider" />
-            <a href="https://example.com" class="shapla-dropdown-item is-link">Link 3</a>
-            <a href="https://example.com" class="shapla-dropdown-item is-link">Link 4</a>
+            <a href="https://example.com" class="shapla-dropdown-item is-link"
+              >Link 3</a
+            >
+            <a href="https://example.com" class="shapla-dropdown-item is-link"
+              >Link 4</a
+            >
           </dropdown>
         </div>
         <div class="mt-16">---</div>
@@ -60,11 +81,18 @@
             <a
               href="https://example.com"
               class="shapla-dropdown-item is-link is-active"
-            >Link 1</a>
-            <a href="https://example.com" class="shapla-dropdown-item is-link">Link 2</a>
+              >Link 1</a
+            >
+            <a href="https://example.com" class="shapla-dropdown-item is-link"
+              >Link 2</a
+            >
             <span class="dropdown-divider" />
-            <a href="https://example.com" class="shapla-dropdown-item is-link">Link 3</a>
-            <a href="https://example.com" class="shapla-dropdown-item is-link">Link 4</a>
+            <a href="https://example.com" class="shapla-dropdown-item is-link"
+              >Link 3</a
+            >
+            <a href="https://example.com" class="shapla-dropdown-item is-link"
+              >Link 4</a
+            >
           </dropdown>
         </div>
         <div class="mt-16">
@@ -79,14 +107,16 @@
               :key="item + 10"
               href="https://example.com"
               class="shapla-dropdown-item is-link"
-            >Link {{ item + 1 }}</a>
+              >Link {{ item + 1 }}</a
+            >
             <span class="shapla-dropdown-divider" />
             <a
               v-for="item in range(8)"
               :key="item"
               href="https://example.com"
               class="shapla-dropdown-item is-link"
-            >Link {{ item + 3 }}</a>
+              >Link {{ item + 3 }}</a
+            >
           </dropdown>
         </div>
       </div>
@@ -95,23 +125,23 @@
 </template>
 
 <script>
-import {computed} from "vue";
-import {ShaplaDropdown} from "../../src";
+import { computed } from "vue";
+import { ShaplaDropdown } from "../../src";
 import DocTab from "../components/DocTab.vue";
 import CodeBlock from "../components/CodeBlock.vue";
 
 export default {
   name: "ExampleDropdown",
-  components: {CodeBlock, DocTab, dropdown: ShaplaDropdown},
+  components: { CodeBlock, DocTab, dropdown: ShaplaDropdown },
   setup() {
     const properties = computed(() => ShaplaDropdown.props);
-    const descriptions = {}
-    return {properties, descriptions}
+    const descriptions = {};
+    return { properties, descriptions };
   },
   methods: {
     range(length = 20) {
-      return Array.from({length: length}, (x, i) => i);
+      return Array.from({ length: length }, (x, i) => i);
     },
-  }
+  },
 };
 </script>

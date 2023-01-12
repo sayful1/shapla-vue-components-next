@@ -9,12 +9,12 @@
 </template>
 
 <script lang="ts">
-import {defineComponent} from "vue";
+import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "BodyRowExpand",
   props: {
-    colspan: {type: [String, Number], default: null},
+    colspan: { type: [String, Number], default: null },
   },
-})
+});
 </script>

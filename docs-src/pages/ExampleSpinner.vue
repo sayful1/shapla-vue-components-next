@@ -25,28 +25,28 @@
 </template>
 
 <script>
-import {ShaplaSpinner} from "../../src";
-import {computed, ref, watch} from "vue";
+import { ShaplaSpinner } from "../../src";
+import { computed, ref, watch } from "vue";
 import DocTab from "../components/DocTab.vue";
 
 export default {
   name: "ExampleSpinner",
-  components: {DocTab, ShaplaSpinner},
+  components: { DocTab, ShaplaSpinner },
   setup() {
     const active = ref(false);
 
     watch(
-        () => active.value,
-        (newValue) => {
-          if (newValue) {
-            setTimeout(() => (active.value = false), 4000);
-          }
+      () => active.value,
+      (newValue) => {
+        if (newValue) {
+          setTimeout(() => (active.value = false), 4000);
         }
+      }
     );
 
     const properties = computed(() => ShaplaSpinner.props);
-    const descriptions = {}
-    return {properties, descriptions, active}
+    const descriptions = {};
+    return { properties, descriptions, active };
   },
 };
 </script>

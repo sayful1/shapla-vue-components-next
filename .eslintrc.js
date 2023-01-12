@@ -7,7 +7,7 @@ module.exports = {
     "plugin:vue/vue3-recommended",
     "eslint:recommended",
     "@vue/typescript/recommended",
-    "prettier"
+    "prettier",
   ],
   parser: "vue-eslint-parser",
   parserOptions: {
@@ -31,9 +31,9 @@ module.exports = {
     "prefer-const": [
       "warn",
       {
-        "destructuring": "any",
-        "ignoreReadBeforeAssign": false
-      }
+        destructuring: "any",
+        ignoreReadBeforeAssign: false,
+      },
     ],
   },
 };

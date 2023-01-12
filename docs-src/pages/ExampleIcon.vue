@@ -11,7 +11,9 @@ as a reliable square container that will prevent the page to <strong>jump</stron
     :desc="descriptions"
   >
     <code-block heading="Font Awesome Icons">
-      <shapla-icon size="medium" hoverable><i class="far fa-address-book" /></shapla-icon>
+      <shapla-icon size="medium" hoverable
+        ><i class="far fa-address-book"
+      /></shapla-icon>
       <template #code>
         <pre><code>&lt;shapla-icon size="medium" hoverable&gt;
   &lt;i class="far fa-address-book" /&gt;
@@ -32,18 +34,18 @@ as a reliable square container that will prevent the page to <strong>jump</stron
 </template>
 
 <script>
-import {computed} from "vue";
-import {ShaplaIcon} from "../../src";
+import { computed } from "vue";
+import { ShaplaIcon } from "../../src";
 import DocTab from "../components/DocTab.vue";
 import CodeBlock from "../components/CodeBlock.vue";
 
 export default {
   name: "ExampleIcon",
-  components: {CodeBlock, DocTab, ShaplaIcon},
+  components: { CodeBlock, DocTab, ShaplaIcon },
   setup() {
     const properties = computed(() => ShaplaIcon.props);
-    const descriptions = {}
-    return {properties, descriptions}
+    const descriptions = {};
+    return { properties, descriptions };
   },
 };
 </script>

@@ -26,14 +26,14 @@
 </template>
 
 <script>
-import {ShaplaCross} from "../../src/index.ts";
+import { ShaplaCross } from "../../src/index.ts";
 import DocTab from "../components/DocTab.vue";
 import CodeBlock from "../components/CodeBlock.vue";
-import {computed} from "vue";
+import { computed } from "vue";
 
 export default {
   name: "ExampleCross",
-  components: {CodeBlock, ShaplaCross, DocTab},
+  components: { CodeBlock, ShaplaCross, DocTab },
   setup() {
     const triggerAlert = (message = "Default message") => {
       alert(message);
@@ -45,7 +45,7 @@ export default {
         ariaLabel: "Value for html `aria-label` attribute.",
       };
     });
-    return {triggerAlert, properties, descriptions};
+    return { triggerAlert, properties, descriptions };
   },
 };
 </script>

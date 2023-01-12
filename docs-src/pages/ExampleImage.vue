@@ -11,7 +11,7 @@
   >
     <code-block heading="Fixed size">
       <image-container container-width="32px" container-height="32px">
-        <img src="https://via.placeholder.com/48x48">
+        <img src="https://via.placeholder.com/48x48" />
       </image-container>
       <template #code>
         <pre><code>&lt;!-- template --&gt;
@@ -21,8 +21,12 @@
       </template>
     </code-block>
     <code-block heading="Fixed size: rounded">
-      <image-container container-width="32px" container-height="32px" is-rounded>
-        <img src="https://via.placeholder.com/48x48">
+      <image-container
+        container-width="32px"
+        container-height="32px"
+        is-rounded
+      >
+        <img src="https://via.placeholder.com/48x48" />
       </image-container>
       <template #code>
         <pre><code>&lt;!-- template --&gt;
@@ -34,7 +38,7 @@
     <code-block heading="Ratio">
       <div style="width: 420px; height: 560px">
         <image-container :width-ratio="3" :height-ratio="4">
-          <img src="https://via.placeholder.com/420x560">
+          <img src="https://via.placeholder.com/420x560" />
         </image-container>
       </div>
       <template #code>
@@ -48,7 +52,9 @@
       <div style="width: 420px; height: 560px">
         <image-container :width-ratio="16" :height-ratio="9">
           <iframe
-            width="640" height="360" allowfullscreen
+            width="640"
+            height="360"
+            allowfullscreen
             src="https://www.youtube.com/embed/YE7VzlLtp-4?showinfo=0"
           />
         </image-container>
@@ -69,18 +75,18 @@
 </template>
 
 <script>
-import {computed} from "vue";
-import {ShaplaImage} from "../../src";
+import { computed } from "vue";
+import { ShaplaImage } from "../../src";
 import DocTab from "../components/DocTab.vue";
 import CodeBlock from "../components/CodeBlock.vue";
 
 export default {
   name: "ExampleImage",
-  components: {CodeBlock, DocTab, "image-container": ShaplaImage},
+  components: { CodeBlock, DocTab, "image-container": ShaplaImage },
   setup() {
     const properties = computed(() => ShaplaImage.props);
-    const descriptions = {}
-    return {properties, descriptions}
+    const descriptions = {};
+    return { properties, descriptions };
   },
 };
 </script>

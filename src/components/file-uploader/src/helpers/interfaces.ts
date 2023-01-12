@@ -12,4 +12,4 @@ interface FileObjectInterfaces {
   xhr: null | XMLHttpRequest;
 }
 
-export {FileObjectInterfaces};
+export { FileObjectInterfaces };

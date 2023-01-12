@@ -17,33 +17,35 @@
 
 <script lang="ts">
 import DataTableIcon from "./DataTableIcon.vue";
-import {computed, defineComponent, PropType} from "vue";
-import {TableColumnDataInterface} from "../TableInterfaces";
+import { computed, defineComponent, PropType } from "vue";
+import { TableColumnDataInterface } from "../TableInterfaces";
 
 export default defineComponent({
   name: "HeaderCell",
-  components: {DataTableIcon},
+  components: { DataTableIcon },
   props: {
     column: {
       type: Object as PropType<TableColumnDataInterface>,
       required: false,
-      default: () => ({key: "", label: ""}),
+      default: () => ({ key: "", label: "" }),
     },
-    isPrimary: {type: Boolean, default: false},
-    isCheckbox: {type: Boolean, default: false},
-    isExpandToggle: {type: Boolean, default: false},
-    sortBy: {type: String, default: "id"},
-    sortOrder: {type: String, default: "desc"},
+    isPrimary: { type: Boolean, default: false },
+    isCheckbox: { type: Boolean, default: false },
+    isExpandToggle: { type: Boolean, default: false },
+    sortBy: { type: String, default: "id" },
+    sortOrder: { type: String, default: "desc" },
   },
   emits: ["sort"],
-  setup(props, {emit}) {
+  setup(props, { emit }) {
     const handleSort = () => emit("sort", props.column.key);
 
-    const isNumeric = computed(() =>
+    const isNumeric = computed(
+      () =>
         typeof props.column.numeric !== "undefined" &&
         props.column.numeric === true
     );
-    const isSortable = computed(() =>
+    const isSortable = computed(
+      () =>
         typeof props.column.sortable !== "undefined" &&
         props.column.sortable === true
     );
@@ -76,5 +78,5 @@ export default defineComponent({
       getHeadCellClass,
     };
   },
-})
+});
 </script>

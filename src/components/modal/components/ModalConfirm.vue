@@ -36,39 +36,44 @@
 </template>
 
 <script lang="ts">
-import {defineComponent} from "vue";
+import { defineComponent } from "vue";
 import ModalCore from "./ModalCore.vue";
 
 export default defineComponent({
   name: "ModalConfirm",
-  components: {ModalCore},
+  components: { ModalCore },
   props: {
-    active: {type: Boolean, required: true},
+    active: { type: Boolean, required: true },
     backgroundTheme: {
-      type: String, default: "light", validator: (value: string) =>
-          ["dark", "light"].indexOf(value) !== -1,
+      type: String,
+      default: "light",
+      validator: (value: string) => ["dark", "light"].indexOf(value) !== -1,
     },
     contentSize: {
-      type: String, default: "small", validator: (value: string) =>
-          ["small", "medium", "large", "full"].indexOf(value) !== -1,
+      type: String,
+      default: "small",
+      validator: (value: string) =>
+        ["small", "medium", "large", "full"].indexOf(value) !== -1,
     },
-    type: {type: String, default: ""},
+    type: { type: String, default: "" },
     icon: {
-      type: String, default: "primary", validator: (value: string) =>
-          ["primary", "success", "error"].indexOf(value) !== -1,
+      type: String,
+      default: "primary",
+      validator: (value: string) =>
+        ["primary", "success", "error"].indexOf(value) !== -1,
     },
-    title: {type: String, default: ""},
-    message: {type: String, default: "Are you sure?"},
-    confirmButton: {type: [String, Boolean], default: "Ok"},
-    cancelButton: {type: [String, Boolean], default: "Cancel"},
+    title: { type: String, default: "" },
+    message: { type: String, default: "Are you sure?" },
+    confirmButton: { type: [String, Boolean], default: "Ok" },
+    cancelButton: { type: [String, Boolean], default: "Cancel" },
   },
   emits: ["click"],
-  setup(props, {emit}) {
-    const handleClick = (confirmed:boolean) => {
+  setup(props, { emit }) {
+    const handleClick = (confirmed: boolean) => {
       emit("click", confirmed);
     };
 
-    return {handleClick};
+    return { handleClick };
   },
-})
+});
 </script>

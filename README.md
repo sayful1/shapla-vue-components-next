@@ -14,20 +14,22 @@ For Vue 2, Visit [Shapla Vue Components](https://github.com/sayful1/shapla-vue-c
 # Installation
 
 Install using npm package manager
+
 ```
 npm i @shapla/vue-components
 ```
 
 or using yarn package manager
+
 ```
 yarn add @shapla/vue-components
 ```
 
 # Usage
+
 Here we export all components script as ES module and all style as SCSS mixins. So you need to import SCSS mixin to
 load style of component and also need to import ES module and register as vue component. For detail documentation,
 please visit [Demo & Documentation](https://sayfulislam.com/shapla-vue-components/vue3/docs) page.
-
 
 For example, to use button and progress bar components:
 
@@ -71,30 +73,30 @@ export default {
 
 # List of Components
 
-* Button
-* Checkbox
-* Chip
-* Columns/Grid System
-* Confirm Dialog
-* Cross/Delete Icon
-* Dashboard
-* Dropdown
-* File Uploader
-* Icon Container
-* Image Container
-* Text Field
-* Modal/Popup
-* Notification
-* Progress Bar
-* Radio
-* Radio Button
-* Search Form
-* Select
-* Sidenav
-* Slider
-* Spinner
-* Star Rating
-* Switch
-* Data Table
-* Tabs
-* Toggles
+- Button
+- Checkbox
+- Chip
+- Columns/Grid System
+- Confirm Dialog
+- Cross/Delete Icon
+- Dashboard
+- Dropdown
+- File Uploader
+- Icon Container
+- Image Container
+- Text Field
+- Modal/Popup
+- Notification
+- Progress Bar
+- Radio
+- Radio Button
+- Search Form
+- Select
+- Sidenav
+- Slider
+- Spinner
+- Star Rating
+- Switch
+- Data Table
+- Tabs
+- Toggles

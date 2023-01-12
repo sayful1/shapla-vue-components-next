@@ -27,20 +27,24 @@
         <button @click="openLargeCardModal = true">
           Open Card Modal (Large)
         </button>
-        <button @click="openFullCardModal = true">Open Card Modal (Full)</button>
+        <button @click="openFullCardModal = true">
+          Open Card Modal (Full)
+        </button>
         <button @click="openNoFooterCardModal = true">
           Open Card Modal (No Footer)
         </button>
       </p>
       <p>
-        <button @click="openFullCardModal2 = true">Open All-in-One modal</button>
+        <button @click="openFullCardModal2 = true">
+          Open All-in-One modal
+        </button>
       </p>
 
       <shapla-modal-core :active="openCoreModal" @close="openCoreModal = false">
         <img
           src="https://via.placeholder.com/600x600.png?text=1280x960"
           alt="Placeholder image (600x600)"
-        >
+        />
       </shapla-modal-core>
 
       <shapla-modal-box
@@ -107,18 +111,18 @@
         :show-card-footer="false"
         @close="openNoFooterCardModal = false"
       >
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam, officia!
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab accusantium
-        ad adipisci aliquid asperiores aut autem blanditiis corporis cumque
-        debitis deleniti ducimus eius, error est excepturi expedita fuga fugit hic
-        illo impedit incidunt inventore iusto labore laudantium maxime nemo nobis
-        nulla numquam quae quo quos ratione suscipit temporibus, totam velit
-        veritatis voluptates! Aliquam amet doloribus, ducimus, esse harum ipsam
-        molestiae nam nemo nesciunt pariatur quas quibusdam quidem reiciendis,
-        similique velit! Consequatur debitis, dignissimos error facere id ipsum
-        iure iusto labore libero molestiae, nobis provident quis repellat saepe
-        totam vel veniam. Architecto assumenda beatae cum maxime officia ratione
-        reprehenderit sapiente veritatis.
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam,
+        officia! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab
+        accusantium ad adipisci aliquid asperiores aut autem blanditiis corporis
+        cumque debitis deleniti ducimus eius, error est excepturi expedita fuga
+        fugit hic illo impedit incidunt inventore iusto labore laudantium maxime
+        nemo nobis nulla numquam quae quo quos ratione suscipit temporibus,
+        totam velit veritatis voluptates! Aliquam amet doloribus, ducimus, esse
+        harum ipsam molestiae nam nemo nesciunt pariatur quas quibusdam quidem
+        reiciendis, similique velit! Consequatur debitis, dignissimos error
+        facere id ipsum iure iusto labore libero molestiae, nobis provident quis
+        repellat saepe totam vel veniam. Architecto assumenda beatae cum maxime
+        officia ratione reprehenderit sapiente veritatis.
       </shapla-modal>
     </div>
   </doc-tab>
@@ -133,7 +137,7 @@ import {
   ShaplaModalCore,
 } from "../../src/index.ts";
 import DocTab from "../components/DocTab.vue";
-import {computed} from "vue";
+import { computed } from "vue";
 
 export default {
   name: "ExampleModal",
@@ -147,8 +151,8 @@ export default {
   },
   setup() {
     const properties = computed(() => ShaplaModal.props);
-    const descriptions = {}
-    return {properties, descriptions}
+    const descriptions = {};
+    return { properties, descriptions };
   },
   data() {
     return {

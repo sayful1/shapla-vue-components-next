@@ -1,33 +1,41 @@
 <template>
-  <div class="shapla-tabs__panel" :class="{'is-active':isActive}">
-    <slot :active="isActive"/>
+  <div class="shapla-tabs__panel" :class="{ 'is-active': isActive }">
+    <slot :active="isActive" />
   </div>
 </template>
 
 <script lang="ts">
-import {onBeforeMount, onMounted, watch, inject, defineComponent, reactive, toRefs} from "vue";
-import {TabsDataInterface} from "./interfaces";
+import {
+  onBeforeMount,
+  onMounted,
+  watch,
+  inject,
+  defineComponent,
+  reactive,
+  toRefs,
+} from "vue";
+import { TabsDataInterface } from "./interfaces";
 
 export default defineComponent({
   name: "ShaplaTab",
   props: {
-    name: {type: String, required: true},
-    selected: {type: Boolean, required: false, default: false},
-    navItemClass: {type: String, required: false, default: ""},
-    navTo: {type: String, required: false, default: ""},
+    name: { type: String, required: true },
+    selected: { type: Boolean, required: false, default: false },
+    navItemClass: { type: String, required: false, default: "" },
+    navTo: { type: String, required: false, default: "" },
   },
   setup(props) {
-    const state = reactive<{ isActive: boolean, index: number, }>({
+    const state = reactive<{ isActive: boolean; index: number }>({
       isActive: false,
       index: -1,
     });
     const tabs = inject<TabsDataInterface>("ShaplaTabsProvider");
 
     watch(
-        () => tabs.selectedIndex,
-        () => {
-          state.isActive = state.index === tabs.selectedIndex;
-        }
+      () => tabs.selectedIndex,
+      () => {
+        state.isActive = state.index === tabs.selectedIndex;
+      }
     );
 
     onBeforeMount(() => {
@@ -43,7 +51,7 @@ export default defineComponent({
       }
     });
 
-    return {...toRefs(state)};
+    return { ...toRefs(state) };
   },
-})
+});
 </script>
