@@ -67,7 +67,7 @@ export default defineComponent({
       return classes;
     });
 
-    const updateInput = (event: InputEvent) => {
+    const updateInput = (event: Event) => {
       const isChecked = (event.target as HTMLInputElement).checked;
 
       if (props.modelValue instanceof Array) {

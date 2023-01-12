@@ -4,7 +4,7 @@ import CodeHighlight from "../components/CodeHighlight.vue";
 import SectionHero from "../components/SectionHero.vue";
 
 export default defineComponent({
-  name: "Home",
+  name: "HomePage",
   components: { SectionHero, CodeHighlight },
 });
 </script>

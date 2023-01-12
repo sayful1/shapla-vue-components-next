@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-import { default as Home } from "./pages/Home.vue";
+import HomePage from "./pages/HomePage.vue";
 import ExampleCross from "./pages/ExampleCross.vue";
 import ExampleButton from "./pages/ExampleButton.vue";
 import ExampleCheckbox from "./pages/ExampleCheckbox.vue";
@@ -30,7 +30,7 @@ import ExampleSlider from "./pages/ExampleSlider.vue";
 import ExampleStepper from "./pages/ExampleStepper.vue";
 
 const routes = [
-  { path: "/", name: "Home", component: Home },
+  { path: "/", name: "Home", component: HomePage },
   { path: "/button", name: "Button", component: ExampleButton },
   { path: "/chip", name: "Chip", component: ExampleChip },
   { path: "/columns", name: "Columns", component: ExampleColumns },

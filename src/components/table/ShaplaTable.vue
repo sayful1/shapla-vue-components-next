@@ -26,7 +26,7 @@
           <template v-for="row in items" :key="row[index]">
             <body-row
               :class="{ 'is-selected': selectedItems.includes(row[index]) }"
-              :click="rowClicked"
+              @click="rowClicked(row)"
             >
               <td
                 v-if="showCb"
