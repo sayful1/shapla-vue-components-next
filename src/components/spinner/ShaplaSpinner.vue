@@ -1,5 +1,5 @@
 <template>
-  <div v-if="active" :class="containerClass">
+  <div v-if="active || globallyActive" :class="containerClass">
     <div class="shapla-spinner-inner" :class="{ 'has-text': showText }">
       <div class="shapla-spinner" :class="getClass">
         <div
@@ -26,31 +26,36 @@
 </template>
 
 <script lang="ts">
-import { computed, onMounted, watch, defineComponent } from "vue";
+import { computed, defineComponent, onMounted, reactive, toRefs, watch } from "vue";
+import Spinner from "./Spinner";
 
 export default defineComponent({
   name: "ShaplaSpinner",
   props: {
-    active: { type: Boolean, default: true, required: true },
+    active: { type: Boolean, default: false, required: false },
     single: { type: Boolean, default: false, required: false },
     showText: { type: Boolean, default: false, required: false },
+    isRootSpinner: { type: Boolean, default: false, required: false },
     loadingText: { type: String, default: "Loading...", required: false },
     position: {
       type: String,
       default: "fixed",
       required: false,
       validator: (value: string) =>
-        ["fixed", "absolute", "static"].indexOf(value) !== -1,
+        ["fixed", "absolute", "static"].indexOf(value) !== -1
     },
     size: {
       type: String,
       default: "default",
       required: false,
       validator: (value: string) =>
-        ["default", "large", "medium", "small"].indexOf(value) !== -1,
-    },
+        ["default", "large", "medium", "small"].indexOf(value) !== -1
+    }
   },
   setup(props) {
+    const state = reactive<{ globallyActive: boolean }>({
+      globallyActive: false
+    });
     const refreshBodyClass = (active: boolean) => {
       const body = document.querySelector("body");
       if (active) {
@@ -79,6 +84,12 @@ export default defineComponent({
 
     onMounted(() => {
       refreshBodyClass(props.active);
+
+      Spinner.on((globallyActive: { active: boolean }) => {
+        if (props.isRootSpinner) {
+          state.globallyActive = globallyActive.active;
+        }
+      });
     });
 
     watch(
@@ -89,11 +100,12 @@ export default defineComponent({
     );
 
     return {
+      ...toRefs(state),
       itemClass,
       containerClass,
-      getClass,
+      getClass
     };
-  },
+  }
 });
 </script>
 

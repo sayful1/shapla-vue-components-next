@@ -13,7 +13,7 @@
         <p>Loader will be close atomically after 4 seconds.</p>
         <div class="flex space-x-4 p-4">
           <shapla-spinner
-            :active="active"
+            :is-root-spinner="true"
             size="default"
             :single="false"
             :show-text="true"
@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { ShaplaSpinner } from "../../src";
+import { ShaplaSpinner, Spinner } from "../../src";
 import { computed, ref, watch } from "vue";
 import DocTab from "../components/DocTab.vue";
 
@@ -39,7 +39,8 @@ export default {
       () => active.value,
       (newValue) => {
         if (newValue) {
-          setTimeout(() => (active.value = false), 4000);
+          Spinner.activate();
+          setTimeout(() => Spinner.deactivate(), 4000);
         }
       }
     );
@@ -47,6 +48,6 @@ export default {
     const properties = computed(() => ShaplaSpinner.props);
     const descriptions = {};
     return { properties, descriptions, active };
-  },
+  }
 };
 </script>

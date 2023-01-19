@@ -28,6 +28,7 @@ export { default as ShaplaSelect } from "./components/select/ShaplaSelect.vue";
 export { default as ShaplaSidenav } from "./components/sidenav/ShaplaSidenav.vue";
 export { default as ShaplaRangeSlider } from "./components/slider/ShaplaRangeSlider.vue";
 export { default as ShaplaSpinner } from "./components/spinner/ShaplaSpinner.vue";
+export { default as Spinner } from "./components/spinner/Spinner";
 export { default as ShaplaStarRating } from "./components/star-rating/ShaplaStarRating.vue";
 export { default as ShaplaStepper } from "./components/stepper/ShaplaStepper.vue";
 export { default as ShaplaStepperStep } from "./components/stepper/ShaplaStepperStep.vue";
