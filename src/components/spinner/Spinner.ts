@@ -7,9 +7,23 @@ class Spinner {
   }
 
   /**
+   * Activate spinner
+   */
+  static show() {
+    Spinner.dispatch(true);
+  }
+
+  /**
    * Deactivate spinner
    */
   static deactivate() {
+    Spinner.dispatch(false);
+  }
+
+  /**
+   * Deactivate spinner
+   */
+  static hide() {
     Spinner.dispatch(false);
   }
 
@@ -18,11 +32,11 @@ class Spinner {
    *
    * @param callback
    */
-  static on(callback: EventListener | ((options: { active: boolean }) => void)) {
-    document.addEventListener(
-      "show.ShaplaVueSpinner",
-      ((e: CustomEvent) => callback(e.detail)) as EventListener
-    );
+  static on(
+    callback: EventListener | ((options: { active: boolean }) => void)
+  ) {
+    document.addEventListener("show.ShaplaVueSpinner", ((e: CustomEvent) =>
+      callback(e.detail)) as EventListener);
   }
 
   /**
@@ -32,10 +46,7 @@ class Spinner {
    */
   static dispatch(isActive: boolean) {
     document.dispatchEvent(
-      new CustomEvent(
-        "show.ShaplaVueSpinner",
-        { detail: { active: isActive } }
-      )
+      new CustomEvent("show.ShaplaVueSpinner", { detail: { active: isActive } })
     );
   }
 }

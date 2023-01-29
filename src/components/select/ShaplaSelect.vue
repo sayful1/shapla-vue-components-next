@@ -127,18 +127,23 @@
 
 <script lang="ts">
 import {
-  ref,
-  onMounted,
-  watch,
-  reactive,
-  toRefs,
   computed,
   defineComponent,
+  onMounted,
+  reactive,
+  ref,
+  toRefs,
+  watch,
 } from "vue";
 import ShaplaChip from "../chip/ShaplaChip.vue";
 import ShaplaCross from "../cross/ShaplaCross.vue";
 import ShaplaDropdownMenu from "../dropdown/ShaplaDropdownMenu.vue";
 import ShaplaInput from "../input/ShaplaInput.vue";
+
+interface SelectOptionInterface {
+  label: string;
+  value: string;
+}
 
 export default defineComponent({
   name: "ShaplaSelect",
@@ -174,8 +179,14 @@ export default defineComponent({
   },
   emits: ["update:modelValue"],
   setup(props, { emit }) {
-    const element = ref(null);
-    const state = reactive({
+    const element = ref<HTMLElement>(null);
+    const state = reactive<{
+      selectedOption: SelectOptionInterface;
+      selectedOptions: SelectOptionInterface[];
+      isReadonly: boolean;
+      showDropdown: boolean;
+      search: string;
+    }>({
       selectedOption: null,
       selectedOptions: [],
       isReadonly: false,
@@ -184,9 +195,9 @@ export default defineComponent({
     });
     const emitEvent = (value) => emit("update:modelValue", value);
 
-    const filteredOptions = computed(() => {
+    const filteredOptions = computed<SelectOptionInterface[]>(() => {
       if (props.options.length < 1) return [];
-      const newOptions = [];
+      const newOptions: SelectOptionInterface[] = [];
       props.options.forEach((option) => {
         if (typeof option == "string") {
           newOptions.push({ label: option, value: option });
@@ -261,7 +272,7 @@ export default defineComponent({
           );
         }
         if (!newValue) {
-          state.selectedOption = {};
+          state.selectedOption = null;
         }
       }
     );
@@ -291,18 +302,18 @@ export default defineComponent({
     const handleBlurEvent = () => {
       setTimeout(() => (state.isReadonly = false), 200);
     };
-    const isItemSelected = (option) => {
+    const isItemSelected = (option: SelectOptionInterface) => {
       return Array.isArray(props.modelValue)
         ? props.modelValue.indexOf(option["value"]) !== -1
         : props.modelValue == option["value"];
     };
 
-    const dropdownItemClasses = (option) => {
+    const dropdownItemClasses = (option: SelectOptionInterface) => {
       const classes = [];
       if (isItemSelected(option)) classes.push("is-active");
       if (
         hasSelectedOption.value &&
-        option["value"] === state.selectedOption["value"]
+        state.selectedOption["value"] === option["value"]
       )
         classes.push("is-hover");
 
@@ -317,7 +328,7 @@ export default defineComponent({
       }
     };
 
-    const selectOption = (option) => {
+    const selectOption = (option: SelectOptionInterface) => {
       if (props.multiple) {
         if (!state.selectedOptions.find((word) => word.value == option.value)) {
           state.selectedOptions.push(option);
@@ -338,7 +349,7 @@ export default defineComponent({
       }
     };
 
-    const removeSelectedItem = (_option) => {
+    const removeSelectedItem = (_option: SelectOptionInterface) => {
       state.selectedOptions.splice(state.selectedOptions.indexOf(_option), 1);
       emitEvent(
         state.selectedOptions.length
@@ -347,13 +358,13 @@ export default defineComponent({
       );
     };
 
-    const scrollIfNeeded = (direction) => {
-      const dropdownContent = element.value.querySelector(
+    const scrollIfNeeded = (direction: string) => {
+      const dropdownContent = (element.value as HTMLElement).querySelector(
           ".shapla-dropdown-menu__content"
-        ),
+        ) as HTMLElement,
         hoverEl = dropdownContent.querySelector(
           ".shapla-dropdown-item.is-hover"
-        ),
+        ) as HTMLElement,
         hoverElHeight = hoverEl ? hoverEl.clientHeight : 0,
         hoverElFromTop = hoverEl ? hoverEl.offsetTop : 0;
 
@@ -370,7 +381,7 @@ export default defineComponent({
       }
     };
 
-    const handleKeydownEvent = (event) => {
+    const handleKeydownEvent = (event: KeyboardEvent) => {
       // Go Up
       if (38 === event.keyCode) {
         const indexOfSelectedOption = filteredOptions.value.indexOf(

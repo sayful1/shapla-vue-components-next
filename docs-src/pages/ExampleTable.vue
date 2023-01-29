@@ -69,7 +69,11 @@
 </template>
 
 <script>
-import { ShaplaTable, ShaplaTablePagination as Pagination, ShaplaTableStatusList as StatusList } from "../../src";
+import {
+  ShaplaTable,
+  ShaplaTablePagination as Pagination,
+  ShaplaTableStatusList as StatusList,
+} from "../../src";
 import DocTab from "../components/DocTab.vue";
 import { computed } from "vue";
 
@@ -86,22 +90,22 @@ export default {
       statuses: [
         { key: "all", label: "All", count: 11, active: true },
         { key: "active", label: "Active", count: 9, active: false },
-        { key: "trash", label: "Trash", count: 2, active: false }
+        { key: "trash", label: "Trash", count: 2, active: false },
       ],
       columns: [
         { key: "title", label: "Title", numeric: false },
         { key: "bangle", label: "Bangle", numeric: true },
         { key: "english", label: "English", numeric: true },
-        { key: "math", label: "Math", numeric: true, sortable: true }
+        { key: "math", label: "Math", numeric: true, sortable: true },
       ],
       items: [
         { id: 1, title: "Sayful Islam", bangle: 70, english: 80, math: 100 },
         { id: 2, title: "Akhi", bangle: 70, english: 80, math: 90 },
-        { id: 3, title: "Saif Al Araf", bangle: 70, english: 80, math: 80 }
+        { id: 3, title: "Saif Al Araf", bangle: 70, english: 80, math: 80 },
       ],
       actions: [
         { key: "edit", label: "Edit" },
-        { key: "trash", label: "Delete" }
+        { key: "trash", label: "Delete" },
       ],
       bulkActions: [{ key: "trash", label: "Move to Trash" }],
       sortBy: "math",
@@ -110,8 +114,8 @@ export default {
       pagination: {
         totalItems: 100,
         currentPage: 1,
-        perPage: 20
-      }
+        perPage: 20,
+      },
     };
   },
   methods: {
@@ -130,11 +134,11 @@ export default {
       this.sortBy = column;
       this.sortOrder = order;
       if ("asc" === order) {
-        this.items.sort(function(a, b) {
+        this.items.sort(function (a, b) {
           return a[column] - b[column];
         });
       } else {
-        this.items.sort(function(a, b) {
+        this.items.sort(function (a, b) {
           return b[column] - a[column];
         });
       }
@@ -148,7 +152,7 @@ export default {
     },
     onRowClick(row) {
       window.console.log("Row clicked: ", row);
-    }
-  }
+    },
+  },
 };
 </script>

@@ -48,6 +48,6 @@ export default {
     const properties = computed(() => ShaplaSpinner.props);
     const descriptions = {};
     return { properties, descriptions, active };
-  }
+  },
 };
 </script>

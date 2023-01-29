@@ -1,57 +1,49 @@
 <template>
-  <div class="shapla-tabs__panel" :class="{ 'is-active': isActive }">
-    <slot :active="isActive" />
+  <div class="shapla-tabs__panel" :class="{ 'is-active': state.isActive }">
+    <slot :active="state.isActive" />
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import {
+  defineProps,
+  inject,
   onBeforeMount,
   onMounted,
-  watch,
-  inject,
-  defineComponent,
   reactive,
-  toRefs,
+  watch,
 } from "vue";
 import { TabsDataInterface } from "./interfaces";
 
-export default defineComponent({
-  name: "ShaplaTab",
-  props: {
-    name: { type: String, required: true },
-    selected: { type: Boolean, required: false, default: false },
-    navItemClass: { type: String, required: false, default: "" },
-    navTo: { type: String, required: false, default: "" },
-  },
-  setup(props) {
-    const state = reactive<{ isActive: boolean; index: number }>({
-      isActive: false,
-      index: -1,
-    });
-    const tabs = inject<TabsDataInterface>("ShaplaTabsProvider");
+const props = defineProps({
+  name: { type: String, required: true },
+  selected: { type: Boolean, required: false, default: false },
+  navItemClass: { type: String, required: false, default: "" },
+  navTo: { type: String, required: false, default: "" },
+});
+const state = reactive<{ isActive: boolean; index: number }>({
+  isActive: false,
+  index: -1,
+});
+const tabs = inject("ShaplaTabsProvider") as TabsDataInterface;
 
-    watch(
-      () => tabs.selectedIndex,
-      () => {
-        state.isActive = state.index === tabs.selectedIndex;
-      }
-    );
+watch(
+  () => tabs.selectedIndex,
+  () => {
+    state.isActive = state.index === tabs.selectedIndex;
+  }
+);
 
-    onBeforeMount(() => {
-      state.index = tabs.count;
-      tabs.count++;
-      state.isActive = state.index === tabs.selectedIndex;
-    });
+onBeforeMount(() => {
+  state.index = tabs.count;
+  tabs.count++;
+  state.isActive = state.index === tabs.selectedIndex;
+});
 
-    onMounted(() => {
-      state.isActive = props.selected;
-      if (props.selected) {
-        tabs.selectedIndex = state.index;
-      }
-    });
-
-    return { ...toRefs(state) };
-  },
+onMounted(() => {
+  state.isActive = props.selected;
+  if (props.selected) {
+    tabs.selectedIndex = state.index;
+  }
 });
 </script>

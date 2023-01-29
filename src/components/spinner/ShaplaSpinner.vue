@@ -26,7 +26,14 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, reactive, toRefs, watch } from "vue";
+import {
+  computed,
+  defineComponent,
+  onMounted,
+  reactive,
+  toRefs,
+  watch,
+} from "vue";
 import Spinner from "./Spinner";
 
 export default defineComponent({
@@ -42,19 +49,19 @@ export default defineComponent({
       default: "fixed",
       required: false,
       validator: (value: string) =>
-        ["fixed", "absolute", "static"].indexOf(value) !== -1
+        ["fixed", "absolute", "static"].indexOf(value) !== -1,
     },
     size: {
       type: String,
       default: "default",
       required: false,
       validator: (value: string) =>
-        ["default", "large", "medium", "small"].indexOf(value) !== -1
-    }
+        ["default", "large", "medium", "small"].indexOf(value) !== -1,
+    },
   },
   setup(props) {
     const state = reactive<{ globallyActive: boolean }>({
-      globallyActive: false
+      globallyActive: false,
     });
     const refreshBodyClass = (active: boolean) => {
       const body = document.querySelector("body");
@@ -103,9 +110,9 @@ export default defineComponent({
       ...toRefs(state),
       itemClass,
       containerClass,
-      getClass
+      getClass,
     };
-  }
+  },
 });
 </script>
 
