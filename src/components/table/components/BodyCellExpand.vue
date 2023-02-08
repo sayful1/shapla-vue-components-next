@@ -6,24 +6,16 @@
       aria-label="Show more details"
       @click="toggleExpandRow($event)"
     >
-      <data-table-icon icon="expand-less" class="expand-triangle-up" />
-      <data-table-icon icon="expand-more" class="expand-triangle-down" />
+      <DataTableIcon icon="expand-less" class="expand-triangle-up" />
+      <DataTableIcon icon="expand-more" class="expand-triangle-down" />
     </button>
   </td>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script lang="ts" setup>
+import { defineEmits } from "vue";
 import DataTableIcon from "./DataTableIcon.vue";
 
-export default defineComponent({
-  name: "BodyCellExpand",
-  components: { DataTableIcon },
-  emits: ["click:expand"],
-  setup(props, { emit }) {
-    const toggleExpandRow = (event: Event) => emit("click:expand", event);
-
-    return { toggleExpandRow };
-  },
-});
+const emit = defineEmits(["click:expand"]);
+const toggleExpandRow = (event: Event) => emit("click:expand", event);
 </script>

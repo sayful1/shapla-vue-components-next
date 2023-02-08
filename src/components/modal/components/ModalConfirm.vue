@@ -1,5 +1,5 @@
 <template>
-  <modal-core
+  <ModalCore
     :active="active"
     :background-theme="backgroundTheme"
     :content-size="contentSize"
@@ -32,48 +32,40 @@
         </button>
       </slot>
     </div>
-  </modal-core>
+  </ModalCore>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script lang="ts" setup>
+import { defineEmits, defineProps } from "vue";
 import ModalCore from "./ModalCore.vue";
 
-export default defineComponent({
-  name: "ModalConfirm",
-  components: { ModalCore },
-  props: {
-    active: { type: Boolean, required: true },
-    backgroundTheme: {
-      type: String,
-      default: "light",
-      validator: (value: string) => ["dark", "light"].indexOf(value) !== -1,
-    },
-    contentSize: {
-      type: String,
-      default: "small",
-      validator: (value: string) =>
-        ["small", "medium", "large", "full"].indexOf(value) !== -1,
-    },
-    type: { type: String, default: "" },
-    icon: {
-      type: String,
-      default: "primary",
-      validator: (value: string) =>
-        ["primary", "success", "error"].indexOf(value) !== -1,
-    },
-    title: { type: String, default: "" },
-    message: { type: String, default: "Are you sure?" },
-    confirmButton: { type: [String, Boolean], default: "Ok" },
-    cancelButton: { type: [String, Boolean], default: "Cancel" },
+defineProps({
+  active: { type: Boolean, required: true },
+  backgroundTheme: {
+    type: String,
+    default: "light",
+    validator: (value: string) => ["dark", "light"].indexOf(value) !== -1,
   },
-  emits: ["click"],
-  setup(props, { emit }) {
-    const handleClick = (confirmed: boolean) => {
-      emit("click", confirmed);
-    };
-
-    return { handleClick };
+  contentSize: {
+    type: String,
+    default: "small",
+    validator: (value: string) =>
+      ["small", "medium", "large", "full"].indexOf(value) !== -1,
   },
+  type: { type: String, default: "" },
+  icon: {
+    type: String,
+    default: "primary",
+    validator: (value: string) =>
+      ["primary", "success", "error"].indexOf(value) !== -1,
+  },
+  title: { type: String, default: "" },
+  message: { type: String, default: "Are you sure?" },
+  confirmButton: { type: [String, Boolean], default: "Ok" },
+  cancelButton: { type: [String, Boolean], default: "Cancel" },
 });
+const emit = defineEmits(["click"]);
+const handleClick = (confirmed: boolean) => {
+  emit("click", confirmed);
+};
 </script>

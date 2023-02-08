@@ -25,8 +25,8 @@ export default defineComponent({
   },
   setup(props) {
     const unfinishedFiles = computed(() => {
-      let i,
-        files = [];
+      let i;
+      const files = [];
       for (i = 0; i < props.files.length; i++) {
         if (!(props.files[i].finished || props.files[i].cancelled)) {
           files.push(props.files[i]);
@@ -36,8 +36,8 @@ export default defineComponent({
     });
 
     const overallProgress = computed(() => {
-      let _unfinishedFiles = unfinishedFiles.value,
-        totalProgress = 0;
+      const _unfinishedFiles = unfinishedFiles.value;
+      let totalProgress = 0;
 
       if (_unfinishedFiles.length === 0) {
         return 0;

@@ -25,14 +25,11 @@
   </svg>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script lang="ts" setup>
+import { defineProps } from "vue";
 
-export default defineComponent({
-  name: "DataTableIcon",
-  props: {
-    icon: { type: String, default: null },
-    size: { type: [Number, String], default: 24 },
-  },
+defineProps({
+  icon: { type: String, default: null },
+  size: { type: [Number, String], default: 24 },
 });
 </script>

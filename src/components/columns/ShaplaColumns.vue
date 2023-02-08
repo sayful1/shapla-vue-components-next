@@ -4,47 +4,38 @@
   </div>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent } from "vue";
+<script lang="ts" setup>
+import { computed, defineProps } from "vue";
 
-export default defineComponent({
-  name: "ShaplaColumns",
-  props: {
-    multiline: { type: Boolean, default: false },
-    centered: { type: Boolean, default: false },
-    gapless: { type: Boolean, default: false },
-    vcentered: { type: Boolean, default: false },
-    mobile: { type: Boolean, default: false },
-    desktop: { type: Boolean, default: false },
-    columnGap: { type: String, default: null },
-  },
-  setup(props) {
-    const styles = computed(() => {
-      const styles: { [key: string]: string } = {};
-      if (props.columnGap) {
-        styles["--shapla-column-gap"] = props.columnGap;
-      }
-      return styles;
-    });
+const props = defineProps({
+  multiline: { type: Boolean, default: false },
+  centered: { type: Boolean, default: false },
+  gapless: { type: Boolean, default: false },
+  vcentered: { type: Boolean, default: false },
+  mobile: { type: Boolean, default: false },
+  desktop: { type: Boolean, default: false },
+  columnGap: { type: String, default: null },
+});
 
-    const classes = computed(() => {
-      return {
-        "shapla-columns": true,
-        "is-multiline": props.multiline,
-        "is-centered": props.centered,
-        "is-gapless": props.gapless,
-        "is-vcentered": props.vcentered,
-        "is-mobile": props.mobile,
-        "is-desktop": props.desktop,
-        "is-variable": !!props.columnGap,
-      };
-    });
+const styles = computed(() => {
+  const styles: { [key: string]: string } = {};
+  if (props.columnGap) {
+    styles["--shapla-column-gap"] = props.columnGap;
+  }
+  return styles;
+});
 
-    return {
-      styles,
-      classes,
-    };
-  },
+const classes = computed(() => {
+  return {
+    "shapla-columns": true,
+    "is-multiline": props.multiline,
+    "is-centered": props.centered,
+    "is-gapless": props.gapless,
+    "is-vcentered": props.vcentered,
+    "is-mobile": props.mobile,
+    "is-desktop": props.desktop,
+    "is-variable": !!props.columnGap,
+  };
 });
 </script>
 

@@ -1,6 +1,6 @@
 <template>
   <div class="shapla-notification" :class="itemClass">
-    <shapla-cross v-if="showDismisses" @click="requestClose" />
+    <ShaplaCross v-if="showDismisses" @click="requestClose" />
     <div v-if="title" class="shapla-notification__title">
       {{ title }}
     </div>
@@ -8,54 +8,49 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import ShaplaCross from "../cross/ShaplaCross.vue";
-import { computed, onMounted, onUnmounted, defineComponent } from "vue";
+import {
+  computed,
+  defineEmits,
+  defineProps,
+  onMounted,
+  onUnmounted,
+} from "vue";
 
-export default defineComponent({
-  name: "ShaplaNotification",
-  components: { ShaplaCross },
-  props: {
-    type: {
-      type: String,
-      default: "info",
-      validator: (value: string) =>
-        ["primary", "success", "info", "warning", "error"].indexOf(value) !==
-        -1,
-    },
-    title: { type: String, default: "" },
-    message: { type: String, default: "" },
-    showDismisses: { type: Boolean, default: true },
-    timeout: { type: Number, default: 3000 },
+const props = defineProps({
+  type: {
+    type: String,
+    default: "info",
+    validator: (value: string) =>
+      ["primary", "success", "info", "warning", "error"].indexOf(value) !== -1,
   },
-  emits: ["close"],
-  setup(props, { emit }) {
-    let timer: null | number = null;
+  title: { type: String, default: "" },
+  message: { type: String, default: "" },
+  showDismisses: { type: Boolean, default: true },
+  timeout: { type: Number, default: 3000 },
+});
+const emit = defineEmits(["close"]);
 
-    const itemClass = computed(() => {
-      return [`has-${props.type}`];
-    });
+let timer: null | number = null;
 
-    const requestClose = () => {
-      emit("close");
-    };
+const itemClass = computed(() => {
+  return [`has-${props.type}`];
+});
 
-    onMounted(() => {
-      if (props.timeout !== 0) {
-        timer = window.setTimeout(requestClose, props.timeout);
-      }
-    });
+const requestClose = () => {
+  emit("close");
+};
 
-    onUnmounted(() => {
-      if (timer) {
-        clearTimeout(timer);
-      }
-    });
+onMounted(() => {
+  if (props.timeout !== 0) {
+    timer = window.setTimeout(requestClose, props.timeout);
+  }
+});
 
-    return {
-      requestClose,
-      itemClass,
-    };
-  },
+onUnmounted(() => {
+  if (timer) {
+    clearTimeout(timer);
+  }
 });
 </script>

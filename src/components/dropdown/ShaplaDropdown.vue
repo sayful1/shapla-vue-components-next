@@ -7,13 +7,13 @@
     <div
       class="shapla-dropdown-trigger"
       aria-haspopup="true"
-      :aria-expanded="isActive ? 'true' : 'false'"
-      @click="isActive = !isActive"
+      :aria-expanded="state.isActive ? 'true' : 'false'"
+      @click="state.isActive = !state.isActive"
     >
       <slot name="trigger" />
     </div>
-    <shapla-dropdown-menu
-      :active="isActive"
+    <ShaplaDropdownMenu
+      :active="state.isActive"
       :role="role"
       :right="right"
       :up="up"
@@ -27,48 +27,40 @@
       <template #after-content>
         <slot name="after-content" />
       </template>
-    </shapla-dropdown-menu>
+    </ShaplaDropdownMenu>
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import ShaplaDropdownMenu from "./ShaplaDropdownMenu.vue";
-import { watch, reactive, ref, toRefs, defineComponent } from "vue";
+import { defineProps, reactive, ref, watch } from "vue";
 
-export default defineComponent({
-  name: "ShaplaDropdown",
-  components: { ShaplaDropdownMenu },
-  props: {
-    hoverable: { type: Boolean, default: true },
-    role: { type: String, default: "menu" },
-    right: { type: Boolean, default: false },
-    up: { type: Boolean, default: false },
-    maxItems: { type: Number, default: null },
-    direction: {
-      type: String,
-      default: "auto",
-      validator: (value: string) =>
-        ["auto", "up", "down"].indexOf(value) !== -1,
-    },
-  },
-  setup() {
-    const root = ref<HTMLElement | null>(null);
-    const state = reactive<{ isActive: boolean }>({ isActive: false });
-
-    watch(
-      () => state.isActive,
-      (isActive) => {
-        if (isActive) {
-          document.addEventListener("click", (event: Event) => {
-            if (!root.value?.contains(event.target as HTMLElement)) {
-              state.isActive = false;
-            }
-          });
-        }
-      }
-    );
-
-    return { ...toRefs(state), root };
+defineProps({
+  hoverable: { type: Boolean, default: true },
+  role: { type: String, default: "menu" },
+  right: { type: Boolean, default: false },
+  up: { type: Boolean, default: false },
+  maxItems: { type: Number, default: null },
+  direction: {
+    type: String,
+    default: "auto",
+    validator: (value: string) => ["auto", "up", "down"].includes(value),
   },
 });
+
+const root = ref<HTMLElement | null>(null);
+const state = reactive<{ isActive: boolean }>({ isActive: false });
+
+watch(
+  () => state.isActive,
+  (isActive) => {
+    if (isActive) {
+      document.addEventListener("click", (event: Event) => {
+        if (!root.value?.contains(event.target as HTMLElement)) {
+          state.isActive = false;
+        }
+      });
+    }
+  }
+);
 </script>

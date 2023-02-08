@@ -31,7 +31,7 @@ import {
   useSlots,
   VNode,
 } from "vue";
-import { TabsDataInterface, TabVNodeTypeInterface } from "./interfaces";
+import { TabsDataInterface } from "./interfaces";
 
 const props = defineProps({
   alignment: {
@@ -104,7 +104,7 @@ const tabClasses = computed(() => {
 onBeforeMount(() => {
   if (slots.default) {
     state.tabs = slots.default().filter((child) => {
-      return (child.type as TabVNodeTypeInterface).name === "ShaplaTab";
+      return child.type.__name === "ShaplaTab";
     });
   }
 });

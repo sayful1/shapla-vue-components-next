@@ -29,42 +29,37 @@
   </form>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent, onMounted, ref, StyleValue } from "vue";
+<script lang="ts" setup>
+import { computed, defineEmits, defineProps, onMounted, ref } from "vue";
 
-export default defineComponent({
-  name: "ShaplaSearchForm",
-  props: {
-    value: { type: String, default: "" },
-    placeholder: { type: String, default: "Search …" },
-    screenReaderText: { type: String, default: "Search for:" },
-    fontSize: { type: String, default: "" },
-  },
-  emits: ["input", "search"],
-  setup(props, { emit }) {
-    const searchValue = ref("");
+const props = defineProps({
+  value: { type: String, default: "" },
+  placeholder: { type: String, default: "Search …" },
+  screenReaderText: { type: String, default: "Search for:" },
+  fontSize: { type: String, default: "" },
+});
 
-    const getStyle = computed(() => {
-      const styles = [];
-      if (props.fontSize) {
-        styles.push({ "--base-font-size": props.fontSize });
-      }
-      return styles;
-    }) as StyleValue;
+const emit = defineEmits(["input", "search"]);
 
-    const input = (event: InputEvent | Event) => {
-      const value = (event.target as HTMLInputElement).value;
-      emit("input", value);
-      searchValue.value = value;
-    };
-    const submit = () => emit("search", searchValue.value);
+const searchValue = ref("");
 
-    onMounted(() => {
-      searchValue.value = props.value;
-    });
+const getStyle = computed(() => {
+  const styles: Record<string, string>[] = [];
+  if (props.fontSize) {
+    styles.push({ "--base-font-size": props.fontSize });
+  }
+  return styles;
+});
 
-    return { searchValue, getStyle, input, submit };
-  },
+const input = (event: InputEvent | Event) => {
+  const value = (event.target as HTMLInputElement).value;
+  emit("input", value);
+  searchValue.value = value;
+};
+const submit = () => emit("search", searchValue.value);
+
+onMounted(() => {
+  searchValue.value = props.value;
 });
 </script>
 

@@ -4,40 +4,33 @@
   </div>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent, provide } from "vue";
+<script lang="ts" setup>
+import { computed, defineProps, provide } from "vue";
 
-export default defineComponent({
-  name: "ShaplaStepper",
-  props: {
-    type: {
-      type: String,
-      default: "horizontal",
-      validator: (value: string) =>
-        ["horizontal", "vertical"].indexOf(value) !== -1,
-    },
-    labelPlacement: {
-      type: String,
-      default: "default",
-      validator: (value: string) =>
-        ["default", "alternative"].indexOf(value) !== -1,
-    },
+const props = defineProps({
+  type: {
+    type: String,
+    default: "horizontal",
+    validator: (value: string) => ["horizontal", "vertical"].includes(value),
   },
-  setup(props) {
-    provide("ShaplaStepperProvider", {
-      props: props,
-      count: 0,
-    });
+  labelPlacement: {
+    type: String,
+    default: "default",
+    validator: (value: string) => ["default", "alternative"].includes(value),
+  },
+});
 
-    const containerClasses = computed(() => {
-      const classes = [`is-${props.type}`];
-      if (props.type === "horizontal") {
-        classes.push(`has-lp-${props.labelPlacement}`);
-      }
-      return classes;
-    });
-    return { containerClasses };
-  },
+provide("ShaplaStepperProvider", {
+  props: props,
+  count: 0,
+});
+
+const containerClasses = computed(() => {
+  const classes = [`is-${props.type}`];
+  if (props.type === "horizontal") {
+    classes.push(`has-lp-${props.labelPlacement}`);
+  }
+  return classes;
 });
 </script>
 

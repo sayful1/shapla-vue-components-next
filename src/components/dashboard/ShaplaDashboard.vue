@@ -10,7 +10,7 @@
         class="shapla-dashboard-header__burger"
         @click="toggleSideNavigation"
       >
-        <shapla-icon :hoverable="true">
+        <ShaplaIcon :hoverable="true">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -23,7 +23,7 @@
               fill="currentColor"
             />
           </svg>
-        </shapla-icon>
+        </ShaplaIcon>
       </div>
 
       <slot name="navbar-brand">
@@ -39,7 +39,7 @@
       <slot name="navbar-end" />
     </div>
 
-    <shapla-sidenav
+    <ShaplaSidenav
       :active="activateSideNav"
       :nav-width="navWidth"
       :show-overlay="showOverlay"
@@ -67,7 +67,7 @@
       <div class="shapla-dashboard-sidenav-menu" :style="sidenavMenuStyle">
         <slot name="sidenav-menu" />
       </div>
-    </shapla-sidenav>
+    </ShaplaSidenav>
 
     <div class="shapla-dashboard-content">
       <div class="shapla-dashboard-content__inner">
@@ -77,88 +77,70 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import ShaplaSidenav from "../sidenav/ShaplaSidenav.vue";
 import ShaplaIcon from "../icon/ShaplaIcon.vue";
-import { computed, onMounted, defineComponent } from "vue";
+import { computed, onMounted } from "vue";
 
-export default defineComponent({
-  name: "ShaplaDashboard",
-  components: { ShaplaSidenav, ShaplaIcon },
-  props: {
-    title: { type: String, default: "" },
-    userDisplayName: { type: String, default: "" },
-    avatarUrl: { type: String, default: "" },
-    greeting: { type: String, default: "Hello," },
-    headerHeight: { type: String, default: "56px" },
-    headerTheme: {
-      type: String,
-      default: "primary",
-      validator: (value: string) =>
-        ["default", "primary", "secondary"].indexOf(value) !== -1,
-    },
-    sideNavType: {
-      type: String,
-      default: "overlay",
-      validator: (value: string) =>
-        ["overlay", "off-canvas"].indexOf(value) !== -1,
-    },
-    // Side navigation props
-    showBurgerIcon: { type: Boolean, default: true },
-    activateSideNav: { type: Boolean, default: false },
-    showSidenavProfile: { type: Boolean, default: true },
-    showOverlay: { type: Boolean, default: true },
-    navWidth: { type: String, default: "300px" },
-    sidenavClass: { type: [String, Array, Object], default: "" },
+const props = defineProps({
+  title: { type: String, default: "" },
+  userDisplayName: { type: String, default: "" },
+  avatarUrl: { type: String, default: "" },
+  greeting: { type: String, default: "Hello," },
+  headerHeight: { type: String, default: "56px" },
+  headerTheme: {
+    type: String,
+    default: "primary",
+    validator: (value: string) =>
+      ["default", "primary", "secondary"].includes(value),
   },
-  emits: ["open:sidenav", "close:sidenav"],
-  setup(props, { emit }) {
-    const openSideNavigation = () => emit("open:sidenav");
-    const closeSideNavigation = () => emit("close:sidenav");
-    const toggleSideNavigation = () =>
-      props.activateSideNav ? closeSideNavigation() : openSideNavigation();
-
-    const headerClasses = computed(() => [`theme-${props.headerTheme}`]);
-    const sidenavProfileClass = computed(() => [`theme-${props.headerTheme}`]);
-    const dashboardStyles = computed(() => {
-      const styles: { [key: string]: string } = {};
-      styles["--shapla-dashboard-header-height"] = props.headerHeight;
-      styles["--shapla-dashboard-sidenav-width"] = props.navWidth;
-      return styles;
-    });
-
-    const dashboardClasses = computed(() => {
-      const classes = [];
-      classes.push(`sidenav-type--${props.sideNavType}`);
-      if (props.activateSideNav) {
-        classes.push("is-sidenav-active");
-      }
-      return classes;
-    });
-
-    const sidenavMenuStyle = computed(() => {
-      const styles = [];
-      if (!props.showSidenavProfile) {
-        styles.push({ "--shapla-dashboard-header-height": "0" });
-      }
-      return styles;
-    });
-
-    onMounted(() => {
-      document.querySelector("body")?.classList.add("has-shapla-dashboard");
-    });
-
-    return {
-      openSideNavigation,
-      closeSideNavigation,
-      toggleSideNavigation,
-      dashboardClasses,
-      dashboardStyles,
-      sidenavProfileClass,
-      headerClasses,
-      sidenavMenuStyle,
-    };
+  sideNavType: {
+    type: String,
+    default: "overlay",
+    validator: (value: string) => ["overlay", "off-canvas"].includes(value),
   },
+  // Side navigation props
+  showBurgerIcon: { type: Boolean, default: true },
+  activateSideNav: { type: Boolean, default: false },
+  showSidenavProfile: { type: Boolean, default: true },
+  showOverlay: { type: Boolean, default: true },
+  navWidth: { type: String, default: "300px" },
+  sidenavClass: { type: [String, Array, Object], default: "" },
+});
+const emit = defineEmits(["open:sidenav", "close:sidenav"]);
+const openSideNavigation = () => emit("open:sidenav");
+const closeSideNavigation = () => emit("close:sidenav");
+const toggleSideNavigation = () =>
+  props.activateSideNav ? closeSideNavigation() : openSideNavigation();
+
+const headerClasses = computed(() => [`theme-${props.headerTheme}`]);
+const sidenavProfileClass = computed(() => [`theme-${props.headerTheme}`]);
+const dashboardStyles = computed(() => {
+  const styles: { [key: string]: string } = {};
+  styles["--shapla-dashboard-header-height"] = props.headerHeight;
+  styles["--shapla-dashboard-sidenav-width"] = props.navWidth;
+  return styles;
+});
+
+const dashboardClasses = computed(() => {
+  const classes = [];
+  classes.push(`sidenav-type--${props.sideNavType}`);
+  if (props.activateSideNav) {
+    classes.push("is-sidenav-active");
+  }
+  return classes;
+});
+
+const sidenavMenuStyle = computed(() => {
+  const styles = [];
+  if (!props.showSidenavProfile) {
+    styles.push({ "--shapla-dashboard-header-height": "0" });
+  }
+  return styles;
+});
+
+onMounted(() => {
+  document.querySelector("body")?.classList.add("has-shapla-dashboard");
 });
 </script>
 

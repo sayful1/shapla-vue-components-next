@@ -91,135 +91,111 @@
   </div>
 </template>
 
-<script lang="ts">
-import { computed, reactive, toRefs, defineComponent } from "vue";
+<script lang="ts" setup>
+import { computed, defineEmits, defineProps, reactive, useSlots } from "vue";
 
-const inputTypes = [
-  "text",
-  "email",
-  "search",
-  "password",
-  "tel",
-  "url",
-  "number",
-  "textarea",
-  "date",
-  "time",
-  "datetime-local",
-];
-const inputSizes = ["default", "small", "medium", "large"];
-
-export default defineComponent({
-  name: "ShaplaInput",
-  props: {
-    type: {
-      type: String,
-      default: "text",
-      validator: (value: string) => inputTypes.indexOf(value) !== -1,
-    },
-    size: {
-      type: String,
-      default: "default",
-      validator: (value: string) => inputSizes.indexOf(value) !== -1,
-    },
-    modelValue: { type: [Number, String], default: null },
-    label: { type: String, default: null, required: false },
-    placeholder: { type: String, default: null },
-    autocomplete: { type: String, default: null },
-    name: { type: String, default: null, required: false },
-    id: { type: String, default: null, required: false },
-    helpText: { type: String, default: null, required: false },
-    validationText: { type: String, default: null, required: false },
-    hasError: { type: Boolean, default: false },
-    hasSuccess: { type: Boolean, default: false },
-    disabled: { type: Boolean, default: false },
-    required: { type: Boolean, default: false },
-    readonly: { type: Boolean, default: false },
-    rows: { type: [String, Number], default: null },
-    dir: { type: String, default: "ltr" },
+const props = defineProps({
+  type: {
+    type: String,
+    default: "text",
+    validator: (value: string) =>
+      [
+        "text",
+        "email",
+        "search",
+        "password",
+        "tel",
+        "url",
+        "number",
+        "textarea",
+        "date",
+        "time",
+        "datetime-local",
+      ].includes(value),
   },
-  emits: ["update:modelValue", "keydown", "focus", "blur"],
-  setup(props, { emit, slots }) {
-    const state = reactive<{ isHovered: boolean; isFocus: boolean }>({
-      isHovered: false,
-      isFocus: false,
-    });
-
-    const direction = computed(() =>
-      -1 !== ["ltr", "rtl", "auto"].indexOf(props.dir) ? props.dir : "ltr"
-    );
-    const hasNoLabel = computed(() => !(props.label && props.label.length));
-    const placeholderText = computed(() =>
-      !hasNoLabel.value ? "" : props.placeholder
-    );
-    const hasValue = computed(
-      () =>
-        !(
-          props.modelValue === null ||
-          props.modelValue === "" ||
-          props.modelValue === undefined
-        )
-    );
-    const showValidationText = computed(
-      () =>
-        !!(
-          props.validationText &&
-          props.validationText.length &&
-          props.hasError
-        )
-    );
-    const showHelpText = computed(
-      () => !!(props.helpText && props.helpText.length)
-    );
-    const isTextarea = computed(() => props.type === "textarea");
-    const hasRightIcon = computed(
-      () => !!(slots["icon-right"] || props.hasSuccess || props.hasError)
-    );
-    const containerClasses = computed(() => {
-      const classes = [];
-      if (hasNoLabel.value) classes.push("has-no-label");
-      if (props.size !== "default") classes.push(`is-${props.size}`);
-      if ("ltr" !== direction.value)
-        classes.push(`is-direction-${direction.value}`);
-      return classes;
-    });
-    const inputClasses = computed(() => {
-      const classes = [];
-      if (props.hasSuccess) classes.push("is-valid");
-      if (props.hasError) classes.push("is-invalid");
-      if (hasValue.value) classes.push("has-value");
-      return classes;
-    });
-
-    const handleInputEvent = (event: Event) =>
-      emit("update:modelValue", (event.target as HTMLInputElement).value);
-    const handleKeydownEvent = (event: Event) => emit("keydown", event);
-    const handleFocusEvent = (event: Event) => {
-      state.isFocus = true;
-      emit("focus", (event.target as HTMLInputElement).value);
-    };
-    const handleBlurEvent = (event: Event) => {
-      state.isFocus = false;
-      emit("blur", (event.target as HTMLInputElement).value);
-    };
-
-    return {
-      ...toRefs(state),
-      handleInputEvent,
-      handleKeydownEvent,
-      handleFocusEvent,
-      handleBlurEvent,
-      containerClasses,
-      inputClasses,
-      direction,
-      hasRightIcon,
-      isTextarea,
-      placeholderText,
-      showValidationText,
-      showHelpText,
-    };
+  size: {
+    type: String,
+    default: "default",
+    validator: (value: string) =>
+      ["default", "small", "medium", "large"].includes(value),
   },
+  modelValue: { type: [Number, String], default: null },
+  label: { type: String, default: null, required: false },
+  placeholder: { type: String, default: null },
+  autocomplete: { type: String, default: null },
+  name: { type: String, default: null, required: false },
+  id: { type: String, default: null, required: false },
+  helpText: { type: String, default: null, required: false },
+  validationText: { type: String, default: null, required: false },
+  hasError: { type: Boolean, default: false },
+  hasSuccess: { type: Boolean, default: false },
+  disabled: { type: Boolean, default: false },
+  required: { type: Boolean, default: false },
+  readonly: { type: Boolean, default: false },
+  rows: { type: [String, Number], default: null },
+  dir: { type: String, default: "ltr" },
 });
+const emit = defineEmits(["update:modelValue", "keydown", "focus", "blur"]);
+const slots = useSlots();
+
+const state = reactive<{ isHovered: boolean; isFocus: boolean }>({
+  isHovered: false,
+  isFocus: false,
+});
+
+const direction = computed(() =>
+  -1 !== ["ltr", "rtl", "auto"].indexOf(props.dir) ? props.dir : "ltr"
+);
+const hasNoLabel = computed(() => !(props.label && props.label.length));
+const placeholderText = computed(() =>
+  !hasNoLabel.value ? "" : props.placeholder
+);
+const hasValue = computed(
+  () =>
+    !(
+      props.modelValue === null ||
+      props.modelValue === "" ||
+      props.modelValue === undefined
+    )
+);
+const showValidationText = computed(
+  () =>
+    !!(props.validationText && props.validationText.length && props.hasError)
+);
+const showHelpText = computed(
+  () => !!(props.helpText && props.helpText.length)
+);
+const isTextarea = computed(() => props.type === "textarea");
+const hasRightIcon = computed(
+  () => !!(slots["icon-right"] || props.hasSuccess || props.hasError)
+);
+const containerClasses = computed(() => {
+  const classes = [];
+  if (hasNoLabel.value) classes.push("has-no-label");
+  if (props.size !== "default") classes.push(`is-${props.size}`);
+  if ("ltr" !== direction.value)
+    classes.push(`is-direction-${direction.value}`);
+  return classes;
+});
+const inputClasses = computed(() => {
+  const classes = [];
+  if (props.hasSuccess) classes.push("is-valid");
+  if (props.hasError) classes.push("is-invalid");
+  if (hasValue.value) classes.push("has-value");
+  return classes;
+});
+
+const handleInputEvent = (event: Event) =>
+  emit("update:modelValue", (event.target as HTMLInputElement).value);
+const handleKeydownEvent = (event: Event) => emit("keydown", event);
+const handleFocusEvent = (event: Event) => {
+  state.isFocus = true;
+  emit("focus", (event.target as HTMLInputElement).value);
+};
+const handleBlurEvent = (event: Event) => {
+  state.isFocus = false;
+  emit("blur", (event.target as HTMLInputElement).value);
+};
 </script>
 
 <style lang="scss">

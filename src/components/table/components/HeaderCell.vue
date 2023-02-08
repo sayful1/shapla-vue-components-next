@@ -6,8 +6,8 @@
       </template>
       <template v-else>
         <a href="#" @click.prevent="handleSort">
-          <data-table-icon v-if="isSortedDesc" icon="arrow-upward" />
-          <data-table-icon v-if="isSortedAsc" icon="arrow-downward" />
+          <DataTableIcon v-if="isSortedDesc" icon="arrow-upward" />
+          <DataTableIcon v-if="isSortedAsc" icon="arrow-downward" />
           <span>{{ column.label }}</span>
         </a>
       </template>
@@ -15,68 +15,53 @@
   </th>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import DataTableIcon from "./DataTableIcon.vue";
-import { computed, defineComponent, PropType } from "vue";
+import { computed, defineEmits, defineProps, PropType } from "vue";
 import { TableColumnDataInterface } from "../TableInterfaces";
 
-export default defineComponent({
-  name: "HeaderCell",
-  components: { DataTableIcon },
-  props: {
-    column: {
-      type: Object as PropType<TableColumnDataInterface>,
-      required: false,
-      default: () => ({ key: "", label: "" }),
-    },
-    isPrimary: { type: Boolean, default: false },
-    isCheckbox: { type: Boolean, default: false },
-    isExpandToggle: { type: Boolean, default: false },
-    sortBy: { type: String, default: "id" },
-    sortOrder: { type: String, default: "desc" },
+const props = defineProps({
+  column: {
+    type: Object as PropType<TableColumnDataInterface>,
+    required: false,
+    default: () => ({ key: "", label: "" }),
   },
-  emits: ["sort"],
-  setup(props, { emit }) {
-    const handleSort = () => emit("sort", props.column.key);
+  isPrimary: { type: Boolean, default: false },
+  isCheckbox: { type: Boolean, default: false },
+  isExpandToggle: { type: Boolean, default: false },
+  sortBy: { type: String, default: "id" },
+  sortOrder: { type: String, default: "desc" },
+});
+const emit = defineEmits(["sort"]);
+const handleSort = () => emit("sort", props.column.key);
 
-    const isNumeric = computed(
-      () =>
-        typeof props.column.numeric !== "undefined" &&
-        props.column.numeric === true
-    );
-    const isSortable = computed(
-      () =>
-        typeof props.column.sortable !== "undefined" &&
-        props.column.sortable === true
-    );
-    const isSorted = computed(() => props.column.key === props.sortBy);
-    const isSortedAsc = computed(() => props.sortOrder === "asc");
-    const isSortedDesc = computed(() => props.sortOrder === "desc");
+const isNumeric = computed(
+  () =>
+    typeof props.column.numeric !== "undefined" && props.column.numeric === true
+);
+const isSortable = computed(
+  () =>
+    typeof props.column.sortable !== "undefined" &&
+    props.column.sortable === true
+);
+const isSorted = computed(() => props.column.key === props.sortBy);
+const isSortedAsc = computed(() => props.sortOrder === "asc");
+const isSortedDesc = computed(() => props.sortOrder === "desc");
 
-    const getHeadCellClass = computed(() => {
-      const classes = ["shapla-data-table__header-cell"];
-      if (props.column && props.column.key)
-        classes.push(`shapla-data-table__header-cell-${props.column.key}`);
-      if (props.isPrimary) classes.push("column-primary");
-      if (props.isCheckbox) classes.push("is-checkbox-cell");
-      if (props.isExpandToggle) classes.push("is-expand-toggle-cell");
-      if (isNumeric.value) classes.push("is-numeric-cell");
-      if (isSortable.value) {
-        classes.push("is-sortable");
-        if (isSorted.value) classes.push("is-sorted");
-        if (isSortedAsc.value) classes.push("is-sorted-ascending");
-        if (isSortedDesc.value) classes.push("is-sorted-descending");
-      }
-      return classes;
-    });
-
-    return {
-      handleSort,
-      isSortable,
-      isSortedDesc,
-      isSortedAsc,
-      getHeadCellClass,
-    };
-  },
+const getHeadCellClass = computed(() => {
+  const classes = ["shapla-data-table__header-cell"];
+  if (props.column && props.column.key)
+    classes.push(`shapla-data-table__header-cell-${props.column.key}`);
+  if (props.isPrimary) classes.push("column-primary");
+  if (props.isCheckbox) classes.push("is-checkbox-cell");
+  if (props.isExpandToggle) classes.push("is-expand-toggle-cell");
+  if (isNumeric.value) classes.push("is-numeric-cell");
+  if (isSortable.value) {
+    classes.push("is-sortable");
+    if (isSorted.value) classes.push("is-sorted");
+    if (isSortedAsc.value) classes.push("is-sorted-ascending");
+    if (isSortedDesc.value) classes.push("is-sorted-descending");
+  }
+  return classes;
 });
 </script>

@@ -1,10 +1,10 @@
 <template>
   <div class="shapla-chip" :class="chipClasses" :style="chipStyle">
     <img v-if="imageSrc" class="shapla-chip__contact" :src="imageSrc" />
-    <span class="shapla-chip__text"
-      ><slot>{{ text }}</slot></span
-    >
-    <shapla-cross
+    <span class="shapla-chip__text">
+      <slot>{{ text }}</slot>
+    </span>
+    <ShaplaCross
       v-if="deletable"
       :small="small"
       class="shapla-chip__action"
@@ -13,49 +13,42 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import ShaplaCross from "../cross/ShaplaCross.vue";
-import { computed, defineComponent } from "vue";
+import { computed, defineEmits, defineProps } from "vue";
 
-export default defineComponent({
-  name: "ShaplaChip",
-  components: { ShaplaCross },
-  props: {
-    text: { type: String, default: null, required: false },
-    imageSrc: { type: String, default: null, required: false },
-    deletable: { type: Boolean, default: false },
-    small: { type: Boolean, default: false },
-    height: { type: String, default: "32px" },
-  },
-  emits: ["delete"],
-  setup(props, { emit }) {
-    const deleteChip = () => emit("delete");
+const props = defineProps({
+  text: { type: String, default: null, required: false },
+  imageSrc: { type: String, default: null, required: false },
+  deletable: { type: Boolean, default: false },
+  small: { type: Boolean, default: false },
+  height: { type: String, default: "32px" },
+});
+const emit = defineEmits(["delete"]);
 
-    const chipClasses = computed(() => {
-      const classes = [];
-      if (props.deletable) {
-        classes.push("shapla-chip--deletable");
-      }
-      if (props.imageSrc) {
-        classes.push("shapla-chip--contact");
-      }
+const deleteChip = () => emit("delete");
 
-      return classes;
-    });
+const chipClasses = computed(() => {
+  const classes = [];
+  if (props.deletable) {
+    classes.push("shapla-chip--deletable");
+  }
+  if (props.imageSrc) {
+    classes.push("shapla-chip--contact");
+  }
 
-    const chipStyle = computed(() => {
-      const style: { [key: string]: string } = {};
-      if (props.small) {
-        style["--shapla-chip-height"] = "24px";
-      }
-      if (props.height !== "32px") {
-        style["--shapla-chip-height"] = props.height;
-      }
-      return style;
-    });
+  return classes;
+});
 
-    return { deleteChip, chipClasses, chipStyle };
-  },
+const chipStyle = computed(() => {
+  const style: { [key: string]: string } = {};
+  if (props.small) {
+    style["--shapla-chip-height"] = "24px";
+  }
+  if (props.height !== "32px") {
+    style["--shapla-chip-height"] = props.height;
+  }
+  return style;
 });
 </script>
 

@@ -1,5 +1,5 @@
 <template>
-  <shapla-modal-confirm
+  <ShaplaModalConfirm
     :active="showConfirm"
     :icon="params.icon"
     :title="params.title"
@@ -10,45 +10,30 @@
   />
 </template>
 
-<script lang="ts">
-import { ref, onMounted, defineComponent } from "vue";
+<script lang="ts" setup>
+import { onMounted, ref } from "vue";
 import { default as ShaplaModalConfirm } from "../modal/components/ModalConfirm.vue";
 import Dialog, { ConfirmDataInterface } from "./Dialog";
 
-export default defineComponent({
-  name: "ShaplaConfirmContainer",
-  components: { ShaplaModalConfirm },
-  setup() {
-    const defaultParamsData = {
-      icon: "primary",
-      title: "",
-      message: "Are you sure?",
-      confirmButton: "OK",
-      cancelButton: "Cancel",
-    };
-    const params = ref<ConfirmDataInterface>(defaultParamsData);
-    const showConfirm = ref<boolean>(false);
+const defaultParamsData = {
+  icon: "primary",
+  title: "",
+  message: "Are you sure?",
+  confirmButton: "OK",
+  cancelButton: "Cancel",
+};
+const params = ref<ConfirmDataInterface>(defaultParamsData);
+const showConfirm = ref<boolean>(false);
 
-    const handleClick = (confirmed: boolean) => {
-      showConfirm.value = false;
-      Dialog.dispatch("click.ShaplaVueConfirmModal", confirmed);
-    };
+const handleClick = (confirmed: boolean) => {
+  showConfirm.value = false;
+  Dialog.dispatch("click.ShaplaVueConfirmModal", confirmed);
+};
 
-    onMounted(() => {
-      Dialog.on(
-        "show.ShaplaVueConfirmModal",
-        (newParams: ConfirmDataInterface) => {
-          params.value = Object.assign(defaultParamsData, newParams);
-          showConfirm.value = true;
-        }
-      );
-    });
-
-    return {
-      showConfirm,
-      params,
-      handleClick,
-    };
-  },
+onMounted(() => {
+  Dialog.on("show.ShaplaVueConfirmModal", (newParams: ConfirmDataInterface) => {
+    params.value = Object.assign(defaultParamsData, newParams);
+    showConfirm.value = true;
+  });
 });
 </script>

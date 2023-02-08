@@ -1,45 +1,43 @@
 <template>
-  <shapla-button
+  <ShaplaButton
     :outline="modelValue !== value"
     :theme="theme"
     :size="size"
     :fullwidth="fullwidth"
     :shadow="shadow"
     :rounded="rounded"
-    @click.prevent="$emit('update:modelValue', value)"
+    @click.prevent="handleClick"
   >
     <slot>{{ label }}</slot>
-  </shapla-button>
+  </ShaplaButton>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script lang="ts" setup>
+import { defineEmits, defineProps } from "vue";
 import ShaplaButton from "../button/ShaplaButton.vue";
 
-export default defineComponent({
-  name: "ShaplaRadioButton",
-  components: { ShaplaButton },
-  model: { prop: "modelValue", event: "update:modelValue" },
-  props: {
-    label: { type: String, default: "", required: false },
-    value: { type: String, default: "" },
-    modelValue: { type: [String, Number, Boolean], default: "" },
-    theme: {
-      type: String,
-      default: "default",
-      validator: (value: string) =>
-        ["default", "primary", "secondary"].indexOf(value) !== -1,
-    },
-    size: {
-      type: String,
-      default: "normal",
-      validator: (value: string) =>
-        ["small", "normal", "medium", "large"].indexOf(value) !== -1,
-    },
-    fullwidth: { type: Boolean, default: false },
-    shadow: { type: Boolean, default: false },
-    rounded: { type: Boolean, default: false },
+const props = defineProps({
+  label: { type: String, default: "", required: false },
+  value: { type: [String, Number, Boolean], default: "" },
+  modelValue: { type: [String, Number, Boolean], default: "" },
+  theme: {
+    type: String,
+    default: "default",
+    validator: (value: string) =>
+      ["default", "primary", "secondary"].includes(value),
   },
-  emits: ["update:modelValue"],
+  size: {
+    type: String,
+    default: "normal",
+    validator: (value: string) =>
+      ["small", "normal", "medium", "large"].includes(value),
+  },
+  fullwidth: { type: Boolean, default: false },
+  shadow: { type: Boolean, default: false },
+  rounded: { type: Boolean, default: false },
 });
+const emit = defineEmits(["update:modelValue"]);
+const handleClick = () => {
+  emit("update:modelValue", props.value);
+};
 </script>

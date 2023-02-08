@@ -46,83 +46,76 @@
   </div>
 </template>
 
-<script lang="ts">
-import { computed, onMounted, reactive, defineComponent, PropType } from "vue";
+<script lang="ts" setup>
+import {
+  computed,
+  defineEmits,
+  defineProps,
+  onMounted,
+  PropType,
+  reactive,
+} from "vue";
 
-export default defineComponent({
-  name: "ShaplaStarRating",
-  props: {
-    modelValue: { type: [String, Number], default: null },
-    isStatic: { type: Boolean, default: false },
-    color: { type: String, default: "" },
-    activeColor: { type: String, default: "" },
-    ratings: {
-      type: Array as PropType<number[]>,
-      default: () => [1, 2, 3, 4, 5],
-    },
-  },
-  emits: ["update:modelValue"],
-  setup(props, { emit }) {
-    const state = reactive<{ temp_value: string | number }>({ temp_value: "" });
-
-    onMounted(() => {
-      state.temp_value = props.modelValue;
-    });
-
-    const get_rating = computed(() => {
-      if (state.temp_value != null) {
-        return parseFloat(state.temp_value.toString());
-      }
-      if (state.temp_value == null && props.modelValue != null) {
-        return parseFloat(props.modelValue.toString());
-      }
-      return 0;
-    });
-
-    const isFullStar = (rating: number) => get_rating.value >= rating;
-    const isHalfStar = (rating: number) =>
-      get_rating.value < rating && get_rating.value > rating - 0.6;
-    const getLabelClass = (rating: number) => {
-      return {
-        "is-active": isFullStar(rating) || isHalfStar(rating),
-      };
-    };
-    const star_over = (index: number) => {
-      if (!props.isStatic) state.temp_value = index;
-    };
-
-    const star_out = () => {
-      if (!props.isStatic) state.temp_value = props.modelValue;
-    };
-
-    const emitEvent = (value: number) => {
-      if (!props.isStatic) {
-        state.temp_value = value;
-        emit("update:modelValue", value);
-      }
-    };
-
-    const getStyle = (rating: number) => {
-      if (!(props.activeColor.length && props.color.length)) {
-        return {};
-      }
-      if (isFullStar(rating) || isHalfStar(rating)) {
-        return { color: props.activeColor };
-      }
-      return { color: props.color };
-    };
-
-    return {
-      isFullStar,
-      isHalfStar,
-      getLabelClass,
-      star_over,
-      star_out,
-      emitEvent,
-      getStyle,
-    };
+const props = defineProps({
+  modelValue: { type: [String, Number], default: null },
+  isStatic: { type: Boolean, default: false },
+  color: { type: String, default: "" },
+  activeColor: { type: String, default: "" },
+  ratings: {
+    type: Array as PropType<number[]>,
+    default: () => [1, 2, 3, 4, 5],
   },
 });
+const emit = defineEmits(["update:modelValue"]);
+
+const state = reactive<{ temp_value: string | number }>({ temp_value: "" });
+
+onMounted(() => {
+  state.temp_value = props.modelValue;
+});
+
+const get_rating = computed(() => {
+  if (state.temp_value != null) {
+    return parseFloat(state.temp_value.toString());
+  }
+  if (state.temp_value == null && props.modelValue != null) {
+    return parseFloat(props.modelValue.toString());
+  }
+  return 0;
+});
+
+const isFullStar = (rating: number) => get_rating.value >= rating;
+const isHalfStar = (rating: number) =>
+  get_rating.value < rating && get_rating.value > rating - 0.6;
+const getLabelClass = (rating: number) => {
+  return {
+    "is-active": isFullStar(rating) || isHalfStar(rating),
+  };
+};
+const star_over = (index: number) => {
+  if (!props.isStatic) state.temp_value = index;
+};
+
+const star_out = () => {
+  if (!props.isStatic) state.temp_value = props.modelValue;
+};
+
+const emitEvent = (value: number) => {
+  if (!props.isStatic) {
+    state.temp_value = value;
+    emit("update:modelValue", value);
+  }
+};
+
+const getStyle = (rating: number) => {
+  if (!(props.activeColor.length && props.color.length)) {
+    return {};
+  }
+  if (isFullStar(rating) || isHalfStar(rating)) {
+    return { color: props.activeColor };
+  }
+  return { color: props.color };
+};
 </script>
 
 <style lang="scss">

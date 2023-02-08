@@ -25,83 +25,62 @@
   </div>
 </template>
 
-<script lang="ts">
-import {
-  computed,
-  defineComponent,
-  inject,
-  onBeforeMount,
-  reactive,
-  toRefs,
-} from "vue";
+<script lang="ts" setup>
+import { computed, defineProps, inject, onBeforeMount, reactive } from "vue";
 
-export default defineComponent({
-  name: "ShaplaStepperStep",
-  props: {
-    active: { type: Boolean, default: false },
-    complete: { type: Boolean, default: false },
-    editable: { type: Boolean, default: false },
-    error: { type: Boolean, default: false },
-    firstItem: { type: Boolean, default: false },
-    lastItem: { type: Boolean, default: false },
-    step: { type: String, default: "" },
-    label: { type: String, default: "" },
-    altLabel: { type: String, default: "" },
-  },
-  setup(props) {
-    const state = reactive<{ index: number }>({
-      index: -1,
-    });
-    const stepperProps = inject<{
-      count: number;
-      props: { type: string; labelPlacement: string };
-    }>("ShaplaStepperProvider");
-    const isVertical = computed<boolean>(
-      () => "vertical" === stepperProps?.props.type
-    );
-    const isFirstItem = computed<boolean>(() => 0 === state.index);
-    const isLastItem = computed<boolean>(
-      () => stepperProps.count === state.index + 1
-    );
+const props = defineProps({
+  active: { type: Boolean, default: false },
+  complete: { type: Boolean, default: false },
+  editable: { type: Boolean, default: false },
+  error: { type: Boolean, default: false },
+  firstItem: { type: Boolean, default: false },
+  lastItem: { type: Boolean, default: false },
+  step: { type: String, default: "" },
+  label: { type: String, default: "" },
+  altLabel: { type: String, default: "" },
+});
+const state = reactive<{ index: number }>({
+  index: -1,
+});
+const stepperProps = inject<{
+  count: number;
+  props: { type: string; labelPlacement: string };
+}>("ShaplaStepperProvider");
+const isVertical = computed<boolean>(
+  () => "vertical" === stepperProps?.props.type
+);
+const isFirstItem = computed<boolean>(() => 0 === state.index);
+const isLastItem = computed<boolean>(
+  () => stepperProps.count === state.index + 1
+);
 
-    const stepClasses = computed(() => {
-      const classes = [];
-      if (props.active) classes.push("is-active");
-      if (props.complete) classes.push("is-complete");
-      if (props.editable) classes.push("is-editable");
-      if (props.error) classes.push("has-error");
-      if (stepperProps?.props.type)
-        classes.push(`type-${stepperProps?.props.type}`);
-      if (stepperProps?.props.labelPlacement)
-        classes.push(`lp-${stepperProps?.props.labelPlacement}`);
+const stepClasses = computed(() => {
+  const classes = [];
+  if (props.active) classes.push("is-active");
+  if (props.complete) classes.push("is-complete");
+  if (props.editable) classes.push("is-editable");
+  if (props.error) classes.push("has-error");
+  if (stepperProps?.props.type)
+    classes.push(`type-${stepperProps?.props.type}`);
+  if (stepperProps?.props.labelPlacement)
+    classes.push(`lp-${stepperProps?.props.labelPlacement}`);
 
-      return classes;
-    });
+  return classes;
+});
 
-    const contentStyle = computed(() => {
-      const styles = [];
-      if (props.active) {
-        styles.push({ height: "auto" });
-      } else {
-        styles.push({ height: "0" });
-      }
-      return styles;
-    });
+const contentStyle = computed(() => {
+  const styles = [];
+  if (props.active) {
+    styles.push({ height: "auto" });
+  } else {
+    styles.push({ height: "0" });
+  }
+  return styles;
+});
 
-    onBeforeMount(() => {
-      state.index = stepperProps.count;
-      ++stepperProps.count;
-    });
-
-    return {
-      ...toRefs(state),
-      stepClasses,
-      contentStyle,
-      isVertical,
-      isFirstItem,
-      isLastItem,
-    };
-  },
+onBeforeMount(() => {
+  state.index = stepperProps.count;
+  ++stepperProps.count;
 });
 </script>
 

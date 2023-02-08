@@ -18,8 +18,8 @@
   </ul>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from "vue";
+<script lang="ts" setup>
+import { defineEmits, defineProps, PropType } from "vue";
 
 interface StatusInterface {
   key: string;
@@ -28,23 +28,18 @@ interface StatusInterface {
   active: boolean;
 }
 
-export default defineComponent({
-  name: "StatusList",
-  props: {
-    statuses: { type: Array as PropType<StatusInterface[]>, default: () => [] },
-    type: {
-      type: String,
-      default: "horizontal",
-      validator: (value: string) =>
-        -1 !== ["vertical", "horizontal"].indexOf(value),
-    },
-  },
-  emits: ["change"],
-  setup(props, { emit }) {
-    const handleClickEvent = (event: Event) => emit("change", event);
-    return { handleClickEvent };
+defineProps({
+  statuses: { type: Array as PropType<StatusInterface[]>, default: () => [] },
+  type: {
+    type: String,
+    default: "horizontal",
+    validator: (value: string) =>
+      -1 !== ["vertical", "horizontal"].indexOf(value),
   },
 });
+const emit = defineEmits(["change"]);
+
+const handleClickEvent = (event: Event) => emit("change", event);
 </script>
 
 <style lang="scss">

@@ -6,13 +6,10 @@
   </tr>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script lang="ts" setup>
+import { defineProps } from "vue";
 
-export default defineComponent({
-  name: "BodyRowNoItem",
-  props: {
-    colspan: { type: [String, Number], default: null },
-  },
+defineProps({
+  colspan: { type: [String, Number], default: null },
 });
 </script>

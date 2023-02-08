@@ -2,33 +2,25 @@
   <span :class="classes"><slot /></span>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent } from "vue";
+<script lang="ts" setup>
+import { computed, defineProps } from "vue";
 
-export default defineComponent({
-  name: "ShaplaIcon",
-  props: {
-    size: {
-      type: String,
-      required: false,
-      default: null,
-      validator: (value: string) =>
-        ["small", "medium", "large"].indexOf(value) !== -1,
-    },
-    hoverable: { type: Boolean, default: false },
+const props = defineProps({
+  size: {
+    type: String,
+    required: false,
+    default: null,
+    validator: (value: string) => ["small", "medium", "large"].includes(value),
   },
-  setup(props) {
-    const classes = computed(() => {
-      const classes = ["shapla-icon"];
-      if (props.hoverable) classes.push("is-hoverable");
-      if (props.size) classes.push("is-" + props.size);
+  hoverable: { type: Boolean, default: false },
+});
 
-      return classes;
-    });
-    return {
-      classes,
-    };
-  },
+const classes = computed(() => {
+  const classes = ["shapla-icon"];
+  if (props.hoverable) classes.push("is-hoverable");
+  if (props.size) classes.push("is-" + props.size);
+
+  return classes;
 });
 </script>
 

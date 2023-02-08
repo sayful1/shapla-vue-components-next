@@ -27,6 +27,9 @@
   "main": "./dist/components.umd.js",
   "module": "./dist/components.mjs",
   "typings": "./dist/index.d.ts",
+  "browser": {
+    "./sfc": "./src/index.ts"
+  },
   "files": [
     "dist/*",
     "src/*",

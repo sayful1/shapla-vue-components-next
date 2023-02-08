@@ -95,89 +95,58 @@
   </nav>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent } from "vue";
+<script lang="ts" setup>
+import { computed, defineEmits, defineProps } from "vue";
 
-const sizes = ["default", "small", "medium", "large"];
-export default defineComponent({
-  name: "ShaplaTablePagination",
-  props: {
-    totalItems: { type: Number, required: true, default: 0 },
-    perPage: { type: Number, required: true, default: 20 },
-    currentPage: { type: Number, required: true, default: 1 },
-    size: {
-      type: String,
-      default: "default",
-      validator: (value: string) => sizes.indexOf(value) !== -1,
-    },
-    textName: { type: String, default: "items" },
-    textNameSingular: { type: String, default: "item" },
-    textCurrentPage: { type: String, default: "Current Page" },
-    textFirstPage: { type: String, default: "First page" },
-    textPreviousPage: { type: String, default: "Previous page" },
-    textNextPage: { type: String, default: "Next page" },
-    textLastPage: { type: String, default: "Last page" },
-    textOf: { type: String, default: "of" },
+const props = defineProps({
+  totalItems: { type: Number, required: true, default: 0 },
+  perPage: { type: Number, required: true, default: 20 },
+  currentPage: { type: Number, required: true, default: 1 },
+  size: {
+    type: String,
+    default: "default",
+    validator: (value: string) =>
+      ["default", "small", "medium", "large"].indexOf(value) !== -1,
   },
-
-  emits: ["paginate"],
-
-  setup(props, { emit }) {
-    const nav_classes = computed(() => [
-      "shapla-pagination",
-      `is-${props.size}`,
-    ]);
-    const total_pages = computed(() =>
-      Math.ceil(props.totalItems / props.perPage)
-    );
-    const disable_first = computed(() => props.currentPage < 3);
-    const disable_prev = computed(() => props.currentPage < 2);
-    const disable_next = computed(() => props.currentPage >= total_pages.value);
-    const disable_last = computed(
-      () => props.currentPage >= total_pages.value - 1
-    );
-    const offset = computed(() => (props.currentPage - 1) * props.perPage);
-    const displaying_num = computed(() => {
-      return `${props.totalItems} ${
-        props.totalItems > 1 ? props.textName : props.textNameSingular
-      }`;
-    });
-
-    // Methods
-    const emitEvent = (page: number) => emit("paginate", page);
-    const goToPage = (event: Event) => {
-      let page = parseInt((event.target as HTMLInputElement).value);
-      if (isNaN(page)) page = props.currentPage;
-      if (page < 1) page = 1;
-      if (page > total_pages.value) page = total_pages.value;
-
-      emitEvent(page);
-    };
-    const nextPage = () =>
-      !disable_next.value ? emitEvent(props.currentPage + 1) : false;
-    const prePage = () =>
-      !disable_prev.value ? emitEvent(props.currentPage - 1) : false;
-    const firstPage = () => (!disable_first.value ? emitEvent(1) : false);
-    const lastPage = () =>
-      !disable_last.value ? emitEvent(total_pages.value) : false;
-
-    return {
-      nav_classes,
-      total_pages,
-      disable_first,
-      disable_prev,
-      disable_next,
-      disable_last,
-      offset,
-      displaying_num,
-      goToPage,
-      nextPage,
-      prePage,
-      firstPage,
-      lastPage,
-    };
-  },
+  textName: { type: String, default: "items" },
+  textNameSingular: { type: String, default: "item" },
+  textCurrentPage: { type: String, default: "Current Page" },
+  textFirstPage: { type: String, default: "First page" },
+  textPreviousPage: { type: String, default: "Previous page" },
+  textNextPage: { type: String, default: "Next page" },
+  textLastPage: { type: String, default: "Last page" },
+  textOf: { type: String, default: "of" },
 });
+const emit = defineEmits(["paginate"]);
+const nav_classes = computed(() => ["shapla-pagination", `is-${props.size}`]);
+const total_pages = computed(() => Math.ceil(props.totalItems / props.perPage));
+const disable_first = computed(() => props.currentPage < 3);
+const disable_prev = computed(() => props.currentPage < 2);
+const disable_next = computed(() => props.currentPage >= total_pages.value);
+const disable_last = computed(() => props.currentPage >= total_pages.value - 1);
+const displaying_num = computed(() => {
+  return `${props.totalItems} ${
+    props.totalItems > 1 ? props.textName : props.textNameSingular
+  }`;
+});
+
+// Methods
+const emitEvent = (page: number) => emit("paginate", page);
+const goToPage = (event: Event) => {
+  let page = parseInt((event.target as HTMLInputElement).value);
+  if (isNaN(page)) page = props.currentPage;
+  if (page < 1) page = 1;
+  if (page > total_pages.value) page = total_pages.value;
+
+  emitEvent(page);
+};
+const nextPage = () =>
+  !disable_next.value ? emitEvent(props.currentPage + 1) : false;
+const prePage = () =>
+  !disable_prev.value ? emitEvent(props.currentPage - 1) : false;
+const firstPage = () => (!disable_first.value ? emitEvent(1) : false);
+const lastPage = () =>
+  !disable_last.value ? emitEvent(total_pages.value) : false;
 </script>
 
 <style lang="scss">
