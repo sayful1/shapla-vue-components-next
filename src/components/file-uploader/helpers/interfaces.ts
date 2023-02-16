@@ -4,7 +4,7 @@ interface FileObjectInterfaces {
   totalChunks: number;
   chunkSize: number;
   currentChunkIndex: number;
-  chunkCompleteStatus: Record<number, { loaded: number; total: number; }>;
+  chunkCompleteStatus: Record<number, { loaded: number; total: number }>;
   progress: number;
   failed: boolean;
   loadedBytes: number;
@@ -25,13 +25,20 @@ interface ArgsInterface {
 }
 
 interface SuccessResponseInterface {
-  data: string,
-  status: number,
-  start: number
+  data: string;
+  status: number;
+  start?: number;
+}
+
+interface ImageDataInterface {
+  image_id: number;
+  title: string;
+  attachment_url: string;
 }
 
 export {
   FileObjectInterfaces,
   SuccessResponseInterface,
-  ArgsInterface
+  ArgsInterface,
+  ImageDataInterface,
 };

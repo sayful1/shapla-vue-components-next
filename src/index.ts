@@ -14,7 +14,6 @@ export { default as ShaplaModalConfirm } from "./components/modal/components/Mod
 export { default as ShaplaDashboard } from "./components/dashboard/ShaplaDashboard.vue";
 export { default as ShaplaDropdown } from "./components/dropdown/ShaplaDropdown.vue";
 export { default as ShaplaDropdownMenu } from "./components/dropdown/ShaplaDropdownMenu.vue";
-export { default as ShaplaFileUploader } from "./components/file-uploader/src/ShaplaFileUploader.vue";
 export { default as ShaplaIcon } from "./components/icon/ShaplaIcon.vue";
 export { default as ShaplaImage } from "./components/image/ShaplaImage.vue";
 export { default as ShaplaInput } from "./components/input/ShaplaInput.vue";
@@ -40,3 +39,6 @@ export { default as ShaplaTabs } from "./components/tabs/ShaplaTabs.vue";
 export { default as ShaplaTab } from "./components/tabs/ShaplaTab.vue";
 export { default as ShaplaToggles } from "./components/toggles/ShaplaToggles.vue";
 export { default as ShaplaToggle } from "./components/toggles/ShaplaToggle.vue";
+export { default as ShaplaFileUploader } from "./components/file-uploader/ShaplaFileUploader.vue";
+export { default as ShaplaMediaModal } from "./components/file-uploader/experimental/MediaModal.vue";
+export { default as ShaplaFeaturedImage } from "./components/file-uploader/experimental/FeaturedImage.vue";

@@ -7,22 +7,26 @@
     :properties="properties"
     :desc="descriptions"
   >
-    <file-uploader url="https://wordpress.test" />
+    <ShaplaFileUploader url="https://wordpress.test" />
+    <div style="margin-top: 100px">
+      <ShaplaFeaturedImage @click:add="state.showUploadModal = true" />
+    </div>
+    <ShaplaMediaModal
+      :active="state.showUploadModal"
+      url="https://wordpress.test"
+      @close="state.showUploadModal = false"
+    />
   </doc-tab>
 </template>
 
-<script>
-import { ShaplaFileUploader } from "../../src";
-import { computed } from "vue";
+<script lang="ts" setup>
+import { ShaplaFeaturedImage, ShaplaFileUploader, ShaplaMediaModal } from "../../src";
+import { computed, reactive } from "vue";
 import DocTab from "../components/DocTab.vue";
 
-export default {
-  name: "ExampleFileUploader",
-  components: { DocTab, "file-uploader": ShaplaFileUploader },
-  setup() {
-    const properties = computed(() => ShaplaFileUploader.props);
-    const descriptions = {};
-    return { properties, descriptions };
-  },
-};
+const properties = computed(() => ShaplaFileUploader.props);
+const descriptions = {};
+const state = reactive({
+  showUploadModal: false
+});
 </script>

@@ -16,7 +16,7 @@ class Dialog {
    */
   static on(
     event: string,
-    callback: EventListener | ((confirmed: boolean) => void)
+    callback: ((args: ConfirmDataInterface) => void) | ((confirmed: boolean) => void)
   ) {
     document.addEventListener(event, ((e: CustomEvent) =>
       callback(e.detail)) as EventListener);
@@ -28,9 +28,9 @@ class Dialog {
    * @param event
    * @param data
    */
-  static dispatch(event: string, data: ConfirmDataInterface) {
+  static dispatch(event: string, data: boolean | ConfirmDataInterface) {
     document.dispatchEvent(
-      new CustomEvent<ConfirmDataInterface>(event, { detail: data })
+      new CustomEvent<boolean | ConfirmDataInterface>(event, { detail: data })
     );
   }
 
@@ -66,7 +66,7 @@ class Dialog {
         title: "",
         message: "Are you sure?",
         confirmButton: "OK",
-        cancelButton: "Cancel",
+        cancelButton: "Cancel"
       },
       params
     );

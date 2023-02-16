@@ -39,7 +39,7 @@ defineProps({
 });
 const emit = defineEmits(["change"]);
 
-const handleClickEvent = (event: Event) => emit("change", event);
+const handleClickEvent = (status: StatusInterface) => emit("change", status);
 </script>
 
 <style lang="scss">
