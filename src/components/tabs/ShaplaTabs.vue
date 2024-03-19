@@ -11,7 +11,7 @@
           <a
             :href="tab.props.navTo"
             @click="selectTab(tab, index, $event)"
-            v-html="tab.props.name"
+            v-html="tab.props.name || tab.title"
           />
         </li>
       </ul>

@@ -11,15 +11,15 @@ import {
 
 const hexToRgb = (hex, alpha) => {
   hex = hex.replace("#", "");
-  let r = parseInt(
+  const r = parseInt(
     hex.length == 3 ? hex.slice(0, 1).repeat(2) : hex.slice(0, 2),
     16
   );
-  let g = parseInt(
+  const g = parseInt(
     hex.length == 3 ? hex.slice(1, 2).repeat(2) : hex.slice(2, 4),
     16
   );
-  let b = parseInt(
+  const b = parseInt(
     hex.length == 3 ? hex.slice(2, 3).repeat(2) : hex.slice(4, 6),
     16
   );
@@ -64,7 +64,7 @@ const error = ref("#f14668");
 const warning = ref("#ffdd57");
 
 const colorThemeStyles = computed(() => {
-  let styles = [];
+  const styles = [];
 
   if (primary.value && "#00d1b2" !== primary.value) {
     styles.push({ "--shapla-primary": `${primary.value}` });
@@ -172,6 +172,7 @@ const colorThemeStyles = computed(() => {
             </div>
           </div>
         </shapla-dropdown>
+        <shapla-button theme="primary"><shapla-theme-switcher-menu></shapla-theme-switcher-menu></shapla-button>
         <shapla-button
           class="button--buy-coffee"
           href="https://buymeacoffee.com/sayful1"
@@ -203,7 +204,7 @@ const colorThemeStyles = computed(() => {
       class="shapla-vue-components-demo__content"
       style="padding-bottom: 8rem"
     >
-      <div class="note--incomplete-info" v-if="showUnderDevelopmentNote">
+      <div v-if="showUnderDevelopmentNote" class="note--incomplete-info">
         <shapla-cross
           medium
           class="note--incomplete-info__cross"

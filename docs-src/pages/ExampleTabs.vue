@@ -36,14 +36,13 @@
       </tabs>
       <tabs alignment="center" fullwidth>
         <tab
-          name='<span class="icon is-small"><i class="fas fa-image" aria-hidden="true"></i></span>
-          <span>Pictures</span>'
+          name='Pictures'
           selected
         >
           <template #name>
-            <span class="icon is-small"
-              ><i class="fas fa-image" aria-hidden="true"
-            /></span>
+            <span class="icon is-small">
+              <i class="fas fa-image" aria-hidden="true"/>
+            </span>
             <span>Pictures</span>
           </template>
           Tab One Content

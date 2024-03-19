@@ -1,10 +1,13 @@
-@use "shapla-css/src/index.scss" as shapla;
+@use "../../shapla-css/src/index.scss" as shapla;
 
 @include shapla.minireset;
 @include shapla.bg-colors;
 @include shapla.text-colors;
 @include shapla.sr-only;
 @include shapla.tabs;
+@include shapla.light-theme-css-var();
+@include shapla.dark-theme-css-var();
+@include shapla.css-var-colors();
 
 @import url("https://unpkg.com/@fortawesome/fontawesome-free/css/all.css");
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
@@ -18,14 +21,14 @@ body {
 }
 
 a {
-  color: #42b983;
+  color: shapla.$primary;
 }
 
 code {
   background-color: #eee;
+  color: #304455;
   padding: 2px 4px;
   border-radius: 4px;
-  color: #304455;
 }
 
 p {
@@ -57,7 +60,7 @@ h6,
 .is-h4,
 .is-h5,
 .is-h6 {
-  color: #363636;
+  color: shapla.$text-primary;
   font-weight: 500;
   line-height: 1.125;
   position: relative;
@@ -102,7 +105,7 @@ h6,
 }
 
 .subtitle {
-  color: #4a4a4a;
+  color: shapla.$text-primary;
   font-size: 1.5rem;
   font-weight: 400;
   line-height: 1.25;
@@ -115,7 +118,7 @@ h6,
 
 // Code
 .shapla-code-highlight {
-  background: #f5f5f5;
+  background: shapla.$surface-secondary;
   margin-top: 0.5rem;
   margin-bottom: 1.5rem;
   border: 1px solid #f1f1f1;
@@ -130,7 +133,7 @@ h6,
 
 .color-theme-field {
   display: flex;
-  color: #323232;
+  color: shapla.$text-primary;
 
   &__label,
   &__value {
@@ -152,8 +155,8 @@ h6,
 }
 
 .note--incomplete-info {
-  background-color: #fff59d;
-  border: 1px solid #fdd835;
+  background-color: shapla.$warning-alpha;
+  border: 1px solid shapla.$warning-variant;
   padding: 2rem;
   border-radius: 4px;
   position: relative;

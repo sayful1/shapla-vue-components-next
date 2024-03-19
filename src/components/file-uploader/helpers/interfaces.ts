@@ -34,11 +34,13 @@ interface ImageDataInterface {
   image_id: number;
   title: string;
   attachment_url: string;
+
+  [key: string]: number | string | Record<string, number | string>;
 }
 
 export {
   FileObjectInterfaces,
   SuccessResponseInterface,
   ArgsInterface,
-  ImageDataInterface,
+  ImageDataInterface
 };

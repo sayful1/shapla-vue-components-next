@@ -103,7 +103,7 @@ import TableBody from "./components/TableBody.vue";
 import BodyRow from "./components/BodyRow.vue";
 
 const props = defineProps({
-  items: { type: Array as PropType<ItemInterface[]>, required: true },
+  items: { type: Array, required: true },
   columns: {
     type: Array as PropType<TableColumnDataInterface[]>,
     required: true,

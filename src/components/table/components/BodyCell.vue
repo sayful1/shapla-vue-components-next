@@ -7,8 +7,8 @@
         <slot name="row-actions" :row="item">
           <span v-for="action in actions" :key="action.key" :class="action.key">
             <a href="#" @click.prevent="actionClicked(action.key, item)">{{
-              action.label
-            }}</a>
+                action.label
+              }}</a>
           </span>
         </slot>
       </div>
@@ -28,27 +28,26 @@
 
 <script lang="ts" setup>
 import DataTableIcon from "./DataTableIcon.vue";
-import { computed, defineEmits, defineProps, PropType } from "vue";
-import {
-  ItemInterface,
-  TableActionDataInterface,
-  TableColumnDataInterface,
-} from "../TableInterfaces";
+import { computed, PropType } from "vue";
+import { ItemInterface, TableActionDataInterface, TableColumnDataInterface } from "../TableInterfaces";
 
 const props = defineProps({
-  item: { type: Object, required: true },
+  item: { type: Object as PropType<ItemInterface>, required: true },
   column: {
     type: Object as PropType<TableColumnDataInterface>,
-    required: true,
+    required: true
   },
   actions: {
     type: Array as PropType<TableActionDataInterface[]>,
-    default: () => [],
+    default: () => []
   },
   isPrimary: { type: Boolean, default: false },
-  isMobile: { type: Boolean, default: false },
+  isMobile: { type: Boolean, default: false }
 });
-const emit = defineEmits(["click:toggle", "click:action"]);
+const emit = defineEmits<{
+  "click:toggle": [event: Event];
+  "click:action": [key: string, item: ItemInterface]
+}>();
 const toggleRow = (event: Event) => emit("click:toggle", event);
 const actionClicked = (key: string, item: ItemInterface) =>
   emit("click:action", key, item);
@@ -61,7 +60,7 @@ const bodyCellClass = computed(() => {
     "shapla-data-table__cell",
     "shapla-data-table__cell-" + props.column.key,
     { "is-numeric-cell": isNumeric.value },
-    { "column-primary": props.isPrimary },
+    { "column-primary": props.isPrimary }
   ];
 });
 </script>

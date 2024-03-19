@@ -20,13 +20,13 @@
             <div v-if="images.length" class="shapla-media-modal__items">
               <div
                 v-for="_image in images"
-                :key="_image.image_id"
+                :key="_image[primaryKey]"
                 :class="itemClasses(_image)"
                 @click="selectImage(_image)"
               >
                 <div class="shapla-media-modal__image">
                   <ShaplaImage container-width="100px" container-height="100px">
-                    <img :src="_image.attachment_url" :alt="_image.title" />
+                    <img :src="_image[srcKey]" :alt="_image[altKey]" />
                   </ShaplaImage>
                 </div>
               </div>
@@ -50,18 +50,9 @@
 
 <script lang="ts" setup>
 import { defineEmits, defineProps, PropType, reactive } from "vue";
-import {
-  ShaplaButton,
-  ShaplaImage,
-  ShaplaModal,
-  ShaplaTab,
-  ShaplaTabs,
-} from "../../../index";
+import { ShaplaButton, ShaplaImage, ShaplaModal, ShaplaTab, ShaplaTabs } from "../../../index";
 import ShaplaFileUploader from "../ShaplaFileUploader.vue";
-import {
-  FileObjectInterfaces,
-  ImageDataInterface,
-} from "../helpers/interfaces";
+import { FileObjectInterfaces, ImageDataInterface } from "../helpers/interfaces";
 
 const props = defineProps({
   active: { type: Boolean, default: false },
@@ -70,15 +61,18 @@ const props = defineProps({
   notFoundText: { type: String, default: "No images found." },
   images: {
     type: Array as PropType<ImageDataInterface[]>,
-    default: () => [],
+    default: () => []
   },
   multiple: { type: Boolean, default: false },
+  primaryKey: { type: String, default: "id" },
+  srcKey: { type: String, default: "src" },
+  altKey: { type: String, default: "alt" },
   // File Uploader
-  url: { type: String, default: null, required: true },
+  url: { type: String, default: null, required: true }
 });
 const emit = defineEmits(["close", "select:image", "success", "fail"]);
 const state = reactive<{ selectedImages: ImageDataInterface[] }>({
-  selectedImages: [],
+  selectedImages: []
 });
 
 const closeModal = () => {
@@ -90,8 +84,8 @@ const itemClasses = (image: ImageDataInterface) => {
   const classes = ["shapla-media-modal__item"];
 
   if (state.selectedImages.length) {
-    state.selectedImages.forEach((_image) => {
-      if (_image.image_id === image.image_id) {
+    state.selectedImages.forEach((_image: ImageDataInterface) => {
+      if (_image[props.primaryKey] === image[props.primaryKey]) {
         classes.push("is-selected");
       }
     });
