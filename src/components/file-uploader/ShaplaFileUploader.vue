@@ -38,7 +38,7 @@
         <label
           :for="inputId"
           class="shapla-file-uploader-message__select-files shapla-button is-primary"
-          >{{ textButton }}</label
+        >{{ textButton }}</label
         >
         <div
           class="shapla-file-uploader-message__maxsize"
@@ -66,11 +66,7 @@
 import { defineEmits, defineProps, reactive, ref } from "vue";
 import ShaplaFilesUploadStatus from "./components/ShaplaFilesUploadStatus.vue";
 import ShaplaFileUploadStatus from "./components/ShaplaFileUploadStatus.vue";
-import {
-  generateFileObject as __generateFileObject,
-  upload,
-  uploadChunk,
-} from "./helpers/utils";
+import { generateFileObject as __generateFileObject, upload, uploadChunk } from "./helpers/utils";
 import { FileObjectInterfaces } from "./helpers/interfaces";
 
 const props = defineProps({
@@ -82,7 +78,7 @@ const props = defineProps({
   textButton: { type: String, default: "Select files to upload" },
   textMaxUploadLimit: {
     type: String,
-    default: "Maximum upload file size: 2MB",
+    default: "Maximum upload file size: 2MB"
   },
   params: { type: Object, required: false, default: () => ({}) },
   headers: { type: Object, required: false, default: () => ({}) },
@@ -90,9 +86,12 @@ const props = defineProps({
   showFilesUploadStatus: { type: Boolean, default: true },
   chunking: { type: Boolean, default: false },
   forceChunking: { type: Boolean, default: false },
-  chunkSize: { type: Number, default: 2000000 },
+  chunkSize: { type: Number, default: 2000000 }
 });
-const emit = defineEmits(["success", "fail"]);
+const emit = defineEmits<{
+  success: [fileObject: FileObjectInterfaces, data: unknown]
+  fail: [fileObject: FileObjectInterfaces, error: unknown]
+}>();
 const input = ref<null | HTMLInputElement>(null);
 const inputId = "shapla-file-uploader__input" + Date.now();
 const state = reactive<{
@@ -100,7 +99,7 @@ const state = reactive<{
   isDraggedOver: boolean;
 }>({
   files: [],
-  isDraggedOver: false,
+  isDraggedOver: false
 });
 const enter = () => (state.isDraggedOver = true);
 const leave = () => (state.isDraggedOver = false);
@@ -124,7 +123,7 @@ const addFiles = (files: FileList) => {
       method: props.method,
       paramName: props.paramName,
       params: props.params,
-      headers: props.headers,
+      headers: props.headers
     };
 
     if (props.chunking) {

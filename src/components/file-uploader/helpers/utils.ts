@@ -1,8 +1,4 @@
-import {
-  ArgsInterface,
-  FileObjectInterfaces,
-  SuccessResponseInterface,
-} from "./interfaces";
+import { ArgsInterface, FileObjectInterfaces, SuccessResponseInterface } from "./interfaces";
 
 const pad = {
   left(pad: string, string: string | number) {
@@ -21,7 +17,7 @@ const pad = {
     }
 
     return (string + pad).substring(0, pad.length);
-  },
+  }
 };
 
 /**
@@ -47,7 +43,7 @@ const timeRemaining = {
     return Math.ceil(
       (totalBytes - loadedBytes) / this._getMovingAverage(bytesBySecond)
     );
-  },
+  }
 };
 
 /**
@@ -76,7 +72,7 @@ const generateFileObject = (
     finished: false,
     cancelled: false,
     failed: false,
-    xhr: null,
+    xhr: null
   };
 };
 
@@ -94,12 +90,12 @@ const updateChunkProgress = (
     const chunkPercentComplete = Math.round((event.loaded / event.total) * 100);
     const totalPercentComplete = Math.round(
       (fileObject.currentChunkIndex / fileObject.totalChunks) * 100 +
-        chunkPercentComplete / fileObject.totalChunks
+      chunkPercentComplete / fileObject.totalChunks
     );
 
     fileObject.chunkCompleteStatus[fileObject.currentChunkIndex] = {
       loaded: event.loaded,
-      total: event.total,
+      total: event.total
     };
 
     let loaded = 0,
@@ -165,7 +161,7 @@ const getFormData = (args: ArgsInterface, fileObject: FileObjectInterfaces) => {
 
   const params = {
     ...args.params,
-    name: fileObject.file.name,
+    name: fileObject.file.name
   };
 
   for (const [key, value] of Object.entries(params)) {
@@ -266,7 +262,7 @@ const getChunkFormData = (
     ...args.params,
     chunk: fileObject.currentChunkIndex.toString(),
     chunks: fileObject.totalChunks.toString(),
-    name: fileObject.file.name,
+    name: fileObject.file.name
   };
   for (const [key, value] of Object.entries(params)) {
     chunkFormData.append(key, value);
@@ -285,9 +281,8 @@ const uploadChunk = (
   fileObject: FileObjectInterfaces,
   start: number,
   args: ArgsInterface
-) => {
-  return new Promise<{ fileObject: FileObjectInterfaces; data: unknown }>(
-    (resolve, reject) => {
+): Promise<{ fileObject: FileObjectInterfaces; data: unknown }> => {
+  return new Promise((resolve, reject) => {
       const chunkEnd = Math.min(
         start + fileObject.chunkSize,
         fileObject.file.size
@@ -343,5 +338,5 @@ export {
   onUploaded,
   updateProgress,
   getFormData,
-  upload,
+  upload
 };

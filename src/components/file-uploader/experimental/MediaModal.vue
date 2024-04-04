@@ -12,6 +12,8 @@
           <ShaplaTab name="Upload Images" :selected="true">
             <ShaplaFileUploader
               :url="url"
+              :params="params"
+              :headers="headers"
               @success="finishedEvent"
               @fail="failedEvent"
             />
@@ -68,9 +70,16 @@ const props = defineProps({
   srcKey: { type: String, default: "src" },
   altKey: { type: String, default: "alt" },
   // File Uploader
-  url: { type: String, default: null, required: true }
+  url: { type: String, default: null, required: true },
+  params: { type: Object as PropType<Record<string, string>>, required: false, default: () => ({}) },
+  headers: { type: Object as PropType<Record<string, string>>, required: false, default: () => ({}) }
 });
-const emit = defineEmits(["close", "select:image", "success", "fail"]);
+const emit = defineEmits<{
+  success: [fileObject: FileObjectInterfaces, data: unknown];
+  fail: [fileObject: FileObjectInterfaces, error: unknown];
+  close: [],
+  "select:image": [image: ImageDataInterface | ImageDataInterface[]]
+}>();
 const state = reactive<{ selectedImages: ImageDataInterface[] }>({
   selectedImages: []
 });

@@ -38,7 +38,7 @@ interface ImageDataInterface {
   [key: string]: number | string | Record<string, number | string>;
 }
 
-export {
+export type {
   FileObjectInterfaces,
   SuccessResponseInterface,
   ArgsInterface,
