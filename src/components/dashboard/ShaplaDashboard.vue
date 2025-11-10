@@ -5,38 +5,42 @@
     :style="dashboardStyles"
   >
     <div class="shapla-dashboard-header" :class="headerClasses">
-      <div
-        v-if="showBurgerIcon"
-        class="shapla-dashboard-header__burger"
-        @click="toggleSideNavigation"
-      >
-        <ShaplaIcon :hoverable="true">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-          >
-            <path d="M0 0h24v24H0z" fill="none" />
-            <path
-              d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"
-              fill="currentColor"
-            />
-          </svg>
-        </ShaplaIcon>
-      </div>
-
-      <slot name="navbar-brand">
-        <div v-if="title" class="shapla-dashboard-header__title">
-          {{ title }}
+      <div class="shapla-dashboard-header__inner" :class="headerInnerClasses">
+        <slot name="header-start" />
+        <div
+          v-if="showBurgerIcon"
+          class="shapla-dashboard-header__burger"
+          @click="toggleSideNavigation"
+        >
+          <ShaplaIcon :hoverable="true">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path d="M0 0h24v24H0z" fill="none" />
+              <path
+                d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"
+                fill="currentColor"
+              />
+            </svg>
+          </ShaplaIcon>
         </div>
-      </slot>
 
-      <slot name="navbar-start" />
+        <slot name="navbar-brand">
+          <div v-if="title" class="shapla-dashboard-header__title">
+            {{ title }}
+          </div>
+        </slot>
 
-      <div class="shapla-dashboard-header__spacer" />
+        <slot name="navbar-start" />
 
-      <slot name="navbar-end" />
+        <div class="shapla-dashboard-header__spacer" />
+
+        <slot name="navbar-end" />
+        <slot name="header-end" />
+      </div>
     </div>
 
     <ShaplaSidenav
@@ -106,6 +110,8 @@ const props = defineProps({
   showOverlay: { type: Boolean, default: true },
   navWidth: { type: String, default: "300px" },
   sidenavClass: { type: [String, Array, Object], default: "" },
+  showHeaderContainer: { type: Boolean, default: false },
+  headerContainerClass: { type: [String, Array, Object], default: "shapla-container-lg" },
 });
 const emit = defineEmits(["open:sidenav", "close:sidenav"]);
 const openSideNavigation = () => emit("open:sidenav");
@@ -114,6 +120,13 @@ const toggleSideNavigation = () =>
   props.activateSideNav ? closeSideNavigation() : openSideNavigation();
 
 const headerClasses = computed(() => [`theme-${props.headerTheme}`]);
+const headerInnerClasses = computed(() => {
+  const _classes = [];
+  if (props.showHeaderContainer) {
+    _classes.push(props.headerContainerClass);
+  }
+  return _classes;
+});
 const sidenavProfileClass = computed(() => [`theme-${props.headerTheme}`]);
 const dashboardStyles = computed(() => {
   const styles: { [key: string]: string } = {};
@@ -148,4 +161,5 @@ onMounted(() => {
 @use "shapla-css/src/index.scss" as shapla;
 
 @include shapla.dashboard;
+@include shapla.container;
 </style>
