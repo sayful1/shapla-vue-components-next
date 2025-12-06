@@ -41,6 +41,7 @@
         <slot name="navbar-end" />
         <slot name="header-end" />
       </div>
+      <slot name="header-before-close" />
     </div>
 
     <ShaplaSidenav
