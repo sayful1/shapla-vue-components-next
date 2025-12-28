@@ -1,7 +1,7 @@
 {
   "name": "@shapla/vue-components",
   "description": "A collection of reusable components for Vue 3.",
-  "version": "1.3.8",
+  "version": "1.3.9",
   "contributors": [
     {
       "name": "Sayful Islam",
@@ -52,7 +52,7 @@
     "vue": "^3.0"
   },
   "dependencies": {
-    "shapla-css": "^2.7.1"
+    "shapla-css": "^2.7.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.12",
