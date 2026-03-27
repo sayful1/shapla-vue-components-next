@@ -16,6 +16,10 @@ interface FileObjectInterfaces {
   xhr: null | XMLHttpRequest;
 }
 
+interface FileUploaderResponseInterface extends FileObjectInterfaces {
+  serverResponse: unknown;
+}
+
 interface ArgsInterface {
   url: string;
   method: string;
@@ -42,5 +46,6 @@ export type {
   FileObjectInterfaces,
   SuccessResponseInterface,
   ArgsInterface,
-  ImageDataInterface
+  ImageDataInterface,
+  FileUploaderResponseInterface,
 };

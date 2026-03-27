@@ -26,7 +26,8 @@
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 512 512"
           >
-            <path d="M384 250v12c0 6.6-5.4 12-12 12h-98v98c0 6.6-5.4 12-12 12h-12c-6.6 0-12-5.4-12-12v-98h-98c-6.6 0-12-5.4-12-12v-12c0-6.6 5.4-12 12-12h98v-98c0-6.6 5.4-12 12-12h12c6.6 0 12 5.4 12 12v98h98c6.6 0 12 5.4 12 12zm120 6c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-32 0c0-119.9-97.3-216-216-216-119.9 0-216 97.3-216 216 0 119.9 97.3 216 216 216 119.9 0 216-97.3 216-216z"
+            <path
+              d="M384 250v12c0 6.6-5.4 12-12 12h-98v98c0 6.6-5.4 12-12 12h-12c-6.6 0-12-5.4-12-12v-98h-98c-6.6 0-12-5.4-12-12v-12c0-6.6 5.4-12 12-12h98v-98c0-6.6 5.4-12 12-12h12c6.6 0 12 5.4 12 12v98h98c6.6 0 12 5.4 12 12zm120 6c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-32 0c0-119.9-97.3-216-216-216-119.9 0-216 97.3-216 216 0 119.9 97.3 216 216 216 119.9 0 216-97.3 216-216z"
             />
           </svg>
         </div>
@@ -38,7 +39,7 @@
         <label
           :for="inputId"
           class="shapla-file-uploader-message__select-files shapla-button is-primary"
-        >{{ textButton }}</label
+          >{{ textButton }}</label
         >
         <div
           class="shapla-file-uploader-message__maxsize"
@@ -66,8 +67,15 @@
 import { defineEmits, defineProps, reactive, ref } from "vue";
 import ShaplaFilesUploadStatus from "./components/ShaplaFilesUploadStatus.vue";
 import ShaplaFileUploadStatus from "./components/ShaplaFileUploadStatus.vue";
-import { generateFileObject as __generateFileObject, upload, uploadChunk } from "./helpers/utils";
-import { FileObjectInterfaces } from "./helpers/interfaces";
+import {
+  generateFileObject as __generateFileObject,
+  upload,
+  uploadChunk,
+} from "./helpers/utils";
+import {
+  FileObjectInterfaces,
+  FileUploaderResponseInterface,
+} from "./helpers/interfaces";
 
 const props = defineProps({
   url: { type: String, default: null, required: true },
@@ -78,7 +86,7 @@ const props = defineProps({
   textButton: { type: String, default: "Select files to upload" },
   textMaxUploadLimit: {
     type: String,
-    default: "Maximum upload file size: 2MB"
+    default: "Maximum upload file size: 2MB",
   },
   params: { type: Object, required: false, default: () => ({}) },
   headers: { type: Object, required: false, default: () => ({}) },
@@ -86,11 +94,11 @@ const props = defineProps({
   showFilesUploadStatus: { type: Boolean, default: true },
   chunking: { type: Boolean, default: false },
   forceChunking: { type: Boolean, default: false },
-  chunkSize: { type: Number, default: 2000000 }
+  chunkSize: { type: Number, default: 2000000 },
 });
 const emit = defineEmits<{
-  success: [fileObject: FileObjectInterfaces, data: unknown]
-  fail: [fileObject: FileObjectInterfaces, error: unknown]
+  success: [fileObject: FileUploaderResponseInterface, data: unknown];
+  fail: [fileObject: FileUploaderResponseInterface, error: unknown];
 }>();
 const input = ref<null | HTMLInputElement>(null);
 const inputId = "shapla-file-uploader__input" + Date.now();
@@ -99,7 +107,7 @@ const state = reactive<{
   isDraggedOver: boolean;
 }>({
   files: [],
-  isDraggedOver: false
+  isDraggedOver: false,
 });
 const enter = () => (state.isDraggedOver = true);
 const leave = () => (state.isDraggedOver = false);
@@ -123,24 +131,40 @@ const addFiles = (files: FileList) => {
       method: props.method,
       paramName: props.paramName,
       params: props.params,
-      headers: props.headers
+      headers: props.headers,
     };
 
     if (props.chunking) {
       uploadChunk(generateFileObject(file), 0, args)
         .then((response) => {
-          emit("success", response.fileObject, response.data);
+          emit(
+            "success",
+            { ...response.fileObject, serverResponse: response.data },
+            response.data
+          );
         })
         .catch((response) => {
-          emit("fail", response.fileObject, response.error);
+          emit(
+            "fail",
+            { ...response.fileObject, serverResponse: response.error },
+            response.error
+          );
         });
     } else {
       upload(generateFileObject(file), args)
         .then((response) => {
-          emit("success", response.fileObject, response.data);
+          emit(
+            "success",
+            { ...response.fileObject, serverResponse: response.data },
+            response.data
+          );
         })
         .catch((response) => {
-          emit("fail", response.fileObject, response.error);
+          emit(
+            "fail",
+            { ...response.fileObject, serverResponse: response.error },
+            response.error
+          );
         });
     }
   }

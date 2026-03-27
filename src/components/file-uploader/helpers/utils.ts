@@ -1,4 +1,8 @@
-import { ArgsInterface, FileObjectInterfaces, SuccessResponseInterface } from "./interfaces";
+import {
+  ArgsInterface,
+  FileObjectInterfaces,
+  SuccessResponseInterface,
+} from "./interfaces";
 
 const pad = {
   left(pad: string, string: string | number) {
@@ -17,7 +21,7 @@ const pad = {
     }
 
     return (string + pad).substring(0, pad.length);
-  }
+  },
 };
 
 /**
@@ -43,7 +47,7 @@ const timeRemaining = {
     return Math.ceil(
       (totalBytes - loadedBytes) / this._getMovingAverage(bytesBySecond)
     );
-  }
+  },
 };
 
 /**
@@ -72,7 +76,7 @@ const generateFileObject = (
     finished: false,
     cancelled: false,
     failed: false,
-    xhr: null
+    xhr: null,
   };
 };
 
@@ -90,12 +94,12 @@ const updateChunkProgress = (
     const chunkPercentComplete = Math.round((event.loaded / event.total) * 100);
     const totalPercentComplete = Math.round(
       (fileObject.currentChunkIndex / fileObject.totalChunks) * 100 +
-      chunkPercentComplete / fileObject.totalChunks
+        chunkPercentComplete / fileObject.totalChunks
     );
 
     fileObject.chunkCompleteStatus[fileObject.currentChunkIndex] = {
       loaded: event.loaded,
-      total: event.total
+      total: event.total,
     };
 
     let loaded = 0,
@@ -119,8 +123,11 @@ const updateChunkProgress = (
   }
 };
 
-const onUploaded = (fileObject: FileObjectInterfaces, xhr: XMLHttpRequest) => {
-  return new Promise<SuccessResponseInterface>((resolve, reject) => {
+const onUploaded = (
+  fileObject: FileObjectInterfaces,
+  xhr: XMLHttpRequest
+): Promise<SuccessResponseInterface> => {
+  return new Promise((resolve, reject) => {
     const contentType = xhr.getResponseHeader("Content-Type"),
       isJsonResponse =
         contentType && contentType.indexOf("application/json") !== -1,
@@ -161,7 +168,7 @@ const getFormData = (args: ArgsInterface, fileObject: FileObjectInterfaces) => {
 
   const params = {
     ...args.params,
-    name: fileObject.file.name
+    name: fileObject.file.name,
   };
 
   for (const [key, value] of Object.entries(params)) {
@@ -213,24 +220,17 @@ const upload = (fileObject: FileObjectInterfaces, args: ArgsInterface) => {
   );
 };
 
-/**
- *
- * @param fileObject
- * @param {Number} start
- * @param {XMLHttpRequest} xhr
- * @returns {Promise<SuccessResponseInterface>}
- */
 const onChunkUploaded = (
   fileObject: FileObjectInterfaces,
   start: number,
   xhr: XMLHttpRequest
-) => {
+): Promise<SuccessResponseInterface> => {
   const contentType = xhr.getResponseHeader("Content-Type"),
     isJsonResponse =
       contentType && contentType.indexOf("application/json") !== -1,
     response = isJsonResponse ? JSON.parse(xhr.responseText) : xhr.responseText;
 
-  return new Promise<SuccessResponseInterface>((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     if (xhr.status >= 200 && xhr.status < 300) {
       //next chunk starts at + chunkSize from start
       start += fileObject.chunkSize;
@@ -262,7 +262,7 @@ const getChunkFormData = (
     ...args.params,
     chunk: fileObject.currentChunkIndex.toString(),
     chunks: fileObject.totalChunks.toString(),
-    name: fileObject.file.name
+    name: fileObject.file.name,
   };
   for (const [key, value] of Object.entries(params)) {
     chunkFormData.append(key, value);
@@ -283,51 +283,50 @@ const uploadChunk = (
   args: ArgsInterface
 ): Promise<{ fileObject: FileObjectInterfaces; data: unknown }> => {
   return new Promise((resolve, reject) => {
-      const chunkEnd = Math.min(
-        start + fileObject.chunkSize,
-        fileObject.file.size
-      );
-      const chunk = fileObject.file.slice(start, chunkEnd);
+    const chunkEnd = Math.min(
+      start + fileObject.chunkSize,
+      fileObject.file.size
+    );
+    const chunk = fileObject.file.slice(start, chunkEnd);
 
-      const chunkFormData = getChunkFormData(args, chunk, fileObject);
+    const chunkFormData = getChunkFormData(args, chunk, fileObject);
 
-      const xhr = new XMLHttpRequest();
+    const xhr = new XMLHttpRequest();
 
-      xhr.upload.addEventListener("progress", (event) =>
-        updateChunkProgress(event, fileObject)
-      );
-      xhr.open(args.method, args.url, true);
+    xhr.upload.addEventListener("progress", (event) =>
+      updateChunkProgress(event, fileObject)
+    );
+    xhr.open(args.method, args.url, true);
 
-      const headers = { ...args.headers, Accept: "application/json" };
-      for (const [headerName, headerValue] of Object.entries(headers)) {
-        if (headerName && headerValue) {
-          xhr.setRequestHeader(headerName, headerValue);
-        }
+    const headers = { ...args.headers, Accept: "application/json" };
+    for (const [headerName, headerValue] of Object.entries(headers)) {
+      if (headerName && headerValue) {
+        xhr.setRequestHeader(headerName, headerValue);
       }
-
-      const blobEnd = chunkEnd - 1;
-      const contentRange =
-        "bytes " + start + "-" + blobEnd + "/" + fileObject.file.size;
-      xhr.setRequestHeader("Content-Range", contentRange);
-
-      xhr.addEventListener("load", () => {
-        onChunkUploaded(fileObject, start, xhr)
-          .then((data: SuccessResponseInterface) => {
-            if (data.start) {
-              uploadChunk(fileObject, data.start, args)
-                .then((_data) => resolve(_data))
-                .catch((_data) => reject(_data));
-            } else {
-              resolve({ fileObject, data: data.data });
-            }
-          })
-          .catch((error) => {
-            reject({ fileObject, error });
-          });
-      });
-      xhr.send(chunkFormData);
     }
-  );
+
+    const blobEnd = chunkEnd - 1;
+    const contentRange =
+      "bytes " + start + "-" + blobEnd + "/" + fileObject.file.size;
+    xhr.setRequestHeader("Content-Range", contentRange);
+
+    xhr.addEventListener("load", () => {
+      onChunkUploaded(fileObject, start, xhr)
+        .then((data: SuccessResponseInterface) => {
+          if (data.start) {
+            uploadChunk(fileObject, data.start, args)
+              .then((_data) => resolve(_data))
+              .catch((_data) => reject(_data));
+          } else {
+            resolve({ fileObject, data: data.data });
+          }
+        })
+        .catch((error) => {
+          reject({ fileObject, error });
+        });
+    });
+    xhr.send(chunkFormData);
+  });
 };
 
 export {
@@ -338,5 +337,5 @@ export {
   onUploaded,
   updateProgress,
   getFormData,
-  upload
+  upload,
 };
