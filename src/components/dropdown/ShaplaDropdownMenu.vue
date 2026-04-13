@@ -17,7 +17,15 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineProps, onMounted, reactive, ref, watch } from "vue";
+import {
+  computed,
+  defineProps,
+  onMounted,
+  PropType,
+  reactive,
+  ref,
+  watch,
+} from "vue";
 
 const props = defineProps({
   active: { type: Boolean, default: false },
@@ -26,7 +34,7 @@ const props = defineProps({
   up: { type: Boolean, default: false },
   maxItems: { type: Number, default: null },
   direction: {
-    type: String,
+    type: String as PropType<"auto" | "up" | "down">,
     default: "auto",
     validator: (value: string) => ["auto", "up", "down"].indexOf(value) !== -1,
   },

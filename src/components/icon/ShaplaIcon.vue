@@ -3,11 +3,11 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineProps } from "vue";
+import { computed, defineProps, PropType } from "vue";
 
 const props = defineProps({
   size: {
-    type: String,
+    type: String as PropType<"small" | "medium" | "large" | null>,
     required: false,
     default: null,
     validator: (value: string) => ["small", "medium", "large"].includes(value),

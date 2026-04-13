@@ -33,7 +33,7 @@
 
 <script lang="ts" setup>
 import ShaplaDropdownMenu from "./ShaplaDropdownMenu.vue";
-import { defineProps, reactive, ref, watch } from "vue";
+import { defineProps, PropType, reactive, ref, watch } from "vue";
 
 defineProps({
   hoverable: { type: Boolean, default: true },
@@ -42,10 +42,10 @@ defineProps({
   up: { type: Boolean, default: false },
   maxItems: { type: Number, default: null },
   direction: {
-    type: String,
+    type: String as PropType<"auto" | "up" | "down">,
     default: "auto",
-    validator: (value: string) => ["auto", "up", "down"].includes(value),
-  },
+    validator: (value: string) => ["auto", "up", "down"].includes(value)
+  }
 });
 
 const root = ref<HTMLElement | null>(null);

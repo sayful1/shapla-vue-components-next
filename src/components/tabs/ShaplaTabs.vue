@@ -26,6 +26,7 @@ import {
   defineEmits,
   defineProps,
   onBeforeMount,
+  PropType,
   provide,
   reactive,
   useSlots,
@@ -35,18 +36,18 @@ import { TabsDataInterface } from "./interfaces";
 
 const props = defineProps({
   alignment: {
-    type: String,
+    type: String as PropType<"left" | "center" | "right">,
     default: "left",
     validator: (value: string) => ["left", "center", "right"].includes(value),
   },
   size: {
-    type: String,
+    type: String as PropType<"default" | "small" | "medium" | "large">,
     default: "default",
     validator: (value: string) =>
       ["default", "small", "medium", "large"].includes(value),
   },
   tabStyle: {
-    type: String,
+    type: String as PropType<"default" | "boxed" | "rounded" | "toggle">,
     default: "default",
     validator: (value: string) =>
       ["default", "boxed", "rounded", "toggle"].includes(value),

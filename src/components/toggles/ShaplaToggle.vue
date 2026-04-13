@@ -44,21 +44,29 @@
 <script lang="ts" setup>
 import ToggleIcon from "./toggleIcon.vue";
 import { createUUID, ToggleEvent, TogglesPropsInterface } from "./Helper";
-import { computed, defineProps, inject, onMounted, reactive, ref } from "vue";
+import {
+  computed,
+  defineProps,
+  inject,
+  onMounted,
+  PropType,
+  reactive,
+  ref,
+} from "vue";
 
 const props = defineProps({
   name: { type: String, default: null, required: true },
   subtext: { type: String, default: null, required: false },
   selected: { type: Boolean, default: false },
   iconPosition: {
-    type: String,
+    type: String as PropType<"left" | "right">,
     default: undefined,
     validator: (value: string) => -1 !== ["left", "right"].indexOf(value),
   },
   boxedMode: { type: Boolean, default: undefined },
   showDivider: { type: Boolean, default: undefined },
   titleColor: {
-    type: String,
+    type: String as PropType<"default" | "primary" | "secondary">,
     default: undefined,
     validator: (value: string) =>
       -1 !== ["default", "primary", "secondary"].indexOf(value),

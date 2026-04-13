@@ -5,16 +5,16 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineProps, provide } from "vue";
+import { computed, defineProps, PropType, provide } from "vue";
 
 const props = defineProps({
   type: {
-    type: String,
+    type: String as PropType<"horizontal" | "vertical">,
     default: "horizontal",
     validator: (value: string) => ["horizontal", "vertical"].includes(value),
   },
   labelPlacement: {
-    type: String,
+    type: String as PropType<"default" | "alternative">,
     default: "default",
     validator: (value: string) => ["default", "alternative"].includes(value),
   },

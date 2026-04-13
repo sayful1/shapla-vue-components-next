@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineProps } from "vue";
+import { computed, defineProps, PropType } from "vue";
 
 const props = defineProps({
   label: { type: String, default: null },
@@ -23,13 +23,13 @@ const props = defineProps({
   striped: { type: Boolean, default: false },
   animated: { type: Boolean, default: false },
   size: {
-    type: String,
+    type: String as PropType<"default" | "tiny" | "small" | "medium" | "large">,
     default: "default",
     validator: (value: string) =>
       ["default", "tiny", "small", "medium", "large"].indexOf(value) !== -1,
   },
   theme: {
-    type: String,
+    type: String as PropType<"default" | "primary" | "secondary">,
     default: "default",
     validator: (value: string) =>
       ["default", "primary", "secondary"].indexOf(value) !== -1,

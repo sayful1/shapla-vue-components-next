@@ -5,20 +5,20 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps, provide, ref } from "vue";
+import { defineProps, PropType, provide, ref } from "vue";
 import { createUUID } from "./Helper";
 
 const props = defineProps({
   accordion: { type: Boolean, default: true },
   iconPosition: {
-    type: String,
+    type: String as PropType<"left" | "right">,
     default: "left",
     validator: (value: string) => -1 !== ["left", "right"].indexOf(value),
   },
   boxedMode: { type: Boolean, default: true },
   showDivider: { type: Boolean, default: true },
   titleColor: {
-    type: String,
+    type: String as PropType<"default" | "primary" | "secondary">,
     default: "default",
     validator: (value: string) =>
       -1 !== ["default", "primary", "secondary"].indexOf(value),

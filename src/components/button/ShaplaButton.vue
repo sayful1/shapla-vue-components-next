@@ -8,11 +8,13 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineProps } from "vue";
+import { computed, defineProps, PropType } from "vue";
 
 const props = defineProps({
   theme: {
-    type: String,
+    type: String as PropType<
+      "default" | "primary" | "secondary" | "success" | "warning" | "error"
+    >,
     default: "default",
     validator: (value: string) =>
       [
@@ -25,7 +27,7 @@ const props = defineProps({
       ].includes(value),
   },
   size: {
-    type: String,
+    type: String as PropType<"small" | "normal" | "medium" | "large">,
     default: "normal",
     validator: (value: string) =>
       ["small", "normal", "medium", "large"].includes(value),

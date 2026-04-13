@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, defineProps } from "vue";
+import { computed, defineProps, PropType } from "vue";
 
 const props = defineProps({
   small: { type: Boolean, default: false },
@@ -8,11 +8,11 @@ const props = defineProps({
   fixed: { type: Boolean, default: false },
   ariaLabel: { type: String, default: "close" },
   size: {
-    type: String,
+    type: String as PropType<"normal" | "small" | "medium" | "large">,
     default: "normal",
     validator: (value: string) =>
-      ["normal", "small", "medium", "large"].includes(value),
-  },
+      ["normal", "small", "medium", "large"].includes(value)
+  }
 });
 
 const classes = computed(() => {
@@ -21,7 +21,7 @@ const classes = computed(() => {
     "is-fixed": props.fixed,
     "is-small": props.small || props.size === "small",
     "is-medium": props.medium || props.size === "medium",
-    "is-large": props.large || props.size === "large",
+    "is-large": props.large || props.size === "large"
   };
 });
 </script>

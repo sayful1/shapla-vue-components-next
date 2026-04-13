@@ -85,7 +85,7 @@
 <script lang="ts" setup>
 import ShaplaSidenav from "../sidenav/ShaplaSidenav.vue";
 import ShaplaIcon from "../icon/ShaplaIcon.vue";
-import { computed, onMounted } from "vue";
+import { computed, onMounted, PropType } from "vue";
 
 const props = defineProps({
   title: { type: String, default: "" },
@@ -94,13 +94,13 @@ const props = defineProps({
   greeting: { type: String, default: "Hello," },
   headerHeight: { type: String, default: "56px" },
   headerTheme: {
-    type: String,
+    type: String as PropType<"default" | "primary" | "secondary">,
     default: "primary",
     validator: (value: string) =>
       ["default", "primary", "secondary"].includes(value),
   },
   sideNavType: {
-    type: String,
+    type: String as PropType<"overlay" | "off-canvas">,
     default: "overlay",
     validator: (value: string) => ["overlay", "off-canvas"].includes(value),
   },
@@ -112,9 +112,15 @@ const props = defineProps({
   navWidth: { type: String, default: "300px" },
   sidenavClass: { type: [String, Array, Object], default: "" },
   showHeaderContainer: { type: Boolean, default: false },
-  headerContainerClass: { type: [String, Array, Object], default: "shapla-container-lg" },
+  headerContainerClass: {
+    type: [String, Array, Object],
+    default: "shapla-container-lg",
+  },
 });
-const emit = defineEmits(["open:sidenav", "close:sidenav"]);
+const emit = defineEmits<{
+  "open:sidenav": [];
+  "close:sidenav": [];
+}>();
 const openSideNavigation = () => emit("open:sidenav");
 const closeSideNavigation = () => emit("close:sidenav");
 const toggleSideNavigation = () =>

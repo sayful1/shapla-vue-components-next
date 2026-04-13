@@ -18,18 +18,18 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineEmits, defineProps, onMounted, ref } from "vue";
+import { computed, defineEmits, defineProps, onMounted, PropType, ref } from "vue";
 
 const props = defineProps({
   active: { type: Boolean, default: true },
   showOverlay: { type: Boolean, default: true },
   navWidth: { type: String, default: "300px" },
   position: {
-    type: String,
+    type: String as PropType<"left" | "right" | "bottom" | "top">,
     default: "left",
     validator: (value: string) =>
-      ["left", "right", "bottom", "top"].includes(value),
-  },
+      ["left", "right", "bottom", "top"].includes(value)
+  }
 });
 const emit = defineEmits(["close"]);
 const bodyWidth = ref("300px");
