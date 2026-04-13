@@ -11,10 +11,12 @@
     <div :class="contentClasses">
       <template v-if="is_card">
         <div class="shapla-modal-card__header">
-          <p class="shapla-modal-card__title">
-            {{ title }}
-          </p>
-          <ShaplaCross v-if="showCloseIcon" size="medium" @click="close" />
+          <slot name="header">
+            <p class="shapla-modal-card__title">
+              {{ title }}
+            </p>
+            <ShaplaCross v-if="showCloseIcon" size="medium" @click="close" />
+          </slot>
         </div>
         <div class="shapla-modal-card__body">
           <slot />
@@ -39,7 +41,14 @@
 <script lang="ts" setup>
 import ShaplaCross from "../cross/ShaplaCross.vue";
 import { refreshBodyClass } from "./helpers";
-import { computed, defineEmits, defineProps, onMounted, PropType, watch } from "vue";
+import {
+  computed,
+  defineEmits,
+  defineProps,
+  onMounted,
+  PropType,
+  watch,
+} from "vue";
 
 const props = defineProps({
   active: { type: Boolean, required: true },
@@ -55,7 +64,9 @@ const props = defineProps({
     validator: (value: string) => ["dark", "light"].indexOf(value) !== -1,
   },
   contentSize: {
-    type: String as PropType<"small" | "medium" | "large" | "full" | "fullscreen">,
+    type: String as PropType<
+      "small" | "medium" | "large" | "full" | "fullscreen"
+    >,
     default: "medium",
     validator: (value: string) =>
       ["small", "medium", "large", "full", "fullscreen"].indexOf(value) !== -1,
