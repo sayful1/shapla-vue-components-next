@@ -30,6 +30,9 @@
         <button @click="openFullCardModal = true">
           Open Card Modal (Full)
         </button>
+        <button @click="openFullscreenCardModal = true">
+          Open Card Modal (Fullscreen)
+        </button>
         <button @click="openNoFooterCardModal = true">
           Open Card Modal (No Footer)
         </button>
@@ -51,8 +54,16 @@
         v-if="openBoxModal"
         :active="openBoxModal"
         @close="openBoxModal = false"
+        :content-size="box_model_size"
       >
         Box modal
+        <select v-model="box_model_size">
+          <option value="small">Small</option>
+          <option value="medium">Medium</option>
+          <option value="large">Large</option>
+          <option value="full">Full</option>
+          <option value="fullscreen">Fullscreen</option>
+        </select>
       </shapla-modal-box>
 
       <shapla-modal-confirm
@@ -124,6 +135,15 @@
         repellat saepe totam vel veniam. Architecto assumenda beatae cum maxime
         officia ratione reprehenderit sapiente veritatis.
       </shapla-modal>
+      <ShaplaModalCard
+        v-if="openFullscreenCardModal"
+        :active="openFullscreenCardModal"
+        content-size="fullscreen"
+        title="Modal Fullscreen"
+        @close="openFullscreenCardModal = false"
+      >
+        Fullscreen width modal.
+      </ShaplaModalCard>
     </div>
   </doc-tab>
 </template>
@@ -165,6 +185,8 @@ export default {
       openFullCardModal: false,
       openFullCardModal2: false,
       openNoFooterCardModal: false,
+      openFullscreenCardModal: false,
+      box_model_size: "medium",
     };
   },
 };

@@ -39,7 +39,7 @@
 <script lang="ts" setup>
 import ShaplaCross from "../cross/ShaplaCross.vue";
 import { refreshBodyClass } from "./helpers";
-import { computed, defineEmits, defineProps, onMounted, watch } from "vue";
+import { computed, defineEmits, defineProps, onMounted, PropType, watch } from "vue";
 
 const props = defineProps({
   active: { type: Boolean, required: true },
@@ -50,15 +50,15 @@ const props = defineProps({
   showCardFooter: { type: Boolean, default: true },
   contentClass: { type: String, default: "" },
   backgroundTheme: {
-    type: String,
+    type: String as PropType<"dark" | "light">,
     default: "dark",
     validator: (value: string) => ["dark", "light"].indexOf(value) !== -1,
   },
   contentSize: {
-    type: String,
+    type: String as PropType<"small" | "medium" | "large" | "full" | "fullscreen">,
     default: "medium",
     validator: (value: string) =>
-      ["small", "medium", "large", "full"].indexOf(value) !== -1,
+      ["small", "medium", "large", "full", "fullscreen"].indexOf(value) !== -1,
   },
 });
 const emit = defineEmits(["close"]);

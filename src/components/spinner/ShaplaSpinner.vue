@@ -26,7 +26,14 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineProps, onMounted, reactive, watch } from "vue";
+import {
+  computed,
+  defineProps,
+  onMounted,
+  PropType,
+  reactive,
+  watch,
+} from "vue";
 import Spinner from "./Spinner";
 
 const props = defineProps({
@@ -36,14 +43,14 @@ const props = defineProps({
   isRootSpinner: { type: Boolean, default: false, required: false },
   loadingText: { type: String, default: "Loading...", required: false },
   position: {
-    type: String,
+    type: String as PropType<"fixed" | "absolute" | "static">,
     default: "fixed",
     required: false,
     validator: (value: string) =>
       ["fixed", "absolute", "static"].indexOf(value) !== -1,
   },
   size: {
-    type: String,
+    type: String as PropType<"default" | "large" | "medium" | "small">,
     default: "default",
     required: false,
     validator: (value: string) =>

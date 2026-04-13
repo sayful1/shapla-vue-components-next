@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts" setup>
-import { defineEmits, defineProps } from "vue";
+import { defineEmits, defineProps, PropType } from "vue";
 import ModalCore from "./ModalCore.vue";
 
 defineProps({
@@ -21,15 +21,17 @@ defineProps({
   showCloseIcon: { type: Boolean, default: true },
   closeOnBackgroundClick: { type: Boolean, default: true },
   backgroundTheme: {
-    type: String,
+    type: String as PropType<"dark" | "light">,
     default: "dark",
     validator: (value: string) => ["dark", "light"].indexOf(value) !== -1,
   },
   contentSize: {
-    type: String,
+    type: String as PropType<
+      "small" | "medium" | "large" | "full" | "fullscreen"
+    >,
     default: "medium",
     validator: (value: string) =>
-      ["small", "medium", "large", "full"].indexOf(value) !== -1,
+      ["small", "medium", "large", "full", "fullscreen"].indexOf(value) !== -1,
   },
 });
 
