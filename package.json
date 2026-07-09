@@ -1,7 +1,7 @@
 {
   "name": "@shapla/vue-components",
   "description": "A collection of reusable components for Vue 3.",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "contributors": [
     {
       "name": "Sayful Islam",

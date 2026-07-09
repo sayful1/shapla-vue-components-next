@@ -16,6 +16,7 @@
         name="files[]"
         class="shapla-file-uploader__input"
         multiple
+        :accept="accept"
         @change="select"
       />
 
@@ -64,7 +65,7 @@
 </template>
 
 <script lang="ts" setup>
-import { defineEmits, defineProps, reactive, ref } from "vue";
+import { reactive, ref } from "vue";
 import ShaplaFilesUploadStatus from "./components/ShaplaFilesUploadStatus.vue";
 import ShaplaFileUploadStatus from "./components/ShaplaFileUploadStatus.vue";
 import {
@@ -95,8 +96,10 @@ const props = defineProps({
   chunking: { type: Boolean, default: false },
   forceChunking: { type: Boolean, default: false },
   chunkSize: { type: Number, default: 2000000 },
+  accept: { type: String, default: null },
 });
 const emit = defineEmits<{
+  init: [fileObject: FileObjectInterfaces];
   success: [fileObject: FileUploaderResponseInterface, data: unknown];
   fail: [fileObject: FileUploaderResponseInterface, error: unknown];
 }>();
@@ -134,8 +137,12 @@ const addFiles = (files: FileList) => {
       headers: props.headers,
     };
 
+    const fileObject = generateFileObject(file);
+
+    emit("init", fileObject);
+
     if (props.chunking) {
-      uploadChunk(generateFileObject(file), 0, args)
+      uploadChunk(fileObject, 0, args)
         .then((response) => {
           emit(
             "success",
@@ -151,7 +158,7 @@ const addFiles = (files: FileList) => {
           );
         });
     } else {
-      upload(generateFileObject(file), args)
+      upload(fileObject, args)
         .then((response) => {
           emit(
             "success",
