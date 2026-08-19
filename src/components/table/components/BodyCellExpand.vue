@@ -13,7 +13,6 @@
 </template>
 
 <script lang="ts" setup>
-import { defineEmits } from "vue";
 import DataTableIcon from "./DataTableIcon.vue";
 
 const emit = defineEmits(["click:expand"]);

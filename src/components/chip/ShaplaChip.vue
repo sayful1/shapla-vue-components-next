@@ -15,7 +15,7 @@
 
 <script lang="ts" setup>
 import ShaplaCross from "../cross/ShaplaCross.vue";
-import { computed, defineEmits, defineProps } from "vue";
+import { computed } from "vue";
 
 const props = defineProps({
   text: { type: String, default: null, required: false },
@@ -24,7 +24,9 @@ const props = defineProps({
   small: { type: Boolean, default: false },
   height: { type: String, default: "32px" },
 });
-const emit = defineEmits(["delete"]);
+const emit = defineEmits<{
+  delete: [];
+}>();
 
 const deleteChip = () => emit("delete");
 

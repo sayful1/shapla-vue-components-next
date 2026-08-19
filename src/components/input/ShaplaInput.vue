@@ -71,7 +71,8 @@
             viewBox="0 0 24 24"
           >
             <path d="M0 0h24v24H0z" fill="none" />
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"
+            <path
+              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"
             />
           </svg>
         </span>
@@ -91,11 +92,24 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineEmits, defineProps, reactive, useSlots } from "vue";
+import { computed, PropType, reactive, useSlots } from "vue";
+type STRING_OR_NUMBER = string | number;
 
 const props = defineProps({
   type: {
-    type: String,
+    type: String as PropType<
+      | "text"
+      | "email"
+      | "search"
+      | "password"
+      | "tel"
+      | "url"
+      | "number"
+      | "textarea"
+      | "date"
+      | "time"
+      | "datetime-local"
+    >,
     default: "text",
     validator: (value: string) =>
       [
@@ -113,12 +127,15 @@ const props = defineProps({
       ].includes(value),
   },
   size: {
-    type: String,
+    type: String as PropType<"default" | "small" | "medium" | "large">,
     default: "default",
     validator: (value: string) =>
       ["default", "small", "medium", "large"].includes(value),
   },
-  modelValue: { type: [Number, String], default: null },
+  modelValue: {
+    type: [Number, String] as PropType<STRING_OR_NUMBER>,
+    default: null,
+  },
   label: { type: String, default: null, required: false },
   placeholder: { type: String, default: null },
   autocomplete: { type: String, default: null },
@@ -132,9 +149,14 @@ const props = defineProps({
   required: { type: Boolean, default: false },
   readonly: { type: Boolean, default: false },
   rows: { type: [String, Number], default: null },
-  dir: { type: String, default: "ltr" },
+  dir: { type: String as PropType<"ltr" | "rtl">, default: "ltr" },
 });
-const emit = defineEmits(["update:modelValue", "keydown", "focus", "blur"]);
+const emit = defineEmits<{
+  "update:modelValue": [value: STRING_OR_NUMBER];
+  keydown: [event: Event];
+  focus: [value: STRING_OR_NUMBER];
+  blur: [value: STRING_OR_NUMBER];
+}>();
 const slots = useSlots();
 
 const state = reactive<{ isHovered: boolean; isFocus: boolean }>({

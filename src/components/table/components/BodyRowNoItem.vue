@@ -7,8 +7,6 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps } from "vue";
-
 defineProps({
   colspan: { type: [String, Number], default: null },
 });

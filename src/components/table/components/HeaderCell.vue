@@ -17,7 +17,7 @@
 
 <script lang="ts" setup>
 import DataTableIcon from "./DataTableIcon.vue";
-import { computed, defineEmits, defineProps, PropType } from "vue";
+import { computed, PropType } from "vue";
 import { TableColumnDataInterface } from "../TableInterfaces";
 
 const props = defineProps({

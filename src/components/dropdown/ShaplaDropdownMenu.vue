@@ -19,7 +19,6 @@
 <script lang="ts" setup>
 import {
   computed,
-  defineProps,
   onMounted,
   PropType,
   reactive,

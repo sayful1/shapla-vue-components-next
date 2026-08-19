@@ -16,8 +16,9 @@ interface FileObjectInterfaces {
   xhr: null | XMLHttpRequest;
 }
 
-interface FileUploaderResponseInterface extends FileObjectInterfaces {
-  serverResponse: unknown;
+interface FileUploaderResponseInterface<TServerResponse = unknown>
+  extends FileObjectInterfaces {
+  serverResponse: TServerResponse;
 }
 
 interface ArgsInterface {

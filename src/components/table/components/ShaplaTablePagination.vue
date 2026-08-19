@@ -10,10 +10,11 @@
         @click.prevent="firstPage"
       >
         <span v-if="!disable_first" class="screen-reader-text sr-only">{{
-            textFirstPage
-          }}</span>
+          textFirstPage
+        }}</span>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path d="M18.41 16.59L13.82 12l4.59-4.59L17 6l-6 6 6 6zM6 6h2v12H6z"
+          <path
+            d="M18.41 16.59L13.82 12l4.59-4.59L17 6l-6 6 6 6zM6 6h2v12H6z"
           />
           <path fill="none" d="M24 24H0V0h24v24z" />
         </svg>
@@ -27,8 +28,8 @@
         @click.prevent="prePage"
       >
         <span v-if="!disable_prev" class="screen-reader-text sr-only">{{
-            textPreviousPage
-          }}</span>
+          textPreviousPage
+        }}</span>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
           <path fill="none" d="M0 0h24v24H0z" />
@@ -37,8 +38,8 @@
 
       <span class="shapla-pagination-input-container">
         <label for="current-page-selector" class="screen-reader-text sr-only">{{
-            textCurrentPage
-          }}</label>
+          textCurrentPage
+        }}</label>
         <input
           v-if="showCurrentPageInput"
           id="current-page-selector"
@@ -51,7 +52,11 @@
           @change="goToPage($event)"
         />
         <span class="shapla-pagination-paging-text">
-          <span v-if="!showCurrentPageInput" class="shapla-pagination-current-page">{{ currentPage }}</span>
+          <span
+            v-if="!showCurrentPageInput"
+            class="shapla-pagination-current-page"
+            >{{ currentPage }}</span
+          >
           {{ textOf }}
           <span class="shapla-pagination-total-pages">{{ total_pages }}</span>
         </span>
@@ -65,8 +70,8 @@
         @click.prevent="nextPage"
       >
         <span v-if="!disable_next" class="screen-reader-text sr-only">{{
-            textNextPage
-          }}</span>
+          textNextPage
+        }}</span>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
           <path d="M0 0h24v24H0z" fill="none" />
@@ -81,10 +86,11 @@
         @click.prevent="lastPage"
       >
         <span v-if="!disable_last" class="screen-reader-text sr-only">{{
-            textLastPage
-          }}</span>
+          textLastPage
+        }}</span>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path d="M5.59 7.41L10.18 12l-4.59 4.59L7 18l6-6-6-6zM16 6h2v12h-2z"
+          <path
+            d="M5.59 7.41L10.18 12l-4.59 4.59L7 18l6-6-6-6zM16 6h2v12h-2z"
           />
           <path fill="none" d="M0 0h24v24H0V0z" />
         </svg>
@@ -94,7 +100,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineEmits, defineProps } from "vue";
+import { computed } from "vue";
 
 const props = defineProps({
   totalItems: { type: Number, required: true, default: 0 },
@@ -103,7 +109,8 @@ const props = defineProps({
   size: {
     type: String,
     default: "default",
-    validator: (value: string) => ["default", "small", "medium", "large"].includes(value)
+    validator: (value: string) =>
+      ["default", "small", "medium", "large"].includes(value),
   },
   textName: { type: String, default: "items" },
   textNameSingular: { type: String, default: "item" },
@@ -113,9 +120,11 @@ const props = defineProps({
   textNextPage: { type: String, default: "Next page" },
   textLastPage: { type: String, default: "Last page" },
   textOf: { type: String, default: "of" },
-  showCurrentPageInput: { type: Boolean, default: true }
+  showCurrentPageInput: { type: Boolean, default: true },
 });
-const emit = defineEmits(["paginate"]);
+const emit = defineEmits<{
+  paginate: [page: number];
+}>();
 const nav_classes = computed(() => ["shapla-pagination", `is-${props.size}`]);
 const total_pages = computed(() => Math.ceil(props.totalItems / props.perPage));
 const disable_first = computed(() => props.currentPage < 3);

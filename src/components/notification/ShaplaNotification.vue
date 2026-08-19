@@ -10,17 +10,13 @@
 
 <script lang="ts" setup>
 import ShaplaCross from "../cross/ShaplaCross.vue";
-import {
-  computed,
-  defineEmits,
-  defineProps,
-  onMounted,
-  onUnmounted,
-} from "vue";
+import { computed, onMounted, onUnmounted, PropType } from "vue";
 
 const props = defineProps({
   type: {
-    type: String,
+    type: String as PropType<
+      "primary" | "success" | "info" | "warning" | "error"
+    >,
     default: "info",
     validator: (value: string) =>
       ["primary", "success", "info", "warning", "error"].indexOf(value) !== -1,

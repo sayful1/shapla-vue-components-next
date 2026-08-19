@@ -19,27 +19,23 @@
 </template>
 
 <script lang="ts" setup>
-import { defineEmits, defineProps, PropType } from "vue";
-
-interface StatusInterface {
-  key: string;
-  label: string;
-  count: number;
-  active: boolean;
-}
+import { PropType } from "vue";
+import { ShaplaTableStatusInterface } from "../TableInterfaces";
 
 defineProps({
-  statuses: { type: Array as PropType<StatusInterface[]>, default: () => [] },
+  statuses: { type: Array as PropType<ShaplaTableStatusInterface[]>, default: () => [] },
   type: {
-    type: String,
+    type: String as PropType<"vertical" | "horizontal">,
     default: "horizontal",
     validator: (value: string) =>
       -1 !== ["vertical", "horizontal"].indexOf(value),
   },
 });
-const emit = defineEmits(["change"]);
+const emit = defineEmits<{
+  change: [status: ShaplaTableStatusInterface];
+}>();
 
-const handleClickEvent = (status: StatusInterface) => emit("change", status);
+const handleClickEvent = (status: ShaplaTableStatusInterface) => emit("change", status);
 </script>
 
 <style lang="scss">

@@ -78,17 +78,9 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" setup generic="T extends Record<string, unknown>">
+import { computed, onMounted, PropType, ref } from "vue";
 import {
-  computed,
-  defineEmits,
-  defineProps,
-  onMounted,
-  PropType,
-  ref,
-} from "vue";
-import {
-  ItemInterface,
   TableActionDataInterface,
   TableColumnDataInterface,
 } from "./TableInterfaces";
@@ -103,7 +95,7 @@ import TableBody from "./components/TableBody.vue";
 import BodyRow from "./components/BodyRow.vue";
 
 const props = defineProps({
-  items: { type: Array, required: true },
+  items: { type: Array as PropType<T[]>, required: true },
   columns: {
     type: Array as PropType<TableColumnDataInterface[]>,
     required: true,
@@ -123,20 +115,20 @@ const props = defineProps({
   areaLabel: { type: String, default: null, required: false },
   showExpand: { type: Boolean, default: false },
 });
-const emit = defineEmits([
-  "click:action",
-  "click:sort",
-  "select:item",
-  "click:row",
-]);
+const emit = defineEmits<{
+  "click:action": [action: string, row: T];
+  "click:sort": [column: string, order: "asc" | "desc"];
+  "select:item": [items: number[]];
+  "click:row": [item: T];
+}>();
 const windowWidth = ref(0);
 const isMobileView = computed(() => windowWidth.value <= props.mobileWidth);
 const updateTableWidth = () => (windowWidth.value = window.innerWidth);
 
 const emitItemsSelect = (items: number[]) => emit("select:item", items);
-const actionClicked = (action: string, row: ItemInterface) =>
+const actionClicked = (action: string, row: T) =>
   emit("click:action", action, row);
-const rowClicked = (row: ItemInterface) => emit("click:row", row);
+const rowClicked = (row: T) => emit("click:row", row);
 const sortClicked = (column: string) =>
   emit("click:sort", column, props.sortOrder === "asc" ? "desc" : "asc");
 
@@ -177,7 +169,7 @@ onMounted(() => {
   window.addEventListener("orientationchange", () => updateTableWidth());
 });
 
-const selectItem = (item: ItemInterface) => {
+const selectItem = (item: T) => {
   const value = item[props.index] !== undefined ? item[props.index] : item.id,
     selectedItems = props.selectedItems,
     index = selectedItems.indexOf(value as number);

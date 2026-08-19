@@ -6,9 +6,16 @@
       <div v-if="actions.length" class="row-actions">
         <slot name="row-actions" :row="item">
           <span v-for="action in actions" :key="action.key" :class="action.key">
-            <a href="#" @click.prevent="actionClicked(action.key, item)">{{
-                action.label
-              }}</a>
+            <a
+              v-if="action.type && action.href && action.type === 'link'"
+              :href="action.href"
+              :target="action.target ? action.target : '_self'"
+            >
+              {{ action.label }}
+            </a>
+            <a v-else href="#" @click.prevent="actionClicked(action.key, item)">
+              {{ action.label }}
+            </a>
           </span>
         </slot>
       </div>
@@ -26,31 +33,33 @@
   </td>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" setup generic="T extends Record<string,unknown>">
 import DataTableIcon from "./DataTableIcon.vue";
 import { computed, PropType } from "vue";
-import { ItemInterface, TableActionDataInterface, TableColumnDataInterface } from "../TableInterfaces";
+import {
+  TableActionDataInterface,
+  TableColumnDataInterface,
+} from "../TableInterfaces";
 
 const props = defineProps({
-  item: { type: Object as PropType<ItemInterface>, required: true },
+  item: { type: Object as PropType<T>, required: true },
   column: {
     type: Object as PropType<TableColumnDataInterface>,
-    required: true
+    required: true,
   },
   actions: {
     type: Array as PropType<TableActionDataInterface[]>,
-    default: () => []
+    default: () => [],
   },
   isPrimary: { type: Boolean, default: false },
-  isMobile: { type: Boolean, default: false }
+  isMobile: { type: Boolean, default: false },
 });
 const emit = defineEmits<{
   "click:toggle": [event: Event];
-  "click:action": [key: string, item: ItemInterface]
+  "click:action": [key: string, item: T];
 }>();
 const toggleRow = (event: Event) => emit("click:toggle", event);
-const actionClicked = (key: string, item: ItemInterface) =>
-  emit("click:action", key, item);
+const actionClicked = (key: string, item: T) => emit("click:action", key, item);
 const isNumeric = computed(
   () => typeof props.column.numeric !== "undefined" && props.column.numeric
 );
@@ -60,7 +69,7 @@ const bodyCellClass = computed(() => {
     "shapla-data-table__cell",
     "shapla-data-table__cell-" + props.column.key,
     { "is-numeric-cell": isNumeric.value },
-    { "column-primary": props.isPrimary }
+    { "column-primary": props.isPrimary },
   ];
 });
 </script>

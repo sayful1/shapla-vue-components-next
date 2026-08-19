@@ -131,8 +131,6 @@
 <script lang="ts" setup>
 import {
   computed,
-  defineEmits,
-  defineProps,
   onMounted,
   PropType,
   reactive,

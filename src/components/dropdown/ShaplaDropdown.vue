@@ -33,7 +33,7 @@
 
 <script lang="ts" setup>
 import ShaplaDropdownMenu from "./ShaplaDropdownMenu.vue";
-import { defineProps, PropType, reactive, ref, watch } from "vue";
+import { PropType, reactive, ref, watch } from "vue";
 
 defineProps({
   hoverable: { type: Boolean, default: true },

@@ -26,8 +26,6 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps } from "vue";
-
 defineProps({
   icon: { type: String, default: null },
   size: { type: [Number, String], default: 24 },

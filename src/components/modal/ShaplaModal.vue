@@ -41,14 +41,7 @@
 <script lang="ts" setup>
 import ShaplaCross from "../cross/ShaplaCross.vue";
 import { refreshBodyClass } from "./helpers";
-import {
-  computed,
-  defineEmits,
-  defineProps,
-  onMounted,
-  PropType,
-  watch,
-} from "vue";
+import { computed, onMounted, PropType, watch } from "vue";
 
 const props = defineProps({
   active: { type: Boolean, required: true },
@@ -72,7 +65,9 @@ const props = defineProps({
       ["small", "medium", "large", "full", "fullscreen"].indexOf(value) !== -1,
   },
 });
-const emit = defineEmits(["close"]);
+const emit = defineEmits<{
+  close: [];
+}>();
 const modalClasses = computed(() => {
   const classes = ["shapla-modal"];
   if (props.active) classes.push("is-active");

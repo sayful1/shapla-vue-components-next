@@ -1,6 +1,9 @@
 interface TableActionDataInterface {
   key: string;
   label: string;
+  type?: "manual" | "link";
+  href?: string;
+  target?: "_self" | "_blank" | "_parent" | "_top";
 }
 
 interface TableColumnDataInterface {
@@ -10,8 +13,15 @@ interface TableColumnDataInterface {
   sortable?: boolean;
 }
 
-interface ItemInterface {
-  [key: string]: never;
+interface ShaplaTableStatusInterface {
+  key: string;
+  label: string;
+  count: number;
+  active: boolean;
 }
 
-export type { TableActionDataInterface, TableColumnDataInterface, ItemInterface };
+export type {
+  TableActionDataInterface,
+  TableColumnDataInterface,
+  ShaplaTableStatusInterface,
+};

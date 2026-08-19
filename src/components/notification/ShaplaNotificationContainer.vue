@@ -22,7 +22,7 @@
 <script lang="ts" setup>
 import ShaplaNotification from "./ShaplaNotification.vue";
 import Notify, { NotificationDataArgsInterface } from "./Notify";
-import { computed, defineProps, onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 
 const props = defineProps({
   showDismisses: { type: Boolean, default: true },

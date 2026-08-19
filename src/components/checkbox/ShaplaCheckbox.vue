@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineEmits, defineProps, reactive } from "vue";
+import { computed, reactive } from "vue";
 
 const props = defineProps({
   label: { type: String, default: "" },

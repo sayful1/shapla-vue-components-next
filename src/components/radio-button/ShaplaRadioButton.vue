@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts" setup>
-import { defineEmits, defineProps, PropType } from "vue";
+import { PropType } from "vue";
 import ShaplaButton from "../button/ShaplaButton.vue";
 
 const props = defineProps({
@@ -24,19 +24,21 @@ const props = defineProps({
     type: String as PropType<"default" | "primary" | "secondary">,
     default: "default",
     validator: (value: string) =>
-      ["default", "primary", "secondary"].includes(value)
+      ["default", "primary", "secondary"].includes(value),
   },
   size: {
     type: String as PropType<"small" | "normal" | "medium" | "large">,
     default: "normal",
     validator: (value: string) =>
-      ["small", "normal", "medium", "large"].includes(value)
+      ["small", "normal", "medium", "large"].includes(value),
   },
   fullwidth: { type: Boolean, default: false },
   shadow: { type: Boolean, default: false },
-  rounded: { type: Boolean, default: false }
+  rounded: { type: Boolean, default: false },
 });
-const emit = defineEmits(["update:modelValue"]);
+const emit = defineEmits<{
+  "update:modelValue": [value: string | number | boolean];
+}>();
 const handleClick = () => {
   emit("update:modelValue", props.value);
 };

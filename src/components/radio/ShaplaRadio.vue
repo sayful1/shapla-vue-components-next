@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineEmits, defineProps, reactive } from "vue";
+import { computed, reactive } from "vue";
 
 const props = defineProps({
   label: { type: String, default: "", required: false },
@@ -30,7 +30,9 @@ const props = defineProps({
   modelValue: { type: [String, Number, Boolean], default: "" },
   checked: { type: Boolean, default: undefined },
 });
-const emit = defineEmits(["update:modelValue"]);
+const emit = defineEmits<{
+  "update:modelValue": [value: string | number | boolean];
+}>();
 
 const state = reactive<{ isHovered: boolean; isFocus: boolean }>({
   isHovered: false,
