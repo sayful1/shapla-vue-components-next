@@ -22,13 +22,13 @@
             <div v-if="images.length" class="shapla-media-modal__items">
               <div
                 v-for="_image in images"
-                :key="_image[primaryKey]"
+                :key="imageKey(_image)"
                 :class="itemClasses(_image)"
                 @click="selectImage(_image)"
               >
                 <div class="shapla-media-modal__image">
                   <ShaplaImage container-width="100px" container-height="100px">
-                    <img :src="_image[srcKey]" :alt="_image[altKey]" />
+                    <img :src="imageSrc(_image)" :alt="imageAlt(_image)" />
                   </ShaplaImage>
                 </div>
               </div>
@@ -84,6 +84,13 @@ const state = reactive<{ selectedImages: ImageDataInterface[] }>({
   selectedImages: []
 });
 
+const imageKey = (image: ImageDataInterface): string | number =>
+  image[props.primaryKey] as string | number;
+const imageSrc = (image: ImageDataInterface): string =>
+  image[props.srcKey] as string;
+const imageAlt = (image: ImageDataInterface): string =>
+  image[props.altKey] as string;
+
 const closeModal = () => {
   state.selectedImages = [];
   emit("close");
@@ -129,7 +136,7 @@ const failedEvent = (fileObject: FileObjectInterfaces, response: undefined) => {
 </script>
 
 <style lang="scss">
-@import "shapla-css/src/colors.scss";
+@use "shapla-css/src/colors.scss" as colors;
 
 .shapla-media-modal {
   &__inside {
@@ -148,7 +155,7 @@ const failedEvent = (fileObject: FileObjectInterfaces, response: undefined) => {
 
     &.is-selected {
       .shapla-media-modal__image {
-        border-color: $primary;
+        border-color: colors.$primary;
         padding: 3px;
         border-width: 3px;
       }

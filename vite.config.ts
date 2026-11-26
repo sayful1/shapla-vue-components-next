@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [vue(), eslintPlugin({ cache: false })],
   build: {
     sourcemap: true,
-    target: "modules",
+    target: "es2015",
     lib: {
       entry: "src/index.ts",
       name: "ShaplaComponent",

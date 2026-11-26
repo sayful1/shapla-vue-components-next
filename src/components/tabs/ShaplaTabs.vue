@@ -11,7 +11,7 @@
           <a
             :href="tab.props.navTo"
             @click="selectTab(tab, index, $event)"
-            v-html="tab.props.name || tab.title"
+            v-html="tab.props.name"
           />
         </li>
       </ul>
@@ -105,7 +105,12 @@ const tabClasses = computed(() => {
 onBeforeMount(() => {
   if (slots.default) {
     state.tabs = slots.default().filter((child) => {
-      return child.type.__name === "ShaplaTab";
+      return (
+        typeof child.type === "object" &&
+        child.type !== null &&
+        "__name" in child.type &&
+        child.type.__name === "ShaplaTab"
+      );
     });
   }
 });

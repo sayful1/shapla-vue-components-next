@@ -36,18 +36,18 @@
 </template>
 
 <script lang="ts" setup>
-import { defineEmits, defineProps } from "vue";
+import { defineEmits, defineProps, PropType } from "vue";
 import ModalCore from "./ModalCore.vue";
 
 defineProps({
   active: { type: Boolean, required: true },
   backgroundTheme: {
-    type: String,
+    type: String as PropType<"dark" | "light">,
     default: "light",
     validator: (value: string) => ["dark", "light"].indexOf(value) !== -1,
   },
   contentSize: {
-    type: String,
+    type: String as PropType<"small" | "medium" | "large" | "full" | "fullscreen">,
     default: "small",
     validator: (value: string) =>
       ["small", "medium", "large", "full"].indexOf(value) !== -1,

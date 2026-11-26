@@ -37,7 +37,7 @@ const clearImages = () => emit("click:clear");
 </script>
 
 <style lang="scss">
-@import "shapla-css/src/colors";
+@use "shapla-css/src/colors" as colors;
 
 .shapla-featured-image {
   &__placeholder {
@@ -59,7 +59,7 @@ const clearImages = () => emit("click:clear");
       position: absolute;
       right: 5px;
       top: 5px;
-      background-color: $error;
+      background-color: colors.$error;
     }
   }
 }

@@ -23,9 +23,9 @@
 
       <TableBody>
         <template v-if="items.length">
-          <template v-for="row in items" :key="row[index]">
+          <template v-for="row in items" :key="getItemId(row)">
             <BodyRow
-              :class="{ 'is-selected': selectedItems.includes(row[index]) }"
+              :class="{ 'is-selected': selectedItems.includes(getItemId(row)) }"
               @click="rowClicked(row)"
             >
               <td
@@ -33,8 +33,8 @@
                 class="shapla-data-table__cell is-checkbox-cell"
               >
                 <ShaplaCheckbox
-                  :value="row[index]"
-                  :checked="selectedItems.includes(row[index])"
+                  :value="getItemId(row)"
+                  :checked="selectedItems.includes(getItemId(row))"
                   @update:modelValue="selectItem(row)"
                 />
               </td>
@@ -62,7 +62,7 @@
             </BodyRow>
             <BodyRowExpand
               v-if="showExpand"
-              :key="`${row[index]}-expand`"
+              :key="`${getItemId(row)}-expand`"
               :colspan="colspan"
             >
               <slot name="cellExpand" :row="row" />
@@ -126,6 +126,8 @@ const isMobileView = computed(() => windowWidth.value <= props.mobileWidth);
 const updateTableWidth = () => (windowWidth.value = window.innerWidth);
 
 const emitItemsSelect = (items: number[]) => emit("select:item", items);
+const getItemId = (item: T): number =>
+  (item[props.index] !== undefined ? item[props.index] : item.id) as number;
 const actionClicked = (action: string, row: T) =>
   emit("click:action", action, row);
 const rowClicked = (row: T) => emit("click:row", row);
@@ -170,11 +172,11 @@ onMounted(() => {
 });
 
 const selectItem = (item: T) => {
-  const value = item[props.index] !== undefined ? item[props.index] : item.id,
+  const value = getItemId(item),
     selectedItems = props.selectedItems,
-    index = selectedItems.indexOf(value as number);
+    index = selectedItems.indexOf(value);
   if (-1 === index) {
-    selectedItems.push(value as number);
+    selectedItems.push(value);
   } else {
     selectedItems.splice(index, 1);
   }
@@ -186,7 +188,7 @@ const selectAllItems = () => {
   const selected: number[] = [];
 
   if (props.items.length && props.selectedItems.length !== props.items.length) {
-    props.items.forEach((item) => selected.push(item[props.index] as number));
+    props.items.forEach((item) => selected.push(getItemId(item)));
   }
   emitItemsSelect(selected);
 };

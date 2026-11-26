@@ -2,10 +2,11 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
+    "rootDir": "src",
     "strict": false,
     "jsx": "preserve",
     "useDefineForClassFields": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "sourceMap": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,

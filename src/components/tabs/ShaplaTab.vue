@@ -24,13 +24,6 @@ const state = reactive<{ isActive: boolean; index: number }>({
 const tabs = inject<TabsDataInterface>("ShaplaTabsProvider");
 const titleEl = ref<HTMLDivElement>(null);
 const panelId = computed(() => props.name.toLowerCase().replace(/ /g, "-"));
-const title = computed(() => {
-  if (titleEl.value) {
-    return titleEl.value.innerHTML || props.name;
-  }
-  return props.name;
-});
-
 watch(
   () => tabs.selectedIndex,
   () => {

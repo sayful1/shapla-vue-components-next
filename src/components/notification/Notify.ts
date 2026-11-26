@@ -1,7 +1,7 @@
 interface NotificationDataArgsInterface {
   message: string;
   id?: string;
-  type?: string;
+  type?: "primary" | "success" | "info" | "warning" | "error";
   title?: string;
   timeout?: number;
 }

@@ -131,6 +131,9 @@ module.exports = {
 
   // The test environment that will be used for testing
   testEnvironment: "jsdom",
+  globals: {
+    "vue-jest": { tsConfig: "tsconfig.test.json" },
+  },
 
   // Options that will be passed to the testEnvironment
   // testEnvironmentOptions: {},
@@ -168,9 +171,9 @@ module.exports = {
   transform: {
     "^.+\\.js$": "babel-jest",
     // process `*.vue` files with `vue-jest`
-    "^.+\\.vue$": "@vue/vue3-jest",
+    "^.+\\.vue$": "<rootDir>/tests/vue3-jest-transformer.cjs",
     // process `*.ts` files with `ts-jest`
-    "^.+\\.tsx?$": "ts-jest",
+    "^.+\\.tsx?$": ["ts-jest", { tsconfig: "tsconfig.test.json" }],
   },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation

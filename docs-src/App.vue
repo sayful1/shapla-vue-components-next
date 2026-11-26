@@ -218,7 +218,7 @@ const colorThemeStyles = computed(() => {
 </template>
 
 <style lang="scss">
-@import "style.scss";
+@use "style.scss";
 
 .shapla-vue-components-demo {
   &.shapla-dashboard {

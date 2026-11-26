@@ -67,7 +67,7 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
-@import "shapla-css/src/colors";
+@use "shapla-css/src/colors" as colors;
 
 .shapla-search-form {
   position: relative;
@@ -84,7 +84,7 @@ onMounted(() => {
 
     &:focus {
       border-color: rgba(#000, 0.38);
-      color: $text-primary;
+      color: colors.$text-primary;
       outline: none;
     }
   }
@@ -105,7 +105,7 @@ onMounted(() => {
     bottom: 3px;
     height: calc(2.2em - 4px);
     width: calc(2.2em - 4px);
-    color: $text-primary;
+    color: colors.$text-primary;
     padding: 0;
 
     &:active,

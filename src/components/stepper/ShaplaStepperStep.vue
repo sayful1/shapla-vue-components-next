@@ -85,7 +85,7 @@ onBeforeMount(() => {
 </script>
 
 <style lang="scss">
-@import "shapla-css/src/colors";
+@use "shapla-css/src/colors" as colors;
 
 .shapla-stepper-step {
   display: flex;
@@ -147,8 +147,8 @@ onBeforeMount(() => {
 
   &.is-active {
     .shapla-stepper-step__icon {
-      background-color: $primary;
-      color: $on-primary;
+      background-color: colors.$primary;
+      color: colors.$on-primary;
     }
   }
 }
